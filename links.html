@@ -5,19 +5,16 @@
   <title>A Little Throuple Tea — Links</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#072129" />
-  <meta name="description" content="All the links for A Little Throuple Tea — website, listen, watch, follow, and subscribe." />
+  <meta name="description" content="All the links for A Little Throuple Tea — website, listen, and subscribe." />
 
   <!-- Open Graph -->
   <meta property="og:title" content="A Little Throuple Tea — Links" />
-  <meta property="og:description" content="Website on top, then listen, watch, follow, and subscribe." />
+  <meta property="og:description" content="Website on top, then listen and subscribe." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="images/og-cover.jpg" />
   <meta property="og:url" content="https://throupletea.com/links" />
 
   <link rel="icon" href="images/favicon.png" />
-  <link rel="preconnect" href="https://assets.mailerlite.com" crossorigin />
-  <link rel="preconnect" href="https://www.youtube.com" crossorigin />
-  <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet" />
 
   <style>
@@ -45,7 +42,7 @@
     .brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;color:var(--ink)}
     .brand img{height:56px;width:56px;border-radius:50%;display:block}
     .brand h1{
-      margin:0;font: 800 clamp(1.25rem,2.5vw,1.6rem)/1 'Baloo 2', system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+      margin:0;font: 800 clamp(1.25rem,2.5vw,1.6rem)/1 'Baloo 2', system-ui, sans-serif;
       letter-spacing:.2px;color:var(--ink-strong)
     }
     .tag{color:var(--muted); font-weight:700; margin-top:2px}
@@ -61,11 +58,11 @@
     }
     .btn:hover{transform:translateY(-2px); box-shadow:var(--shadow-strong); border-color:var(--sun)}
     .btn.primary{background:linear-gradient(180deg, var(--sun) 0%, #ff983d 100%); color:#1b0d04; border-color:transparent}
-    .btn .icon{width:28px; height:28px; display:grid; place-items:center}
-    .btn img{width:24px; height:24px; display:block}
+    .btn .icon{width:28px; height:28px; display:grid; place-items:center; flex-shrink:0}
+    .btn img{max-width:100%; max-height:100%; object-fit:contain; display:block}
     .group-title{
       margin:22px 0 8px; color:var(--sun-soft);
-      font: 800 1.1rem 'Baloo 2', system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+      font: 800 1.1rem 'Baloo 2', system-ui, sans-serif;
       letter-spacing:.3px;
     }
 
@@ -87,10 +84,8 @@
     }
     .fine-print{color:var(--muted); font-size:.9rem; margin-top:6px}
 
-    /* Footer */
     footer{color:var(--muted); text-align:center; padding:22px 0}
 
-    /* Small screens */
     @media (max-width:560px){
       .inline-form{flex-direction:column; align-items:stretch}
       .inline-form .submit{width:100%}
@@ -121,7 +116,6 @@
     <!-- Listen / Watch -->
     <div class="group-title">Listen / Watch</div>
     <div class="stack" aria-label="Listening platforms">
-      <!-- Apple (pending) -->
       <a class="btn" href="#" target="_blank" rel="noopener" aria-label="Apple Podcasts (pending)">
         <span class="icon"><img src="images/apple_podcasts.png" alt="" /></span>
         Apple Podcasts (pending)
@@ -135,7 +129,7 @@
         iHeartRadio
       </a>
       <a class="btn" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank" rel="noopener">
-        <span class="icon"><img src="images/youtube.png" alt="" /></span>
+        <span class="icon"><img src="images/youtube.png" alt="YouTube" /></span>
         YouTube
       </a>
       <a class="btn" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank" rel="noopener">
@@ -148,31 +142,14 @@
       </a>
     </div>
 
-    <!-- Socials -->
-    <div class="group-title">Follow</div>
-    <div class="stack" aria-label="Social links">
-      <a class="btn" href="https://instagram.com/ThroupleTea" target="_blank" rel="noopener">
-        <span class="icon"><img src="images/instagram.png" alt="" /></span>
-        Throuple Tea Instagram
-      </a>
-      <a class="btn" href="https://instagram.com/3dudes1life" target="_blank" rel="noopener">
-        <span class="icon"><img src="images/instagram.png" alt="" /></span>
-        3Dudes1Life Instagram
-      </a>
-      <a class="btn" href="https://3dudes1lifecreative.com" target="_blank" rel="noopener">
-        <span class="icon"><img src="images/link.png" alt="" /></span>
-        3Dudes1Life Creative
-      </a>
-    </div>
-
     <!-- Subscribe -->
     <div class="group-title">Get Episode Alerts</div>
     <div class="sub-card">
       <form id="ml-subscribe" class="inline-form"
             action="https://assets.mailerlite.com/jsonp/1525077/forms/163732614665995434/subscribe"
             method="post" target="_blank" onsubmit="return onSub(event)">
-        <input type="text" name="fields[name]" placeholder="Your name" autocomplete="given-name" inputmode="text" />
-        <input type="email" name="fields[email]" placeholder="you@domain.com" required autocomplete="email" inputmode="email" />
+        <input type="text" name="fields[name]" placeholder="Your name" autocomplete="given-name" />
+        <input type="email" name="fields[email]" placeholder="you@domain.com" required autocomplete="email" />
         <button class="btn submit" type="submit">Subscribe</button>
         <input type="hidden" name="ml-submit" value="1" />
         <input type="hidden" name="anticsrf" value="true" />
@@ -195,7 +172,7 @@
         var ok=document.getElementById('ml-ok');
         if(f&&ok){ f.style.display='none'; ok.style.display='block'; }
       }, 500);
-      return true; // still submit to MailerLite
+      return true;
     }
     (function(){ var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
   </script>
