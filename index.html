@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Mobile & safe areas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>A Little Throuple Tea — Podcast</title>
   <meta name="description" content="A Little Throuple Tea — the funny, unfiltered podcast from 3Dudes1Life. New episodes mid‑September. Available wherever you listen." />
   <meta property="og:title" content="A Little Throuple Tea — Podcast" />
@@ -11,7 +12,15 @@
   <meta property="og:image" content="images/og-cover.jpg" />
   <meta property="og:url" content="https://throupletea.com/" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#111111" />
+
   <link rel="icon" href="images/favicon.png" />
+
+  <!-- Performance preconnects -->
+  <link rel="preconnect" href="https://www.youtube.com" crossorigin>
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+  <link rel="preconnect" href="https://assets.mailerlite.com" crossorigin>
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -20,7 +29,7 @@
       <a class="brand" href="/">
         <img src="images/logo.png" alt="A Little Throuple Tea logo" />
       </a>
-      <nav class="nav">
+      <nav class="nav" aria-label="Main">
         <a href="#listen">Listen</a>
         <a href="#about">About</a>
         <a href="#hosts">Hosts</a>
@@ -37,62 +46,68 @@
         <a class="btn primary" href="#listen">Start Listening</a>
         <a class="btn" href="#subscribe">Get Episode Alerts</a>
       </div>
-      <!-- Optional trailer embed (replace with your link) -->
-      <div class="player">
-        <!-- Example YouTube embed; swap with Spotify/Apple later -->
-        <iframe src="https://www.youtube.com/embed/fqCHTiXzCMA?si=MWs10aAPyj3EpFtB" title="Podcast Trailer" allowfullscreen loading="lazy"></iframe>
+
+      <!-- Responsive video wrapper -->
+      <div class="player video">
+        <iframe
+          src="https://www.youtube.com/embed/fqCHTiXzCMA?si=MWs10aAPyj3EpFtB"
+          title="Podcast Trailer"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
       </div>
     </div>
   </section>
 
-<section id="listen" class="listen">
-  <div class="wrap">
-    <h2>Listen on</h2>
-    <div class="platforms">
+  <section id="listen" class="listen">
+    <div class="wrap">
+      <h2>Listen on</h2>
+      <div class="platforms">
 
-      <!-- Apple (still pending) -->
-      <a class="card" href="#" target="_blank" aria-label="Apple Podcasts">
-        <img src="images/apple_podcasts.png" alt="Apple Podcasts" />
-        <span>Apple Podcasts</span>
-      </a>
+        <!-- Apple (still pending) -->
+        <a class="card" href="#" target="_blank" rel="noopener" aria-label="Apple Podcasts">
+          <img src="images/apple_podcasts.png" alt="Apple Podcasts" />
+          <span>Apple Podcasts</span>
+        </a>
 
-      <!-- Spotify -->
-      <a class="card" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank" aria-label="Spotify">
-        <img src="images/spotify.png" alt="Spotify" />
-        <span>Spotify</span>
-      </a>
+        <!-- Spotify -->
+        <a class="card" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank" rel="noopener" aria-label="Spotify">
+          <img src="images/spotify.png" alt="Spotify" />
+          <span>Spotify</span>
+        </a>
 
-      <!-- iHeart -->
-      <a class="card" href="https://www.iheart.com/podcast/269-3dudes1life-a-little-throu-289987978/" target="_blank" aria-label="iHeartRadio">
-        <img src="images/iheartradio.png" alt="iHeartRadio" />
-        <span>iHeartRadio</span>
-      </a>
+        <!-- iHeart -->
+        <a class="card" href="https://www.iheart.com/podcast/269-3dudes1life-a-little-throu-289987978/" target="_blank" rel="noopener" aria-label="iHeartRadio">
+          <img src="images/iheartradio.png" alt="iHeartRadio" />
+          <span>iHeartRadio</span>
+        </a>
 
-      <!-- YouTube -->
-      <a class="card" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank" aria-label="YouTube">
-        <img src="images/youtube.png" alt="YouTube" />
-        <span>YouTube</span>
-      </a>
+        <!-- YouTube -->
+        <a class="card" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank" rel="noopener" aria-label="YouTube">
+          <img src="images/youtube.png" alt="YouTube" />
+          <span>YouTube</span>
+        </a>
 
-      <!-- Amazon Music -->
-      <a class="card" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank" aria-label="Amazon Music">
-        <img src="images/amazon_music.png" alt="Amazon Music" />
-        <span>Amazon Music</span>
-      </a>
+        <!-- Amazon Music -->
+        <a class="card" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank" rel="noopener" aria-label="Amazon Music">
+          <img src="images/amazon_music.png" alt="Amazon Music" />
+          <span>Amazon Music</span>
+        </a>
 
-   <!-- RSS -->
-<a class="card" 
-   href="https://anchor.fm/s/1087008c4/podcast/rss" 
-   target="_blank" 
-   aria-label="RSS Feed">
-  <img src="images/rss.png" alt="RSS Feed" />
-  <span>RSS Feed</span>
-</a>
+        <!-- RSS -->
+        <a class="card" 
+           href="https://anchor.fm/s/1087008c4/podcast/rss" 
+           target="_blank" rel="noopener"
+           aria-label="RSS Feed">
+          <img src="images/rss.png" alt="RSS Feed" />
+          <span>RSS Feed</span>
+        </a>
 
+      </div>
+      <p class="note">Links go live as soon as platforms approve them. 💅 (Apple Link Still Pending)</p>
     </div>
-    <p class="note">Links go live as soon as platforms approve them. 💅 (Apple Link Still Pending)</p>
-  </div>
-</section>
+  </section>
 
   <section id="about" class="about">
     <div class="wrap grid">
@@ -121,17 +136,17 @@
       <h2>Meet the hosts</h2>
       <div class="host-grid">
         <article class="host-card">
-          <img src="images/IMG_2529.JPG" alt="William" />
+          <img src="images/IMG_2529.JPG" alt="William" loading="lazy" />
           <h3>William</h3>
           <p>Business brain. One‑liners for days. Will fight for the last jalapeño.</p>
         </article>
         <article class="host-card">
-          <img src="images/host_caleb.jpg" alt="Caleb" />
+          <img src="images/host_caleb.jpg" alt="Caleb" loading="lazy" />
           <h3>Caleb</h3>
           <p>DIY king. Chill vibe, sharp takes, sneaky funny.</p>
         </article>
         <article class="host-card">
-          <img src="images/host_daniel.jpg" alt="Daniel" />
+          <img src="images/host_daniel.jpg" alt="Daniel" loading="lazy" />
           <h3>Daniel</h3>
           <p>Plant whisperer. Resident angel/devil on shoulder.</p>
         </article>
@@ -139,52 +154,32 @@
     </div>
   </section>
 
-<section id="subscribe" class="subscribe">
-  <div class="wrap">
-    <h2>Get episode alerts</h2>
-    <p>Drop your email. We’ll ping you when new episodes land (and big tea spills).</p>
+  <section id="subscribe" class="subscribe">
+    <div class="wrap">
+      <h2>Get episode alerts</h2>
+      <p>Drop your email. We’ll ping you when new episodes land (and big tea spills).</p>
 
-    <form id="subscribe-form" class="inline-form" 
-          action="https://assets.mailerlite.com/jsonp/1525077/forms/163732614665995434/subscribe" 
-          method="post" target="_blank" onsubmit="return showSuccessMessage(event)">
-      
-      <!-- optional name field -->
-      <input type="text" name="fields[name]" placeholder="Your name" autocomplete="given-name" />
-      
-      <!-- required email -->
-      <input type="email" name="fields[email]" placeholder="you@domain.com" required autocomplete="email" />
+      <form id="subscribe-form" class="inline-form" 
+            action="https://assets.mailerlite.com/jsonp/1525077/forms/163732614665995434/subscribe" 
+            method="post" target="_blank" onsubmit="return showSuccessMessage(event)">
+        <input type="text" name="fields[name]" placeholder="Your name" autocomplete="given-name" inputmode="text" />
+        <input type="email" name="fields[email]" placeholder="you@domain.com" required autocomplete="email" inputmode="email" />
+        <button class="btn primary" type="submit">Subscribe</button>
+        <input type="hidden" name="ml-submit" value="1" />
+        <input type="hidden" name="anticsrf" value="true" />
+      </form>
 
-      <button class="btn primary" type="submit">Subscribe</button>
+      <div id="subscribe-success" class="subscribe-success" role="status" aria-live="polite" style="display:none;">
+        🎉 Thanks for subscribing! Check your inbox for a confirmation email.
+      </div>
 
-      <!-- MailerLite required hidden fields -->
-      <input type="hidden" name="ml-submit" value="1" />
-      <input type="hidden" name="anticsrf" value="true" />
-    </form>
-
-    <!-- success message -->
-    <div id="subscribe-success" style="display:none; margin-top:1rem; color:green; font-weight:bold;">
-      🎉 Thanks for subscribing! Check your inbox for a confirmation email.
+      <div class="social">
+        <a href="https://instagram.com/ThroupleTea" target="_blank" rel="noopener">Throuple Tea IG</a>
+        <a href="https://3dudes1lifecreative.com" target="_blank" rel="noopener">3Dudes1Life Creative</a>
+        <a href="https://instagram.com/3dudes1life" target="_blank" rel="noopener">3Dudes1Life IG</a>
+      </div>
     </div>
-
-    <div class="social">
-      <a href="https://instagram.com/ThroupleTea" target="_blank" rel="noopener">Throuple Tea IG</a>
-      <a href="https://3dudes1lifecreative.com" target="_blank" rel="noopener">3Dudes1Life Creative</a>
-      <a href="https://instagram.com/3dudes1life" target="_blank" rel="noopener">3Dudes1Life IG</a>
-    </div>
-  </div>
-</section>
-
-<script>
-  function showSuccessMessage(e) {
-    // let MailerLite still process the form
-    setTimeout(function() {
-      document.getElementById("subscribe-form").style.display = "none";
-      document.getElementById("subscribe-success").style.display = "block";
-    }, 500);
-
-    return true; // allow normal form submission to MailerLite
-  }
-</script>
+  </section>
 
   <footer class="site-footer">
     <div class="wrap">
@@ -192,7 +187,22 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Keep your external JS, but defer it so it doesn’t block rendering -->
+  <script>
+    // Inline helper: success toggle (lets MailerLite submit in a new tab)
+    function showSuccessMessage(e) {
+      setTimeout(function () {
+        document.getElementById("subscribe-form").style.display = "none";
+        document.getElementById("subscribe-success").style.display = "block";
+      }, 500);
+      return true;
+    }
+    // Current year
+    (function(){ 
+      var y = document.getElementById('year'); 
+      if (y) y.textContent = new Date().getFullYear(); 
+    })();
+  </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
- 
