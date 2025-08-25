@@ -139,22 +139,52 @@
     </div>
   </section>
 
-  <section id="subscribe" class="subscribe">
-    <div class="wrap">
-      <h2>Get episode alerts</h2>
-      <p>Drop your email. We’ll ping you when new episodes land (and big tea spills).</p>
-      <!-- Replace with your MailerLite/ConvertKit form -->
-      <form class="inline-form" action="https://example.com/subscribe" method="post">
-        <input type="email" name="email" placeholder="you@domain.com" required />
-        <button class="btn primary" type="submit">Subscribe</button>
-      </form>
-      <div class="social">
-        <a href="https://instagram.com/ThroupleTea" target="_blank" rel="noopener">Throuple Tea IG </a>
-        <a href="https://3dudes1lifecreative.com" target="_blank" rel="noopener">3Dudes1Life Creative</a>
-        <a href="https://instagram.com/3dudes1life" target="_blank" rel="noopener">3Dudes1life IG</a>
-      </div>
+<section id="subscribe" class="subscribe">
+  <div class="wrap">
+    <h2>Get episode alerts</h2>
+    <p>Drop your email. We’ll ping you when new episodes land (and big tea spills).</p>
+
+    <form id="subscribe-form" class="inline-form" 
+          action="https://assets.mailerlite.com/jsonp/1525077/forms/163732614665995434/subscribe" 
+          method="post" target="_blank" onsubmit="return showSuccessMessage(event)">
+      
+      <!-- optional name field -->
+      <input type="text" name="fields[name]" placeholder="Your name" autocomplete="given-name" />
+      
+      <!-- required email -->
+      <input type="email" name="fields[email]" placeholder="you@domain.com" required autocomplete="email" />
+
+      <button class="btn primary" type="submit">Subscribe</button>
+
+      <!-- MailerLite required hidden fields -->
+      <input type="hidden" name="ml-submit" value="1" />
+      <input type="hidden" name="anticsrf" value="true" />
+    </form>
+
+    <!-- success message -->
+    <div id="subscribe-success" style="display:none; margin-top:1rem; color:green; font-weight:bold;">
+      🎉 Thanks for subscribing! Check your inbox for a confirmation email.
     </div>
-  </section>
+
+    <div class="social">
+      <a href="https://instagram.com/ThroupleTea" target="_blank" rel="noopener">Throuple Tea IG</a>
+      <a href="https://3dudes1lifecreative.com" target="_blank" rel="noopener">3Dudes1Life Creative</a>
+      <a href="https://instagram.com/3dudes1life" target="_blank" rel="noopener">3Dudes1Life IG</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  function showSuccessMessage(e) {
+    // let MailerLite still process the form
+    setTimeout(function() {
+      document.getElementById("subscribe-form").style.display = "none";
+      document.getElementById("subscribe-success").style.display = "block";
+    }, 500);
+
+    return true; // allow normal form submission to MailerLite
+  }
+</script>
 
   <footer class="site-footer">
     <div class="wrap">
