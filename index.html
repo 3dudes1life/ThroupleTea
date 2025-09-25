@@ -40,7 +40,46 @@
 
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Social Tea block */
+    /* --- Listen section: centered + sexy --- */
+    .listen-title{
+      text-align:center; font-size:2rem; margin-bottom:1.5rem; color:#ffc247;
+    }
+    .platforms{
+      display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:6px 0;
+    }
+    .platforms .card{
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      background:#0f3b46; padding:18px 22px; border-radius:16px;
+      border:1px solid #155e6e; text-decoration:none; color:#eaf7ff; font-weight:600;
+      width:150px; will-change:transform, box-shadow; transform:translateY(6px) scale(.98);
+      box-shadow:0 6px 18px rgba(0,0,0,.28);
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      opacity:0; animation:cardIn .6s ease forwards;
+    }
+    .platforms .card img{max-width:48px; max-height:48px; display:block}
+    .platforms .card:hover{
+      transform:translateY(-4px) scale(1.05);
+      box-shadow:0 12px 32px rgba(0,0,0,.4), 0 0 12px rgba(255,194,71,.6);
+      border-color:#ff7a1a;
+    }
+    /* Staggered delays */
+    .platforms .card:nth-child(1){animation-delay:.05s}
+    .platforms .card:nth-child(2){animation-delay:.15s}
+    .platforms .card:nth-child(3){animation-delay:.25s}
+    .platforms .card:nth-child(4){animation-delay:.35s}
+    .platforms .card:nth-child(5){animation-delay:.45s}
+    .platforms .card:nth-child(6){animation-delay:.55s}
+
+    @keyframes cardIn{
+      0%{opacity:0; transform:translateY(14px) scale(.96)}
+      100%{opacity:1; transform:translateY(0) scale(1)}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .platforms .card{animation:none; opacity:1; transform:none}
+      .platforms .card:hover{transform:none}
+    }
+
+    /* --- Social Tea block (kept from your page) --- */
     .social-tea{padding:60px 20px;background:linear-gradient(180deg,#072129 0%,#0e3441 100%);color:#eaf7ff}
     .social-tea h2{font-size:2rem;margin-bottom:10px;color:#ffc247}
     .social-tea .subtitle{font-size:1.1rem;margin-bottom:25px;color:#9fd6d6}
@@ -97,16 +136,28 @@
 
   <section id="listen" class="listen">
     <div class="wrap">
-      <h2>Listen on</h2>
+      <h2 class="listen-title">Listen on</h2>
       <div class="platforms">
-        <a class="card" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank" rel="noopener"><img src="images/apple_podcasts.png" alt="Apple Podcasts" /><span>Apple Podcasts</span></a>
-        <a class="card" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank" rel="noopener"><img src="images/spotify.png" alt="Spotify" /><span>Spotify</span></a>
-        <a class="card" href="https://www.iheart.com/podcast/269-3dudes1life-a-little-throu-289987978/" target="_blank" rel="noopener"><img src="images/iheartradio.png" alt="iHeartRadio" /><span>iHeartRadio</span></a>
-        <a class="card" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank" rel="noopener"><img src="images/youtube.png" alt="YouTube" /><span>YouTube</span></a>
-        <a class="card" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank" rel="noopener"><img src="images/amazon_music.png" alt="Amazon Music" /><span>Amazon Music</span></a>
-        <a class="card" href="https://anchor.fm/s/1087008c4/podcast/rss" target="_blank" rel="noopener"><img src="images/rss.png" alt="RSS Feed" /><span>RSS Feed</span></a>
+        <a class="card" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank" rel="noopener">
+          <img src="images/apple_podcasts.png" alt="Apple Podcasts" /><span>Apple Podcasts</span>
+        </a>
+        <a class="card" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank" rel="noopener">
+          <img src="images/spotify.png" alt="Spotify" /><span>Spotify</span>
+        </a>
+        <a class="card" href="https://www.iheart.com/podcast/269-3dudes1life-a-little-throu-289987978/" target="_blank" rel="noopener">
+          <img src="images/iheartradio.png" alt="iHeartRadio" /><span>iHeartRadio</span>
+        </a>
+        <a class="card" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank" rel="noopener">
+          <img src="images/youtube.png" alt="YouTube" /><span>YouTube</span>
+        </a>
+        <a class="card" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank" rel="noopener">
+          <img src="images/amazon_music.png" alt="Amazon Music" /><span>Amazon Music</span>
+        </a>
+        <a class="card" href="https://anchor.fm/s/1087008c4/podcast/rss" target="_blank" rel="noopener">
+          <img src="images/rss.png" alt="RSS Feed" /><span>RSS Feed</span>
+        </a>
       </div>
-      <p class="note">All links are live and ready. 💅</p>
+      <p class="note" style="text-align:center;margin-top:14px;">All links are live and ready. 💅</p>
     </div>
   </section>
 
@@ -117,7 +168,7 @@
         <p><strong>3Dudes1Life: A Little Throuple Tea</strong> is where love, chaos, and laughter collide. Join real-life throuple William, Caleb, and Daniel as they spill stories from their unconventional life — the wins, the wild nights, and the “did that really just happen?” moments. Nothing’s off limits: relationships, friendships, family drama, pop culture, and the mess in between. Equal parts heart and humor, this is your weekly sip of throuple life that proves love doesn’t fit in a box. Segments like <em>Smut TV</em>, listener Qs, and “real-life vs the book” keep it spicy.</p>
         <ul class="bullets">
           <li>New episodes weekly through mid-November</li>
-          <li>Weekly, ~40–60 minutes</li>
+          <li>~40–60 minutes</li>
           <li>Recorded in San Diego</li>
         </ul>
       </div>
@@ -209,7 +260,9 @@
       },500);
       return true;
     }
-    (function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();
+    (function(){
+      var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();
+    })();
   </script>
   <script src="script.js" defer></script>
 </body>
