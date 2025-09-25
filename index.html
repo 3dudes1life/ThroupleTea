@@ -51,12 +51,24 @@
       display:flex; flex-direction:column; align-items:center; gap:8px;
       background:#0f3b46; padding:18px 22px; border-radius:16px;
       border:1px solid #155e6e; text-decoration:none; color:#eaf7ff; font-weight:600;
-      width:150px; will-change:transform, box-shadow; transform:translateY(6px) scale(.98);
+      width:160px; will-change:transform, box-shadow; transform:translateY(6px) scale(.98);
       box-shadow:0 6px 18px rgba(0,0,0,.28);
       transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
       opacity:0; animation:cardIn .6s ease forwards;
     }
     .platforms .card img{max-width:48px; max-height:48px; display:block}
+    /* NEW: consistently centered labels with equal height */
+    .platforms .card span{
+      display:block;
+      text-align:center;
+      font-size:.95rem;
+      line-height:1.2;
+      white-space:normal;           /* allow wrap */
+      overflow-wrap:anywhere;       /* wrap long words gracefully */
+      word-break:keep-all;
+      min-height:2.4em;             /* room for up to ~2 lines so heights match */
+      text-wrap:balance;            /* nicer wrapping where supported */
+    }
     .platforms .card:hover{
       transform:translateY(-4px) scale(1.05);
       box-shadow:0 12px 32px rgba(0,0,0,.4), 0 0 12px rgba(255,194,71,.6);
