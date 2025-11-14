@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Watch A Little Throuple Tea — Full Episodes & Shorts</title>
+
   <meta name="description" content="Binge A Little Throuple Tea on YouTube — full video episodes and shorts from 3Dudes1Life." />
   <meta property="og:title" content="Watch A Little Throuple Tea" />
   <meta property="og:description" content="Full episodes and shorts from 3Dudes1Life: A Little Throuple Tea." />
@@ -18,7 +19,7 @@
   <link rel="stylesheet" href="../styles.css" />
 
   <style>
-/* ---- FIXED + SEXY VIDEO GRID ---- */
+/* ---- FIXED + SEXY VIDEO GRID (DESKTOP) ---- */
 
 .video-grid {
   display: grid;
@@ -44,7 +45,6 @@
   border-color: var(--sun);
 }
 
-/* Make sure thumbnails stay 16:9 */
 .video-thumb {
   position: relative;
   width: 100%;
@@ -55,10 +55,8 @@
 
 .video-thumb iframe {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   border: 0;
 }
 
@@ -81,8 +79,51 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
-}  </style>
+}
+
+/* --- MOBILE: Horizontal Swipe for SHORTS --- */
+@media (max-width: 700px) {
+
+  /* Shorts become a horizontal swipe reel */
+  #shorts-grid {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    padding: 4px 0 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #shorts-grid .video-card {
+    scroll-snap-align: center;
+    min-width: 260px;
+    max-width: 260px;
+    flex: 0 0 auto;
+  }
+
+  #shorts-grid .video-thumb {
+    padding-top: 60%; /* Slightly taller for mobile */
+  }
+
+  #shorts-grid .video-title {
+    font-size: .9rem;
+  }
+
+  #shorts-grid .video-extra {
+    font-size: .75rem;
+  }
+
+  /* Full episodes stay grid on mobile */
+  #episodes-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+  </style>
 </head>
+
 <body>
   <header class="site-header">
     <div class="wrap">
@@ -118,7 +159,9 @@
       <div class="wrap">
         <h2>Shorts (Under 3 Minutes)</h2>
         <p class="section-subtitle">Sip-size chaos — quick clips, unfiltered moments, and the mess between episodes.</p>
+
         <div id="shorts-grid" class="video-grid"></div>
+
         <p id="shorts-note" class="watch-note"></p>
         <p id="shorts-error" class="watch-error" style="display:none;"></p>
       </div>
@@ -129,7 +172,9 @@
       <div class="wrap">
         <h2>Full Video Episodes</h2>
         <p class="section-subtitle">Settle in — full-length video episodes of A Little Throuple Tea.</p>
+
         <div id="episodes-grid" class="video-grid"></div>
+
         <p id="episodes-note" class="watch-note"></p>
         <p id="episodes-error" class="watch-error" style="display:none;"></p>
       </div>
