@@ -52,10 +52,21 @@
       color: #ffc247;
     }
 
+    /* ⭐ MOBILE CENTERED MENU FIX ⭐ */
     @media(max-width: 650px){
-      .simple-header .wrap { flex-direction: column; gap: 10px; }
-      .simple-nav { gap: 14px; }
-      .simple-nav a { font-size: .92rem; }
+      .simple-header .wrap {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .simple-nav {
+        width: 100%;
+        justify-content: center;   /* 🔥 THIS CENTERS THE MENU */
+        text-align: center;
+        gap: 14px;
+      }
+      .simple-nav a {
+        font-size: .92rem;
+      }
     }
 
     /* HERO */
@@ -103,7 +114,7 @@
     }
     .form-card {
       width: 100%;
-      max-width: 700px;  /* PERFECT SIZE */
+      max-width: 700px;
       background: var(--card);
       border-radius: 18px;
       border: 1px solid var(--card-border);
@@ -115,7 +126,7 @@
       width: 100%;
       border: none;
       display: block;
-      height: 2100px; /* fixes cutoff on long forms */
+      height: 2100px;
     }
 
     @media(max-width: 650px){
@@ -191,14 +202,14 @@
   </section>
 
   <!-- FORM -->
- <section class="form-section">
-  <div class="form-card">
-    <iframe 
-      src="https://docs.google.com/forms/d/e/1FAIpQLSf17zb_iFJouqY1FyQ6L16o23BNK47YAZKYhJDZP2CfcXBTwg/viewform?embedded=true"
-      style="width:100%; border:0; padding:0; margin:0; min-height:1000px; height:1300px; display:block;">
-    </iframe>
-  </div>
-</section>
+  <section class="form-section">
+    <div class="form-card">
+      <iframe 
+        src="https://docs.google.com/forms/d/e/1FAIpQLSf17zb_iFJouqY1FyQ6L16o23BNK47YAZKYhJDZP2CfcXBTwg/viewform?embedded=true"
+        style="width:100%; border:0; padding:0; margin:0; min-height:1000px; height:1300px; display:block;">
+      </iframe>
+    </div>
+  </section>
 
 </main>
 
