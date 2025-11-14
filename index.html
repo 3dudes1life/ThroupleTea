@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>A Little Throuple Tea — Podcast</title>
+
   <meta name="description" content="Season 1 of A Little Throuple Tea is streaming now! 10 episodes of love, chaos, and laughter with real-life throuple William, Caleb & Daniel. Funny, unfiltered, and very us — listen everywhere." />
   <meta property="og:title" content="A Little Throuple Tea — Season 1 Now Streaming" />
   <meta property="og:description" content="10 episodes of love, chaos & laughter with real-life throuple William, Caleb & Daniel. Funny, unfiltered, and very us. Listen everywhere." />
@@ -22,7 +23,6 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-XXXXXXX');
   </script>
-  <!-- End Google Tag Manager -->
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8PDTZFJHE"></script>
@@ -33,46 +33,103 @@
     gtag('config', 'G-V8PDTZFJHE');
   </script>
 
-  <!-- Performance preconnects -->
   <link rel="preconnect" href="https://www.youtube.com" crossorigin>
   <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
   <link rel="preconnect" href="https://docs.google.com" crossorigin>
 
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* --- Listen section --- */
-    .listen-title{text-align:center;font-size:2rem;margin-bottom:1.5rem;color:#ffc247}
-    .platforms{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:6px 0}
-    .platforms .card{display:flex;flex-direction:column;align-items:center;gap:8px;background:#0f3b46;padding:18px 22px;border-radius:16px;border:1px solid #155e6e;text-decoration:none;color:#eaf7ff;font-weight:600;width:160px;transform:translateY(6px) scale(.98);box-shadow:0 6px 18px rgba(0,0,0,.28);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;opacity:0;animation:cardIn .6s ease forwards}
-    .platforms .card img{max-width:48px;max-height:48px;display:block}
-    .platforms .card span{text-align:center;font-size:.95rem;line-height:1.2;min-height:2.4em;white-space:normal;overflow-wrap:anywhere}
-    .platforms .card:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 12px 32px rgba(0,0,0,.4),0 0 12px rgba(255,194,71,.6);border-color:#ff7a1a}
-    @keyframes cardIn{0%{opacity:0;transform:translateY(14px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
-    @media(prefers-reduced-motion:reduce){.platforms .card{animation:none;opacity:1;transform:none}.platforms .card:hover{transform:none}}
-    /* --- Social Tea --- */
-    .social-tea{padding:60px 20px;background:linear-gradient(180deg,#072129 0%,#0e3441 100%);color:#eaf7ff}
-    .social-tea h2{font-size:2rem;margin-bottom:10px;color:#ffc247}
-    .social-tea .subtitle{font-size:1.1rem;margin-bottom:25px;color:#9fd6d6}
-    .form-card{border:1px solid #155e6e;border-radius:16px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.35)}
-    .form-card iframe{border:none;width:100%;height:900px;display:block;background:#fff}
-    /* --- Subscribe inputs --- */
-    .subscribe .inline-form{display:flex;gap:10px;flex-wrap:wrap}
-    .subscribe .inline-form input{flex:1;min-width:220px;padding:12px 14px;background:#0b2a33;color:#eaf7ff;border:1px solid #155e6e;border-radius:10px}
-    .subscribe .inline-form input::placeholder{color:#8fb4b8}
-    .subscribe .btn.primary{background:linear-gradient(180deg,#ff7a1a 0%,#ff983d 100%);color:#1b0d04;border:none;border-radius:999px;font-weight:800;box-shadow:0 8px 20px rgba(255,122,26,.35)}
-  </style>
+
+<style>
+/* 🔥 NEW SIMPLE HEADER (DESKTOP + MOBILE) */
+.simple-header {
+  background: linear-gradient(180deg,#07333f 0%,#0d4957 100%);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.simple-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.simple-header .brand img {
+  height: 46px;
+  width: auto;
+  border-radius: 10px;
+}
+
+.simple-nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.simple-nav a {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.simple-nav a:hover {
+  color: #ffc247;
+}
+
+/* MOBILE NAV */
+@media(max-width: 650px){
+  .simple-header .wrap {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .simple-nav {
+    justify-content: center;
+    gap: 14px;
+  }
+  .simple-nav a {
+    font-size: .92rem;
+  }
+}
+
+/* Existing styles… */
+.listen-title{text-align:center;font-size:2rem;margin-bottom:1.5rem;color:#ffc247}
+.platforms{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:6px 0}
+.platforms .card{display:flex;flex-direction:column;align-items:center;gap:8px;background:#0f3b46;padding:18px 22px;border-radius:16px;border:1px solid #155e6e;text-decoration:none;color:#eaf7ff;font-weight:600;width:160px;transform:translateY(6px) scale(.98);box-shadow:0 6px 18px rgba(0,0,0,.28);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;opacity:0;animation:cardIn .6s ease forwards}
+.platforms .card img{max-width:48px;max-height:48px}
+.platforms .card span{text-align:center;font-size:.95rem;line-height:1.2;min-height:2.4em;overflow-wrap:anywhere}
+.platforms .card:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 12px 32px rgba(0,0,0,.4),0 0 12px rgba(255,194,71,.6);border-color:#ff7a1a}
+@keyframes cardIn{0%{opacity:0;transform:translateY(14px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
+
+.social-tea{padding:60px 20px;background:linear-gradient(180deg,#072129 0%,#0e3441 100%);color:#eaf7ff}
+.social-tea h2{font-size:2rem;margin-bottom:10px;color:#ffc247}
+.social-tea .subtitle{font-size:1.1rem;margin-bottom:25px;color:#9fd6d6}
+.form-card{border:1px solid #155e6e;border-radius:16px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+.form-card iframe{border:none;width:100%;height:900px;background:#fff}
+
+.subscribe .inline-form{display:flex;gap:10px;flex-wrap:wrap}
+.subscribe .inline-form input{flex:1;min-width:220px;padding:12px 14px;background:#0b2a33;color:#eaf7ff;border:1px solid #155e6e;border-radius:10px}
+.subscribe .inline-form input::placeholder{color:#8fb4b8}
+.subscribe .btn.primary{background:linear-gradient(180deg,#ff7a1a 0%,#ff983d 100%);color:#1b0d04;border:none;border-radius:999px;font-weight:800;box-shadow:0 8px 20px rgba(255,122,26,.35)}
+</style>
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
- <header class="site-header">
+<!-- Google Tag (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- 🔥 NEW SIMPLE HEADER -->
+<header class="simple-header">
   <div class="wrap">
     <a class="brand" href="/">
       <img src="images/logo.png" alt="A Little Throuple Tea logo" />
     </a>
-    <nav class="nav" aria-label="Main">
+    <nav class="simple-nav">
       <a href="#listen">Listen</a>
       <a href="/watch/">Watch</a>
       <a href="#about">About</a>
@@ -81,122 +138,138 @@
       <a href="#subscribe">Subscribe</a>
     </nav>
   </div>
- </header>
+</header>
 
-  <section class="hero">
-    <div class="wrap">
-      <h1>Spill it. Sip it. <span class="underline">Throuple Tea.</span></h1>
-      <p class="subtitle">Season 1 is streaming now — 10 episodes of chaos, laughter & love. Listen everywhere.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="#listen">Start Listening</a>
-        <a class="btn" href="#social-tea">Ask a Question</a>
-      </div>
-      <div class="player video">
-        <iframe src="https://www.youtube.com/embed/fqCHTiXzCMA?si=MWs10aAPyj3EpFtB"
-          title="Podcast Trailer"
-          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
-          loading="lazy" allowfullscreen></iframe>
-      </div>
-    </div>
-  </section>
-
-  <section id="listen" class="listen">
-    <div class="wrap">
-      <h2 class="listen-title">Listen on</h2>
-      <div class="platforms">
-        <a class="card" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank"><img src="images/apple_podcasts.png" alt="Apple Podcasts"/><span>Apple Podcasts</span></a>
-        <a class="card" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank"><img src="images/spotify.png" alt="Spotify"/><span>Spotify</span></a>
-        <a class="card" href="https://www.iheart.com/podcast/269-3dudes1life-a-little-throu-289987978/" target="_blank"><img src="images/iheartradio.png" alt="iHeartRadio"/><span>iHeartRadio</span></a>
-        <a class="card" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank"><img src="images/youtube.png" alt="YouTube"/><span>YouTube</span></a>
-        <a class="card" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank"><img src="images/amazon_music.png" alt="Amazon Music"/><span>Amazon Music</span></a>
-        <a class="card" href="https://anchor.fm/s/1087008c4/podcast/rss" target="_blank"><img src="images/rss.png" alt="RSS Feed"/><span>RSS Feed</span></a>
-      </div>
-      <p class="note" style="text-align:center;margin-top:14px;">All links are live and ready. 💅</p>
-    </div>
-  </section>
-
-  <section id="about" class="about">
+<!-- HERO -->
+<section class="hero">
   <div class="wrap">
-    <h2>About the show</h2>
-    <p><strong>3Dudes1Life: A Little Throuple Tea</strong> is where love, chaos, and laughter collide. Join real-life throuple William, Caleb, and Daniel as they spill stories from their unconventional life — the wins, the wild nights, and the “did that really just happen?” moments. From throuple talk and <em>Smut TV</em> obsessions to pop-culture hot takes and listener Qs, nothing’s off-limits. Equal parts heart and humor, this is your weekly sip of Throuple Tea that proves love doesn’t fit in a box. ☕️</p>
-    <ul class="bullets">
-      <li>Season 1 is streaming now</li>
-      <li>~40–70 minutes each · Recorded in San Diego 🌴</li>
-    </ul>
+    <h1>Spill it. Sip it. <span class="underline">Throuple Tea.</span></h1>
+    <p class="subtitle">Season 1 is streaming now — 10 episodes of chaos, laughter & love. Listen everywhere.</p>
 
-    <div class="soft" style="margin-top:32px;padding:24px;border-radius:16px;border:1px solid var(--card-border);background:var(--card);box-shadow:var(--shadow);">
-      <h3 style="color:var(--sun-soft);margin-top:0;">Season 1 Episodes</h3>
-      <ol style="margin:0;padding-left:20px;line-height:1.8;">
-        <li>🎙 So… We’re a Throuple</li>
-        <li>💌 The Q&A Episode (aka What You Really Want to Know)</li>
-        <li>🐔 Gay Chicken Farmers & Other Plot Twists</li>
-        <li>🎣 Catch Flights, Not Feelings (Unless You’re Us)</li>
-        <li>👻 Haunted House, Real Throuple</li>
-        <li>🏘 Neighbors, Noise & Nosy People</li>
-        <li>🎃 Hustle Culture, But Make It Gay & Scary Movies</li>
-        <li>🔮 Birth Charts, Astrology & Throuple Drama</li>
-        <li>💸 Money Talk: TINK Addition</li>
-        <li>🍸 Gay Bar Shangaginas & Season 1 Wrap-Up</li>
-      </ol>
-      <p style="margin-top:14px;color:#9fd6d6;">Season 2 is brewing for 2026 💅 — stay tuned for new episodes and even more chaos.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#listen">Start Listening</a>
+      <a class="btn primary" href="/watch/">Watch</a>
+      <a class="btn" href="#social-tea">Ask a Question</a>
+    </div>
+
+    <div class="player video">
+      <iframe src="https://www.youtube.com/embed/fqCHTiXzCMA"
+        title="Podcast Trailer"
+        allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 </section>
 
-  <section id="hosts" class="hosts">
-    <div class="wrap">
-      <h2>Meet the hosts</h2>
-      <div class="host-grid">
-        <article class="host-card"><img src="images/IMG_2529.JPG" alt="William" loading="lazy" /><h3>William</h3><p>Business brain. One-liners for days. Will fight for the last jalapeño.</p></article>
-        <article class="host-card"><img src="images/host_caleb.jpg" alt="Caleb" loading="lazy" /><h3>Caleb</h3><p>DIY king. Chill vibe, sharp takes, sneaky funny.</p></article>
-        <article class="host-card"><img src="images/host_daniel.jpg" alt="Daniel" loading="lazy" /><h3>Daniel</h3><p>Plant whisperer. Resident angel/devil on shoulder.</p></article>
-      </div>
+<!-- LISTEN -->
+<section id="listen" class="listen">
+  <div class="wrap">
+    <h2 class="listen-title">Listen on</h2>
+    <div class="platforms">
+      <a class="card" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank"><img src="images/apple_podcasts.png"><span>Apple Podcasts</span></a>
+      <a class="card" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank"><img src="images/spotify.png"><span>Spotify</span></a>
+      <a class="card" href="https://www.iheart.com/podcast/269-3dudes1life-a-little-throu-289987978/" target="_blank"><img src="images/iheartradio.png"><span>iHeartRadio</span></a>
+      <a class="card" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank"><img src="images/youtube.png"><span>YouTube</span></a>
+      <a class="card" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank"><img src="images/amazon_music.png"><span>Amazon Music</span></a>
+      <a class="card" href="https://anchor.fm/s/1087008c4/podcast/rss" target="_blank"><img src="images/rss.png"><span>RSS Feed</span></a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="social-tea" class="social-tea">
-    <div class="wrap">
-      <h2>Want your question read on air? 🎙️</h2>
-      <p class="subtitle">Drop it in <em>Social Tea</em>. Ask us <strong>anything</strong> — life, love, weather, or throuple chaos. Go anonymous or leave your name for a shout-out. ☕️✨</p>
-      <div class="form-card">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqt-t66ePF9bFmFNVj-U9N32wr6eeE5eFj2UTr-RjIkO8ZNw/viewform?embedded=true" width="100%" height="900">Loading…</iframe>
-      </div>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="wrap">
+    <h2>About the show</h2>
+    <p><strong>3Dudes1Life: A Little Throuple Tea</strong> is where love, chaos, and laughter collide...</p>
+
+    <div class="soft" style="margin-top:32px;padding:24px;">
+      <h3 style="color:var(--sun-soft);margin-top:0;">Season 1 Episodes</h3>
+      <ol style="padding-left:20px;line-height:1.8;">
+        <li>🎙 So… We’re a Throuple</li>
+        <li>💌 The Q&A Episode</li>
+        <li>🐔 Gay Chicken Farmers</li>
+        <li>🎣 Catch Flights, Not Feelings</li>
+        <li>👻 Haunted House</li>
+        <li>🏘 Neighbors & Noise</li>
+        <li>🎃 Hustle Culture + Scary Movies</li>
+        <li>🔮 Birth Charts & Drama</li>
+        <li>💸 Money Talk: TINK Addition</li>
+        <li>🍸 Gay Bar Shangaginas & Wrap-Up</li>
+      </ol>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="subscribe" class="subscribe">
-    <div class="wrap">
-      <h2>Get episode alerts</h2>
-      <p>Drop your email. We’ll ping you when new episodes land (and big tea spills).</p>
-      <form id="subscribe-form" class="inline-form" action="https://assets.mailerlite.com/jsonp/1525077/forms/163732614665995434/subscribe" method="post" target="_blank" onsubmit="return showSuccessMessage(event)">
-        <input type="text" name="fields[name]" placeholder="Your name" />
-        <input type="email" name="fields[email]" placeholder="you@domain.com" required />
-        <button class="btn primary" type="submit">Subscribe</button>
-        <input type="hidden" name="ml-submit" value="1" />
-        <input type="hidden" name="anticsrf" value="true" />
-      </form>
-      <div id="subscribe-success" class="subscribe-success" style="display:none;">🎉 Thanks for subscribing! Check your inbox for a confirmation email.</div>
-      <div class="social">
-        <a href="https://instagram.com/ThroupleTea" target="_blank">Throuple Tea IG</a>
-        <a href="https://3dudes1lifecreative.com" target="_blank">3Dudes1Life Creative</a>
-        <a href="https://instagram.com/3dudes1life" target="_blank">3Dudes1Life IG</a>
-      </div>
+<!-- HOSTS -->
+<section id="hosts" class="hosts">
+  <div class="wrap">
+    <h2>Meet the hosts</h2>
+    <div class="host-grid">
+      <article class="host-card"><img src="images/IMG_2529.JPG"><h3>William</h3></article>
+      <article class="host-card"><img src="images/host_caleb.jpg"><h3>Caleb</h3></article>
+      <article class="host-card"><img src="images/host_daniel.jpg"><h3>Daniel</h3></article>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project · <a href="mailto:3dudes1lifecreative@outatinc.com">3dudes1lifecreative@outatinc.com</a></p>
+<!-- SOCIAL TEA -->
+<section id="social-tea" class="social-tea">
+  <div class="wrap">
+    <h2>Want your question read on air? 🎙️</h2>
+    <p class="subtitle">Drop it in Social Tea. Ask anything.</p>
+    <div class="form-card">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqt-t66ePF9bFmFNVj-U9N32wr6eeE5eFj2UTr-RjIkO8ZNw/viewform?embedded=true"></iframe>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    function showSuccessMessage(){
-      setTimeout(()=>{document.getElementById('subscribe-form').style.display='none';document.getElementById('subscribe-success').style.display='block';},500);
-      return true;
-    }
-    (function(){const y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
-  </script>
-  <script src="script.js" defer></script>
+<!-- SUBSCRIBE -->
+<section id="subscribe" class="subscribe">
+  <div class="wrap">
+    <h2>Get episode alerts</h2>
+    <p>Drop your email — we'll ping you when new episodes spill.</p>
+
+    <form id="subscribe-form" class="inline-form"
+      action="https://assets.mailerlite.com/jsonp/1525077/forms/163732614665995434/subscribe"
+      method="post" target="_blank">
+      <input type="text" name="fields[name]" placeholder="Your name" />
+      <input type="email" name="fields[email]" placeholder="you@domain.com" required />
+      <button class="btn primary" type="submit">Subscribe</button>
+      <input type="hidden" name="ml-submit" value="1" />
+    </form>
+
+    <div id="subscribe-success" class="subscribe-success" style="display:none;">
+      🎉 Thanks for subscribing!
+    </div>
+
+    <div class="social">
+      <a href="https://instagram.com/ThroupleTea" target="_blank">Throuple Tea IG</a>
+      <a href="https://3dudes1lifecreative.com" target="_blank">3Dudes1Life Creative</a>
+      <a href="https://instagram.com/3dudes1life" target="_blank">3Dudes1Life IG</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function showSuccessMessage(){
+  setTimeout(()=>{
+    document.getElementById('subscribe-form').style.display='none';
+    document.getElementById('subscribe-success').style.display='block';
+  },500);
+  return true;
+}
+</script>
+
+<script src="script.js" defer></script>
+
 </body>
-</html> 
+</html>
