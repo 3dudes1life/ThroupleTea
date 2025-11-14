@@ -102,21 +102,34 @@
     }
 
     /* Form wrapper */
+    .form-section {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0 60px;
+    }
+
     .form-card {
+      width: 100%;
+      max-width: 900px; /* BIG AND CUTE AGAIN */
       background: var(--card);
-      border-radius: 16px;
+      border-radius: 18px;
       border: 1px solid var(--card-border);
-      padding: 0;
       overflow: hidden;
+      padding: 0;
       box-shadow: var(--shadow);
-      margin: 20px auto;
-      max-width: 820px;
     }
 
     .form-card iframe {
       width: 100%;
       border: none;
       display: block;
+      height: 2000px; /* RESTORES FULL SIZE */
+    }
+
+    @media(max-width: 650px){
+      .form-card iframe {
+        height: 2300px; /* Extra height for mobile */
+      }
     }
   </style>
 </head>
@@ -142,11 +155,12 @@
 
 <main>
 
-  <!-- HERO -->
   <section class="season-hero">
     <div class="wrap">
       <h1>Season 2 Guest Applications</h1>
-      <p>We’re officially casting guests for <strong>Season 2</strong> of A Little Throuple Tea — filming begins January 2026. If you’ve got a story, chaos, wisdom, or you’re just funny as hell… we want you on the couch.</p>
+      <p>We’re officially casting guests for <strong>Season 2</strong> of A Little Throuple Tea — filming begins January 2026.  
+      If you’ve got a story, chaos, wisdom, or you’re just funny as hell… we want you on the couch.</p>
+
       <p style="color:#ffc247;font-weight:600;margin-top:16px;">Fill out the form below to apply ✨</p>
     </div>
   </section>
@@ -184,15 +198,15 @@
         <li>🎙 Episodes are 40–70 minutes</li>
         <li>📍 Location: San Diego, CA (or video call)</li>
         <li>☕️ Casual, funny, unfiltered — nothing formal</li>
-        <li>💅 No media experience needed — just vibes</li>
+        <li>💅 Zero media experience needed — just vibes</li>
       </ul>
     </div>
   </section>
 
-  <!-- FORM (AUTO HEIGHT) -->
-  <section>
+  <!-- FORM — RESTORED FULL SIZE -->
+  <section class="form-section">
     <div class="form-card">
-      <iframe id="guestForm"
+      <iframe 
         src="https://docs.google.com/forms/d/e/1FAIpQLSf17zb_iFJouqY1FyQ6L16o23BNK47YAZKYhJDZP2CfcXBTwg/viewform?embedded=true">
       </iframe>
     </div>
@@ -208,13 +222,6 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  /* Auto-resize Google Form iframe */
-  window.addEventListener("message", (event) => {
-    if (event.data?.type === "embed-size") {
-      document.getElementById("guestForm").style.height = event.data?.height + "px";
-    }
-  });
 </script>
 
 </body>
