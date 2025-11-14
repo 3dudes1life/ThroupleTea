@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="../styles.css" />
 
   <style>
-    /* Simple header matches homepage + watch */
+    /* Header */
     .simple-header {
       background: linear-gradient(180deg,#07333f 0%,#0d4957 100%);
       padding: 10px 0;
@@ -67,7 +67,7 @@
     /* Hero */
     .season-hero {
       text-align: center;
-      padding: 80px 20px 40px;
+      padding: 60px 20px 30px;
     }
     .season-hero h1 {
       font-size: clamp(2.4rem, 3vw + 1.4rem, 3.3rem);
@@ -81,7 +81,7 @@
       margin: 0 auto 18px;
     }
 
-    /* Info section */
+    /* Info Blocks */
     .info-block {
       padding: 30px 0 40px;
     }
@@ -101,7 +101,7 @@
       line-height: 1.7;
     }
 
-    /* Form embed */
+    /* Form wrapper */
     .form-card {
       background: var(--card);
       border-radius: 16px;
@@ -109,12 +109,14 @@
       padding: 0;
       overflow: hidden;
       box-shadow: var(--shadow);
-      margin: 30px 0;
+      margin: 20px auto;
+      max-width: 820px;
     }
+
     .form-card iframe {
       width: 100%;
-      height: 1640px;
       border: none;
+      display: block;
     }
   </style>
 </head>
@@ -144,60 +146,56 @@
   <section class="season-hero">
     <div class="wrap">
       <h1>Season 2 Guest Applications</h1>
-      <p>We’re officially casting guests for Season 2 of <strong>A Little Throuple Tea</strong> — filming begins January 2026.  
-      If you’ve got a story, some chaos, some wisdom, or you’re just funny as hell… we want you on the couch.</p>
+      <p>We’re officially casting guests for <strong>Season 2</strong> of A Little Throuple Tea — filming begins January 2026. If you’ve got a story, chaos, wisdom, or you’re just funny as hell… we want you on the couch.</p>
       <p style="color:#ffc247;font-weight:600;margin-top:16px;">Fill out the form below to apply ✨</p>
     </div>
   </section>
 
-  <!-- WHAT WE’RE LOOKING FOR -->
+  <!-- WHO WE WANT -->
   <section class="info-block">
-  <div class="wrap">
-    <h2>Who we’re looking for</h2>
+    <div class="wrap">
+      <h2>Who We’re Looking For</h2>
+      <p>Season 2 is going BIG — and we’re inviting guests from every corner of the LGBTQ+ universe:</p>
 
-    <p>Season 2 is going BIG — and we’re opening the door to all kinds of guests. We’re looking for:</p>
+      <ul>
+        <li>✨ LGBTQ+ singles, couples, throuples, polycules & chosen family</li>
+        <li>✨ People living nontraditional relationship styles</li>
+        <li>✨ Anyone with wild, heartfelt, inspiring, funny, or messy stories</li>
+        <li>✨ Our famous friends (YES besties… this means you 😎)</li>
+        <li>✨ Creators, small biz owners, queer artists & activists</li>
+        <li>✨ Everyday people with something to say</li>
+        <li>✨ Literally anyone who thinks “I’d be fun on a podcast”</li>
+      </ul>
 
-    <ul>
-      <li>✨ LGBTQ+ singles, couples, throuples, polycules & chosen family</li>
-      <li>✨ People living nontraditional relationship styles</li>
-      <li>✨ Anyone with a wild, funny, heartfelt, inspiring, or unhinged story</li>
-      <li>✨ Our famous friends (YES besties, you’re invited 😎)</li>
-      <li>✨ Creators, small biz owners, queer artists & activists</li>
-      <li>✨ Everyday people with something to say</li>
-      <li>✨ Literally anyone who thinks “I’d be fun on a podcast”</li>
-    </ul>
-
-    <p style="margin-top:14px;">
-      We film Season 2 in our home studio in San Diego — 
-      <strong>but you do NOT need to be local.</strong><br>
-      If you're not near San Diego, we’ll bring you in through the magic of the internet 💻✨  
-      (video guest spots look gorgeous in Season 2).
-    </p>
-  </div>
-</section>
+      <p style="margin-top:14px;">
+        We film in our home studio in San Diego — but <strong>you do NOT need to be local.</strong><br>
+        If you’re not nearby, we’ll bring you in through the magic of the internet 💻✨  
+        (video guests look gorgeous in Season 2).
+      </p>
+    </div>
+  </section>
 
   <!-- WHAT TO EXPECT -->
   <section class="info-block">
     <div class="wrap">
       <h2>What to Expect</h2>
       <ul>
-        <li>🎥 Filming takes about 1 hour</li>
-        <li>🎙 Final episodes run 40–70 minutes</li>
-        <li>📍 Filming location: San Diego, CA</li>
-        <li>☕️ Casual, funny, unfiltered — nothing scary or formal</li>
-        <li>💅 Zero media experience required — just be yourself</li>
+        <li>🎥 Filming takes ~1 hour</li>
+        <li>🎙 Episodes are 40–70 minutes</li>
+        <li>📍 Location: San Diego, CA (or video call)</li>
+        <li>☕️ Casual, funny, unfiltered — nothing formal</li>
+        <li>💅 No media experience needed — just vibes</li>
       </ul>
     </div>
   </section>
-  
-  <!-- FORM -->
-  <section class="wrap">
+
+  <!-- FORM (AUTO HEIGHT) -->
+  <section>
     <div class="form-card">
-<iframe 
-  src="https://docs.google.com/forms/d/e/1FAIpQLSf17zb_iFJouqY1FyQ6L16o23BNK47YAZKYhJDZP2CfcXBTwg/viewform?embedded=true"
-  style="width:100%;height:1450px;border:0;margin:0;padding:0;display:block;"
-  scrolling="no">
-</iframe>    </div>
+      <iframe id="guestForm"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSf17zb_iFJouqY1FyQ6L16o23BNK47YAZKYhJDZP2CfcXBTwg/viewform?embedded=true">
+      </iframe>
+    </div>
   </section>
 
 </main>
@@ -210,6 +208,13 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* Auto-resize Google Form iframe */
+  window.addEventListener("message", (event) => {
+    if (event.data?.type === "embed-size") {
+      document.getElementById("guestForm").style.height = event.data?.height + "px";
+    }
+  });
 </script>
 
 </body>
