@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Watch A Little Throuple Tea — Full Episodes & Shorts</title>
 
+  <title>Watch A Little Throuple Tea — Full Episodes & Shorts</title>
   <meta name="description" content="Binge A Little Throuple Tea on YouTube — full video episodes and shorts from 3Dudes1Life." />
   <meta property="og:title" content="Watch A Little Throuple Tea" />
   <meta property="og:description" content="Full episodes and shorts from 3Dudes1Life: A Little Throuple Tea." />
@@ -14,245 +14,366 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#111111" />
   <link rel="icon" href="../images/favicon.png" />
-  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Main site styles -->
+  <link rel="stylesheet" href="../styles.css" />
 
   <style>
-/* -------------------------------------------- */
-/* HEADER */
-/* -------------------------------------------- */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 9000;
-  background: var(--nav);
-}
+    /* ------------ HEADER / NAV ------------ */
 
-.header-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-}
+    .header-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
 
-/* Hamburger button */
-.nav-toggle {
-  display: none;
-  background: transparent;
-  border: none;
-  padding: 6px;
-  cursor: pointer;
-}
+    .brand img {
+      width: 56px;
+      height: auto;
+      display: block;
+    }
 
-.nav-toggle span {
-  display: block;
-  width: 28px;
-  height: 3px;
-  background: white;
-  margin-bottom: 6px;
-  border-radius: 4px;
-}
+    /* Desktop nav uses existing .nav styles from styles.css */
+    .nav.main-nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
 
-.nav-toggle span:last-child {
-  margin-bottom: 0;
-}
+    /* Hamburger button */
+    .nav-toggle {
+      display: none; /* hidden on desktop */
+      flex-direction: column;
+      gap: 6px;
+      padding: 6px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
 
-/* Desktop Nav */
-.nav {
-  display: flex;
-  gap: 28px;
-}
+    .nav-toggle span {
+      width: 26px;
+      height: 3px;
+      border-radius: 999px;
+      background: #ffffff;
+    }
 
-/* -------------------------------------------- */
-/* MOBILE OVERLAY MENU — FULL SCREEN */
-/* -------------------------------------------- */
+    /* Mobile breakpoint */
+    @media (max-width: 800px) {
+      .nav.main-nav {
+        display: none;
+      }
+      .nav-toggle {
+        display: flex;
+      }
+    }
 
-@media (max-width: 700px) {
+    /* Slide-out mobile menu (right side panel) */
 
-  .nav-toggle {
-    display: block;
-  }
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.32); /* subtle dim over page */
+    }
 
-  .nav {
-    display: none;
-  }
+    .mobile-menu.open {
+      display: block;
+    }
 
-  /* Fullscreen overlay menu */
-  .mobile-menu {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.92);
-    z-index: 9999;
-    padding-top: 110px;
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
-    padding-left: 32px;
-    transform: translateY(-100%);
-    transition: transform .28s ease-out;
-  }
+    .mobile-menu-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 78%;
+      max-width: 320px;
+      background: linear-gradient(180deg, #06232c 0%, #0f3b46 100%);
+      padding: 76px 24px 24px;
+      box-shadow: -8px 0 24px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
-  .mobile-menu.open {
-    transform: translateY(0);
-  }
+    .mobile-menu-panel a {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
 
-  .mobile-menu a {
-    color: white !important;
-    font-size: 1.8rem;
-    font-weight: 600;
-  }
-}
+    .mobile-close {
+      position: absolute;
+      top: 24px;
+      right: 18px;
+      font-size: 2.4rem;
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      line-height: 1;
+    }
 
-/* -------------------------------------------- */
-/* VIDEO GRID */
-/* -------------------------------------------- */
+    body.menu-open {
+      overflow: hidden; /* lock page scroll when menu open */
+    }
 
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 26px;
-}
+    /* ------------ WATCH PAGE GRIDS ------------ */
 
-.video-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  border: 1px solid var(--card-border);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-}
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 26px;
+      width: 100%;
+    }
 
-.video-thumb {
-  position: relative;
-  padding-top: 56.25%;
-}
+    .video-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
 
-.video-thumb iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      border-color: var(--sun);
+    }
 
-.video-meta {
-  padding: 12px 14px 14px;
-}
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      background: #000;
+      overflow: hidden;
+    }
 
-.video-title {
-  font-size: 1rem;
-  font-weight: 600;
-}
+    .video-thumb iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
 
-/* -------------------------------------------- */
-/* MOBILE: SWIPE SHORTS */
-/* -------------------------------------------- */
+    .video-meta {
+      padding: 12px 14px 14px;
+    }
 
-@media (max-width: 700px) {
-  #shorts-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 18px;
-    padding-bottom: 20px;
-  }
+    .video-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 6px;
+      color: var(--ink-strong);
+      line-height: 1.35;
+    }
 
-  #shorts-grid .video-card {
-    min-width: 260px;
-    max-width: 260px;
-    scroll-snap-align: center;
-  }
-}
+    .video-extra {
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .watch-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .watch-error {
+      margin-top: 12px;
+      color: #ffb3b3;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile: horizontal swipe for shorts, single-column episodes */
+    @media (max-width: 700px) {
+      #shorts-grid {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 16px;
+        scroll-snap-type: x mandatory;
+        padding: 4px 0 14px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      #shorts-grid .video-card {
+        scroll-snap-align: center;
+        min-width: 260px;
+        max-width: 260px;
+        flex: 0 0 auto;
+      }
+
+      #shorts-grid .video-thumb {
+        padding-top: 60%;
+      }
+
+      #shorts-grid .video-title {
+        font-size: 0.9rem;
+      }
+
+      #shorts-grid .video-extra {
+        font-size: 0.75rem;
+      }
+
+      #episodes-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap header-wrap">
+      <!-- Logo -->
+      <a class="brand" href="/">
+        <img src="../images/logo.png" alt="A Little Throuple Tea logo" />
+      </a>
 
-<header class="site-header">
-  <div class="wrap header-wrap">
+      <!-- Desktop nav -->
+      <nav class="nav main-nav" aria-label="Main">
+        <a href="/#listen">Listen</a>
+        <a href="/watch/" aria-current="page">Watch</a>
+        <a href="/#about">About</a>
+        <a href="/#hosts">Hosts</a>
+        <a href="/#social-tea">Social Tea</a>
+        <a href="/#subscribe">Subscribe</a>
+      </nav>
 
-    <a class="brand" href="/">
-      <img src="../images/logo.png" alt="A Little Throuple Tea logo" />
-    </a>
+      <!-- Mobile hamburger -->
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
 
-    <button class="nav-toggle">
-      <span></span><span></span><span></span>
-    </button>
+    <!-- Mobile slide-out menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-panel">
+        <button class="mobile-close" aria-label="Close menu">×</button>
 
-    <nav class="nav">
-      <a href="/#listen">Listen</a>
-      <a href="/watch/">Watch</a>
-      <a href="/#about">About</a>
-      <a href="/#hosts">Hosts</a>
-      <a href="/#social-tea">Social Tea</a>
-      <a href="/#subscribe">Subscribe</a>
-    </nav>
-  </div>
-</header>
-
-<!-- MOBILE FULLSCREEN MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/#listen">Listen</a>
-  <a href="/watch/">Watch</a>
-  <a href="/#about">About</a>
-  <a href="/#hosts">Hosts</a>
-  <a href="/#social-tea">Social Tea</a>
-  <a href="/#subscribe">Subscribe</a>
-</div>
-
-<main>
-
-  <section class="hero watch-hero">
-    <div class="wrap">
-      <h1>Watch A Little Throuple Tea</h1>
-      <p>Season 1 in full color — binge the chaos with video episodes and quick-hit shorts from the 3Dudes1Life throuple.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="#episodes">Watch Full Episodes</a>
-        <a class="btn" href="#shorts">Watch Shorts</a>
+        <a href="/#listen">Listen</a>
+        <a href="/watch/">Watch</a>
+        <a href="/#about">About</a>
+        <a href="/#hosts">Hosts</a>
+        <a href="/#social-tea">Social Tea</a>
+        <a href="/#subscribe">Subscribe</a>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section id="shorts" class="watch-section">
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- HERO -->
+    <section class="hero watch-hero">
+      <div class="wrap">
+        <h1>Watch A Little Throuple Tea</h1>
+        <p>
+          Season 1 in full color — binge the chaos with video episodes and
+          quick-hit shorts from the 3Dudes1Life throuple.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#episodes">Watch Full Episodes</a>
+          <a class="btn" href="#shorts">Watch Shorts</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHORTS -->
+    <section id="shorts" class="watch-section">
+      <div class="wrap">
+        <h2>Shorts (Under 3 Minutes)</h2>
+        <p class="section-subtitle">
+          Sip-size chaos — quick clips, unfiltered moments, and the mess between episodes.
+        </p>
+
+        <div id="shorts-grid" class="video-grid"></div>
+
+        <p id="shorts-note" class="watch-note"></p>
+        <p id="shorts-error" class="watch-error" style="display:none;"></p>
+      </div>
+    </section>
+
+    <!-- FULL EPISODES -->
+    <section id="episodes" class="watch-section">
+      <div class="wrap">
+        <h2>Full Video Episodes</h2>
+        <p class="section-subtitle">
+          Settle in — full-length video episodes of A Little Throuple Tea.
+        </p>
+
+        <div id="episodes-grid" class="video-grid"></div>
+
+        <p id="episodes-note" class="watch-note"></p>
+        <p id="episodes-error" class="watch-error" style="display:none;"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
     <div class="wrap">
-      <h2>Shorts (Under 3 Minutes)</h2>
-      <p class="section-subtitle">Sip-size chaos — quick clips, unfiltered moments, and the mess between episodes.</p>
-      <div id="shorts-grid" class="video-grid"></div>
-      <p id="shorts-note"></p>
-      <p id="shorts-error" style="display:none;"></p>
+      <p>
+        © <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project ·
+        <a href="mailto:3dudes1lifecreative@outatinc.com">3dudes1lifecreative@outatinc.com</a>
+      </p>
     </div>
-  </section>
+  </footer>
 
-  <section id="episodes" class="watch-section">
-    <div class="wrap">
-      <h2>Full Video Episodes</h2>
-      <p class="section-subtitle">Settle in — full-length video episodes of A Little Throuple Tea.</p>
-      <div id="episodes-grid" class="video-grid"></div>
-      <p id="episodes-note"></p>
-      <p id="episodes-error" style="display:none;"></p>
-    </div>
-  </section>
+  <!-- YEAR + MOBILE MENU SCRIPT -->
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-</main>
+    // Mobile menu logic
+    const navToggle = document.querySelector('.nav-toggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobilePanel = mobileMenu.querySelector('.mobile-menu-panel');
+    const mobileClose = mobileMenu.querySelector('.mobile-close');
 
-<footer class="site-footer">
-  <div class="wrap">
-    <p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project · 
-    <a href="mailto:3dudes1lifecreative@outatinc.com">3dudes1lifecreative@outatinc.com</a></p>
-  </div>
-</footer>
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      document.body.classList.add('menu-open');
+    }
 
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
 
-const toggle = document.querySelector('.nav-toggle');
-const menu = document.getElementById('mobileMenu');
+    navToggle.addEventListener('click', openMenu);
+    mobileClose.addEventListener('click', closeMenu);
 
-toggle.addEventListener('click', () => {
-  menu.classList.toggle('open');
-});
-</script>
+    // Click outside panel closes menu
+    mobileMenu.addEventListener('click', (e) => {
+      if (!mobilePanel.contains(e.target)) {
+        closeMenu();
+      }
+    });
 
-<script src="watch.js" defer></script>
+    // ESC key closes menu
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+  </script>
+
+  <!-- YouTube fetch logic -->
+  <script src="watch.js" defer></script>
 </body>
 </html>
