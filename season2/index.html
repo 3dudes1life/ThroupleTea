@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="../styles.css" />
 
   <style>
-    /* Header */
+    /* HEADER */
     .simple-header {
       background: linear-gradient(180deg,#07333f 0%,#0d4957 100%);
       padding: 10px 0;
@@ -51,20 +51,14 @@
     .simple-nav a:hover {
       color: #ffc247;
     }
+
     @media(max-width: 650px){
-      .simple-header .wrap {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .simple-nav {
-        gap: 14px;
-      }
-      .simple-nav a {
-        font-size: .92rem;
-      }
+      .simple-header .wrap { flex-direction: column; gap: 10px; }
+      .simple-nav { gap: 14px; }
+      .simple-nav a { font-size: .92rem; }
     }
 
-    /* Hero */
+    /* HERO */
     .season-hero {
       text-align: center;
       padding: 60px 20px 30px;
@@ -81,9 +75,9 @@
       margin: 0 auto 18px;
     }
 
-    /* Info Blocks */
+    /* INFO BLOCK */
     .info-block {
-      padding: 30px 0 40px;
+      padding: 30px 0 30px;
     }
     .info-block h2 {
       color: var(--sun-soft);
@@ -101,16 +95,15 @@
       line-height: 1.7;
     }
 
-    /* Form wrapper */
+    /* FORM SECTION */
     .form-section {
       display: flex;
       justify-content: center;
-      padding: 20px 0 60px;
+      padding: 10px 0 60px;
     }
-
     .form-card {
       width: 100%;
-      max-width: 900px; /* BIG AND CUTE AGAIN */
+      max-width: 700px;  /* PERFECT SIZE */
       background: var(--card);
       border-radius: 18px;
       border: 1px solid var(--card-border);
@@ -118,18 +111,15 @@
       padding: 0;
       box-shadow: var(--shadow);
     }
-
     .form-card iframe {
       width: 100%;
       border: none;
       display: block;
-      height: 1000px; /* RESTORES FULL SIZE */
+      height: 2050px; /* fixes cutoff on long forms */
     }
 
     @media(max-width: 650px){
-      .form-card iframe {
-        height: 2300px; /* Extra height for mobile */
-      }
+      .form-card iframe { height: 2400px; }
     }
   </style>
 </head>
@@ -158,9 +148,7 @@
   <section class="season-hero">
     <div class="wrap">
       <h1>Season 2 Guest Applications</h1>
-      <p>We’re officially casting guests for <strong>Season 2</strong> of A Little Throuple Tea — filming begins January 2026.  
-      If you’ve got a story, chaos, wisdom, or you’re just funny as hell… we want you on the couch.</p>
-
+      <p>We’re officially casting guests for <strong>Season 2</strong> — filming starts January 2026. If you’ve got a story, chaos, wisdom, or you’re just funny as hell… we want you on the couch.</p>
       <p style="color:#ffc247;font-weight:600;margin-top:16px;">Fill out the form below to apply ✨</p>
     </div>
   </section>
@@ -182,9 +170,8 @@
       </ul>
 
       <p style="margin-top:14px;">
-        We film in our home studio in San Diego — but <strong>you do NOT need to be local.</strong><br>
-        If you’re not nearby, we’ll bring you in through the magic of the internet 💻✨  
-        (video guests look gorgeous in Season 2).
+        We film in San Diego — but <strong>you do NOT need to be local.</strong><br>
+        We'll bring you in via video call 💻✨ (remote guests look gorgeous in Season 2).
       </p>
     </div>
   </section>
@@ -196,19 +183,17 @@
       <ul>
         <li>🎥 Filming takes ~1 hour</li>
         <li>🎙 Episodes are 40–70 minutes</li>
-        <li>📍 Location: San Diego, CA (or video call)</li>
+        <li>📍 In-person OR remote via video</li>
         <li>☕️ Casual, funny, unfiltered — nothing formal</li>
-        <li>💅 Zero media experience needed — just vibes</li>
+        <li>💅 No media experience needed — just vibes</li>
       </ul>
     </div>
   </section>
 
-  <!-- FORM — RESTORED FULL SIZE -->
+  <!-- FORM -->
   <section class="form-section">
     <div class="form-card">
-      <iframe 
-        src="https://docs.google.com/forms/d/e/1FAIpQLSf17zb_iFJouqY1FyQ6L16o23BNK47YAZKYhJDZP2CfcXBTwg/viewform?embedded=true">
-      </iframe>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf17zb_iFJouqY1FyQ6L16o23BNK47YAZKYhJDZP2CfcXBTwg/viewform?embedded=true"></iframe>
     </div>
   </section>
 
