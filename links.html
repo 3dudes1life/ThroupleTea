@@ -34,9 +34,12 @@
   <style>
     :root{
       --ink:#eaf7ff; --ink-strong:#fff; --muted:#9fd6d6;
-      --bg-dark:#0e3441; --bg-deeper:#072129; --sun:#ff7a1a; --sun-soft:#ffc247;
+      --bg-dark:#0e3441; --bg-deeper:#072129;
+      --sun:#ff7a1a; --sun-soft:#ffc247;
       --sea:#18a5a6; --card:#0f3b46; --card-border:#155e6e;
-      --radius:16px; --radius-lg:24px; --shadow:0 10px 28px rgba(0,0,0,.35); --shadow-strong:0 16px 40px rgba(0,0,0,.5);
+      --radius:16px; --radius-lg:24px;
+      --shadow:0 10px 28px rgba(0,0,0,.35);
+      --shadow-strong:0 16px 40px rgba(0,0,0,.5);
       --pad: clamp(16px, 6vw, 28px);
       --btn-h: 56px;
     }
@@ -53,40 +56,56 @@
     .wrap{max-width:640px;margin:0 auto;padding:var(--pad)}
     header{display:flex;justify-content:center;padding-top:18px}
     .brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;color:var(--ink)}
-    .brand img{height:56px;width:56px;border-radius:50%;display:block}
+    .brand img{height:56px;width:56px;border-radius:50%}
     .brand h1{
-      margin:0;font: 800 clamp(1.25rem,2.5vw,1.6rem)/1 'Baloo 2', system-ui, sans-serif;
-      letter-spacing:.2px;color:var(--ink-strong)
+      margin:0;font:800 clamp(1.25rem,2.5vw,1.6rem)/1 'Baloo 2';
+      color:var(--ink-strong)
     }
-    .tag{color:var(--muted); font-weight:700; margin-top:2px}
+    .tag{color:var(--muted);font-weight:700;margin-top:2px}
 
     .group-title{
-      margin:22px 0 8px; color:var(--sun-soft);
-      font: 800 1.1rem 'Baloo 2', system-ui, sans-serif;
-      letter-spacing:.3px;
+      margin:22px 0 8px;color:var(--sun-soft);
+      font:800 1.1rem 'Baloo 2';
     }
 
     .stack{display:grid;gap:12px;margin-top:18px}
 
+    /* BUTTONS */
     .btn{
-      display:flex; align-items:center; gap:12px;
-      min-height:var(--btn-h); padding:14px 16px;
-      border-radius:999px; border:1px solid var(--card-border);
-      background:var(--card); color:var(--ink); text-decoration:none;
-      font-weight:900; letter-spacing:.2px;
+      display:flex;align-items:center;gap:12px;
+      min-height:var(--btn-h);padding:14px 16px;
+      border-radius:999px;border:1px solid var(--card-border);
+      background:var(--card);color:var(--ink);text-decoration:none;
+      font-weight:900;letter-spacing:.2px;
       box-shadow:var(--shadow);
-      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      transition:all .15s ease;
     }
-    .btn:hover{transform:translateY(-2px); box-shadow:var(--shadow-strong); border-color:var(--sun)}
 
+    /* Hover = orange outline */
+    .btn:hover{
+      transform:translateY(-2px);
+      border-color:var(--sun);
+      box-shadow:var(--shadow-strong);
+    }
+
+    /* Active/click = FULL ORANGE */
+    .btn:active,
+    .btn:focus-visible{
+      background:linear-gradient(180deg, var(--sun) 0%, #ff983d 100%);
+      color:#1b0d04;
+      border-color:transparent;
+      outline:none;
+    }
+
+    /* Only top CTA stays orange permanently */
     .btn.primary{
       background:linear-gradient(180deg, var(--sun) 0%, #ff983d 100%);
-      color:#1b0d04; border-color:transparent;
+      color:#1b0d04;border-color:transparent;
     }
 
     .btn .icon{width:28px;height:28px;display:grid;place-items:center}
     .btn .icon img,
-    .btn .icon svg{max-width:100%;max-height:100%;display:block}
+    .btn .icon svg{max-width:100%;max-height:100%}
 
     footer{color:var(--muted);text-align:center;padding:22px 0}
   </style>
@@ -108,9 +127,7 @@
     <!-- Website -->
     <div class="stack">
       <a class="btn primary" href="https://throupletea.com" target="_blank">
-        <span class="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm7.93 9h-3.95c-.14-2.16-.72-4.09-1.64-5.64A8.01 8.01 0 0 1 19.93 11Z"/></svg>
-        </span>
+        <span class="icon">🌐</span>
         Visit the Website
       </a>
     </div>
@@ -126,20 +143,19 @@
       <a class="btn" href="https://anchor.fm/s/1087008c4/podcast/rss" target="_blank"><span class="icon"><img src="images/rss.png"></span>RSS Feed</a>
     </div>
 
-    
-    <!-- NEW: Watch page -->
+    <!-- Watch -->
     <div class="group-title">Watch</div>
     <div class="stack">
       <a class="btn" href="https://throupletea.com/watch" target="_blank">
-        <span class="icon"><img src="images/youtube.png" alt=""></span>
+        <span class="icon"><img src="images/youtube.png"></span>
         Watch Full Episodes
       </a>
     </div>
 
-    <!-- NEW: Season 2 Application -->
+    <!-- Season 2 -->
     <div class="group-title">Season 2</div>
     <div class="stack">
-      <a class="btn primary" href="https://throupletea.com/season2" target="_blank">
+      <a class="btn" href="https://throupletea.com/season2" target="_blank">
         <span class="icon">🔥</span>
         Apply for Season 2
       </a>
@@ -148,7 +164,7 @@
     <!-- Ask a Question -->
     <div class="group-title">Ask a Question</div>
     <div class="stack">
-      <a class="btn primary" href="https://throupletea.com/#social-tea" target="_blank">
+      <a class="btn" href="https://throupletea.com/#social-tea" target="_blank">
         <span class="icon">☕</span>
         Ask a Question (Social Tea)
       </a>
