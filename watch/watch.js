@@ -3,7 +3,7 @@
 // - Shorts: duration < 180 seconds
 // - Full episodes: duration >= 180 seconds
 
-const API_KEY = 'YOUR_API_KEY_HERE';  // <- REPLACE THIS
+const API_KEY = 'AIzaSyCakGcpxrr8UU5V4dqKhwGz-IGpxlrSl-0';  // <- REPLACE THIS
 const CHANNEL_ID = 'UCswzye8bcm8bByqLlW0QaFQ';
 const MAX_RESULTS = 50; // enough for your current catalog
 
