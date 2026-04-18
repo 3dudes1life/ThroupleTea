@@ -109,8 +109,31 @@
 .social-tea{padding:60px 20px;background:linear-gradient(180deg,#072129 0%,#0e3441 100%);color:#eaf7ff}
 .social-tea h2{font-size:2rem;margin-bottom:10px;color:#ffc247}
 .social-tea .subtitle{font-size:1.1rem;margin-bottom:25px;color:#9fd6d6}
-.form-card{border:1px solid #155e6e;border-radius:16px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.35)}
-.form-card iframe{border:none;width:100%;height:900px;background:#fff}
+.hotline-card{
+  border:1px solid #155e6e;
+  border-radius:16px;
+  padding:28px 24px;
+  box-shadow:0 10px 28px rgba(0,0,0,.35);
+  background:rgba(255,255,255,.03);
+}
+.hotline-card h3{
+  margin:0 0 10px;
+  color:#ffc247;
+  font-size:1.5rem;
+}
+.hotline-card p{
+  margin:0 0 18px;
+  color:#eaf7ff;
+  font-size:1.05rem;
+  line-height:1.7;
+}
+.hotline-card .hotline-email{
+  color:#ffc247;
+  font-weight:800;
+}
+.hotline-card .btn{
+  display:inline-flex;
+}
 
 .subscribe .inline-form{display:flex;gap:10px;flex-wrap:wrap}
 .subscribe .inline-form input{flex:1;min-width:220px;padding:12px 14px;background:#0b2a33;color:#eaf7ff;border:1px solid #155e6e;border-radius:10px}
@@ -136,7 +159,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="/watch/">Watch</a>
       <a href="#about">About</a>
       <a href="#hosts">Hosts</a>
-      <a href="#social-tea">Social Tea</a>
+      <a href="#social-tea">Throuple Hotline</a>
       <a href="#subscribe">Subscribe</a>
       <a href="/guest/" aria-current="page">Be a Guest</a>
     </nav>
@@ -152,7 +175,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cta-row">
       <a class="btn primary" href="#listen">Start Listening</a>
       <a class="btn primary" href="/watch/">Watch</a>
-      <a class="btn" href="#social-tea">Ask a Question</a>
+      <a class="btn" href="#social-tea">Throuple Hotline</a>
     </div>
 
     <div class="player video">
@@ -233,13 +256,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- SOCIAL TEA -->
+<!-- THROUPLE HOTLINE -->
 <section id="social-tea" class="social-tea">
   <div class="wrap">
-    <h2>Want your question read on air? 🎙️</h2>
-    <p class="subtitle">Drop it in Social Tea. Ask anything.</p>
-    <div class="form-card">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqt-t66ePF9bFmFNVj-U9N32wr6eeE5eFj2UTr-RjIkO8ZNw/viewform?embedded=true"></iframe>
+    <h2>Throuple Hotline ☎️</h2>
+    <p class="subtitle">Got a confession, weird question, dating disaster, throuple curiosity, or pure chaos? Send it in.</p>
+    <div class="hotline-card">
+      <h3>The Throuple Hotline is open.</h3>
+      <p>
+        Email your questions, drama, confessions, awkward moments, bad decisions, or total mess to
+        <span class="hotline-email">throupletea@gmail.com</span>.
+        We might read it on the podcast.
+      </p>
+      <a class="btn primary" href="mailto:throupletea@gmail.com?subject=Throuple%20Hotline">Email the Throuple Hotline</a>
     </div>
   </div>
 </section>
