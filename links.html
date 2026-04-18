@@ -23,59 +23,86 @@
   <link rel="icon" href="images/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet" />
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8PDTZFJHE"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-V8PDTZFJHE');
-  </script>
-
   <style>
     :root{
       --ink:#eaf7ff; --ink-strong:#fff; --muted:#9fd6d6;
       --bg-dark:#0e3441; --bg-deeper:#072129;
       --sun:#ff7a1a; --sun-soft:#ffc247;
       --sea:#18a5a6; --card:#0f3b46; --card-border:#155e6e;
-      --radius:16px; --radius-lg:24px;
       --shadow:0 10px 28px rgba(0,0,0,.35);
       --shadow-strong:0 16px 40px rgba(0,0,0,.5);
       --pad: clamp(16px, 6vw, 28px);
-      --btn-h: 56px;
+      --btn-h:56px;
     }
+
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
+
     body{
       color:var(--ink);
+      overflow-x:hidden;
       background:
         radial-gradient(1200px 700px at 85% -10%, rgba(255,122,26,.18), transparent),
         linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-deeper) 70%);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
       line-height:1.6;
     }
-    .wrap{max-width:640px;margin:0 auto;padding:var(--pad)}
+
+    .wrap{max-width:640px;margin:0 auto;padding:var(--pad);position:relative;z-index:2}
+
     header{display:flex;justify-content:center;padding-top:18px}
-    .brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;color:var(--ink)}
-    .brand img{height:56px;width:56px;border-radius:50%}
-    .brand h1{
-      margin:0;font:800 clamp(1.25rem,2.5vw,1.6rem)/1 'Baloo 2';
-      color:var(--ink-strong)
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      text-decoration:none;
+      color:var(--ink);
     }
-    .tag{color:var(--muted);font-weight:700;margin-top:2px}
+
+    .brand img{
+      height:56px;
+      width:56px;
+      border-radius:50%;
+    }
+
+    .brand h1{
+      margin:0;
+      font:800 clamp(1.25rem,2.5vw,1.6rem)/1 'Baloo 2';
+      color:var(--ink-strong);
+    }
+
+    .tag{
+      color:var(--muted);
+      font-weight:700;
+      margin-top:2px;
+    }
 
     .group-title{
-      margin:22px 0 8px;color:var(--sun-soft);
+      margin:22px 0 8px;
+      color:var(--sun-soft);
       font:800 1.1rem 'Baloo 2';
     }
 
-    .stack{display:grid;gap:12px;margin-top:18px}
+    .stack{
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
 
     .btn{
-      display:flex;align-items:center;gap:12px;
-      min-height:var(--btn-h);padding:14px 16px;
-      border-radius:999px;border:1px solid var(--card-border);
-      background:var(--card);color:var(--ink);text-decoration:none;
-      font-weight:900;letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-height:var(--btn-h);
+      padding:14px 16px;
+      border-radius:999px;
+      border:1px solid var(--card-border);
+      background:var(--card);
+      color:var(--ink);
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:.2px;
       box-shadow:var(--shadow);
       transition:all .15s ease;
     }
@@ -86,94 +113,139 @@
       box-shadow:var(--shadow-strong);
     }
 
-    .btn:active,
-    .btn:focus-visible{
-      background:linear-gradient(180deg, var(--sun) 0%, #ff983d 100%);
+    .btn.primary{
+      background:linear-gradient(180deg,var(--sun) 0%,#ff983d 100%);
       color:#1b0d04;
       border-color:transparent;
-      outline:none;
+      animation:pulse 2s infinite;
     }
 
-    .btn.primary{
-      background:linear-gradient(180deg, var(--sun) 0%, #ff983d 100%);
-      color:#1b0d04;border-color:transparent;
+    .btn .icon{
+      width:28px;
+      height:28px;
+      display:grid;
+      place-items:center;
     }
 
-    .btn .icon{width:28px;height:28px;display:grid;place-items:center}
-    .btn .icon img,
-    .btn .icon svg{max-width:100%;max-height:100%}
+    .btn .icon img{
+      max-width:100%;
+      max-height:100%;
+    }
 
-    footer{color:var(--muted);text-align:center;padding:22px 0}
+    footer{
+      color:var(--muted);
+      text-align:center;
+      padding:22px 0;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.02)}
+    }
+
+    /* FALLING CHAOS */
+    .drop{
+      position:fixed;
+      top:-40px;
+      font-size:30px;
+      pointer-events:none;
+      z-index:1;
+      animation:fall linear forwards;
+      opacity:.95;
+    }
+
+    @keyframes fall{
+      0%{
+        transform:translateY(-40px) rotate(0deg);
+        opacity:0;
+      }
+      10%{opacity:1;}
+      100%{
+        transform:translateY(110vh) rotate(540deg);
+        opacity:0;
+      }
+    }
+
   </style>
 </head>
 
 <body>
-  <main class="wrap">
 
-    <header>
-      <a class="brand" href="/">
-        <img src="images/logo.png" alt="A Little Throuple Tea logo" />
-        <div>
-          <h1>A Little Throuple Tea</h1>
-          <div class="tag">Official Links</div>
-        </div>
-      </a>
-    </header>
+<main class="wrap">
 
-    <!-- Tea Hotline -->
-    <div class="stack">
-      <a class="btn primary" href="mailto:throupletea@gmail.com?subject=Tea%20Hotline">
-        <span class="icon">☕</span>
-        Tea Hotline — Email Us Your Drama
-      </a>
+<header>
+  <a class="brand" href="/">
+    <img src="images/logo.png" alt="A Little Throuple Tea logo" />
+    <div>
+      <h1>A Little Throuple Tea</h1>
+      <div class="tag">Official Links</div>
     </div>
+  </a>
+</header>
 
-    <!-- Website -->
-    <div class="stack">
-      <a class="btn" href="https://throupletea.com" target="_blank">
-        <span class="icon">🌐</span>
-        Visit the Website
-      </a>
-    </div>
+<!-- Tea Hotline -->
+<div class="stack">
+  <a class="btn primary" href="mailto:throupletea@gmail.com?subject=Tea%20Hotline">
+    <span class="icon">☕</span>
+    Tea Hotline — Drop Your Drama
+  </a>
+</div>
 
-    <!-- Listen -->
-    <div class="group-title">Listen</div>
-    <div class="stack">
-      <a class="btn" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank"><span class="icon"><img src="images/apple_podcasts.png"></span>Apple Podcasts</a>
-      <a class="btn" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank"><span class="icon"><img src="images/spotify.png"></span>Spotify</a>
-      <a class="btn" href="https://www.iheart.com/podcast/269-3dudes1life-a-little-throu-289987978/" target="_blank"><span class="icon"><img src="images/iheartradio.png"></span>iHeartRadio</a>
-      <a class="btn" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank"><span class="icon"><img src="images/youtube.png"></span>YouTube</a>
-      <a class="btn" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank"><span class="icon"><img src="images/amazon_music.png"></span>Amazon Music</a>
-      <a class="btn" href="https://anchor.fm/s/1087008c4/podcast/rss" target="_blank"><span class="icon"><img src="images/rss.png"></span>RSS Feed</a>
-    </div>
+<!-- Website -->
+<div class="stack">
+  <a class="btn" href="https://throupletea.com" target="_blank">
+    <span class="icon">🌐</span>
+    Visit the Website
+  </a>
+</div>
 
-    <!-- Watch -->
-    <div class="group-title">Watch</div>
-    <div class="stack">
-      <a class="btn" href="https://throupletea.com/watch" target="_blank">
-        <span class="icon"><img src="images/youtube.png"></span>
-        Watch Full Episodes
-      </a>
-    </div>
+<!-- Listen -->
+<div class="group-title">Listen</div>
+<div class="stack">
+  <a class="btn" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank"><span class="icon">🎧</span>Spotify</a>
+  <a class="btn" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank"><span class="icon">📺</span>YouTube</a>
+  <a class="btn" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank"><span class="icon">🍎</span>Apple Podcasts</a>
+</div>
 
-    <!-- Season 2 -->
-    <div class="group-title">Join the Show!</div>
-    <div class="stack">
-      <a class="btn" href="https://throupletea.com/guest/" target="_blank">
-        <span class="icon">🔥</span>
-        Apply to be a Guest
-      </a>
-    </div>
+<!-- Guest -->
+<div class="group-title">Join the Show!</div>
+<div class="stack">
+  <a class="btn" href="https://throupletea.com/guest/" target="_blank">
+    <span class="icon">🔥</span>
+    Apply to be a Guest
+  </a>
+</div>
 
-    <footer>
-      © <span id="year"></span> A Little Throuple Tea
-    </footer>
+<footer>
+  © <span id="year"></span> A Little Throuple Tea
+</footer>
 
-  </main>
+</main>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* DROP CONFETTI + MARGS + LIMES */
+const emojis = ["🎉","✨","🍹","🍸","🍋","🍈","🧂"];
+
+function dropParty() {
+  for(let i=0;i<28;i++){
+    const item = document.createElement("div");
+    item.className = "drop";
+    item.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+    item.style.left = Math.random()*100 + "vw";
+    item.style.animationDuration = (3 + Math.random()*3) + "s";
+    item.style.fontSize = (24 + Math.random()*18) + "px";
+    document.body.appendChild(item);
+
+    setTimeout(() => item.remove(), 6500);
+  }
+}
+
+window.addEventListener("load", () => {
+  setTimeout(dropParty, 350);
+});
+</script>
 
 </body>
 </html>
