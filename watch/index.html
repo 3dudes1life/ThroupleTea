@@ -14,20 +14,16 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#020204" />
   <link rel="icon" href="../images/favicon.png" />
-
   <link rel="stylesheet" href="../styles.css" />
 
   <style>
     :root{
       --black:#020204;
-      --night:#050812;
       --deep:#071321;
       --hot-pink:#ff005d;
-      --pink:#ff2a7f;
       --orange:#ff7a18;
       --sun:#ffb13b;
       --teal:#00d7e8;
-      --blue:#007c9c;
       --white:#ffffff;
       --soft:#dff8ff;
     }
@@ -119,11 +115,6 @@
       box-shadow: 0 8px 24px rgba(255,0,93,.35);
     }
 
-    .btn.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 34px rgba(255,0,93,.55);
-    }
-
     .btn {
       border: 1px solid rgba(0,215,232,.55);
       color: #ffffff;
@@ -162,6 +153,31 @@
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 26px;
       width: 100%;
+    }
+
+    /* 🔥 SHORTS ARE ALWAYS A SWIPE ROW */
+    #shorts-grid {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      gap: 22px;
+      scroll-snap-type: x mandatory;
+      padding: 6px 4px 22px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #shorts-grid .video-card {
+      flex: 0 0 calc((100% - 44px) / 3);
+      max-width: calc((100% - 44px) / 3);
+      min-width: 300px;
+      scroll-snap-align: start;
+    }
+
+    #episodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 26px;
     }
 
     .video-card {
@@ -219,16 +235,6 @@
       gap: 8px;
     }
 
-    .watch-note {
-      color: var(--sun);
-      margin-top: 20px;
-    }
-
-    .watch-error {
-      color: var(--hot-pink);
-      margin-top: 20px;
-    }
-
     .site-footer {
       background:#020204;
       border-top:1px solid rgba(255,42,127,.28);
@@ -239,61 +245,43 @@
       color: var(--sun);
     }
 
-@media (max-width: 700px) {
-  .simple-header .wrap {
-    flex-direction: column;
-    gap: 10px;
-  }
+    @media (max-width: 700px) {
+      .simple-header .wrap {
+        flex-direction: column;
+        gap: 10px;
+      }
 
-  .simple-nav {
-    justify-content: center;
-    gap: 14px;
-  }
+      .simple-nav {
+        justify-content: center;
+        gap: 14px;
+      }
 
-  .simple-nav a {
-    font-size: 0.92rem;
-  }
+      .simple-nav a {
+        font-size: 0.92rem;
+      }
 
-  .simple-header .brand img {
-    height: 50px;
-  }
+      .simple-header .brand img {
+        height: 50px;
+      }
 
-  .watch-hero {
-    padding: 60px 18px 40px;
-  }
+      .watch-hero {
+        padding: 60px 18px 40px;
+      }
 
-  .watch-section .wrap {
-    padding: 24px;
-  }
+      .watch-section .wrap {
+        padding: 24px;
+      }
 
-  /* 🔥 SHORTS SWIPE FIX */
-  #shorts-grid {
-    display: flex !important;
-    overflow-x: auto !important;
-    overflow-y: hidden;
-    gap: 16px;
-    scroll-snap-type: x mandatory;
-    padding: 4px 0 14px;
-    -webkit-overflow-scrolling: touch;
-  }
+      #shorts-grid .video-card {
+        flex: 0 0 260px;
+        min-width: 260px;
+        max-width: 260px;
+      }
 
-  #shorts-grid .video-card {
-    min-width: 260px;
-    max-width: 260px;
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-  }
-
-  #shorts-grid .video-thumb {
-    padding-top: 62%;
-  }
-
-  /* 🔥 FULL EPISODES STACK BELOW */
-  #episodes-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-  }
-}
+      #episodes-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
   </style>
 </head>
 
