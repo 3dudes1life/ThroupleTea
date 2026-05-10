@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
   <title>Be a Guest on A Little Throuple Tea | LGBTQ Podcast</title>
 
   <meta name="description" content="Apply to be a guest on A Little Throuple Tea — the gay throuple podcast hosted by William, Caleb & Daniel. Filming takes place on select Sundays by mutual availability. In-person in San Diego or remote via video.">
@@ -12,109 +13,157 @@
   <meta property="og:image" content="../images/og-cover.jpg" />
   <meta property="og:url" content="https://throupletea.com/guest/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#111111" />
+  <meta name="theme-color" content="#020204" />
 
   <link rel="icon" href="../images/favicon.png" />
   <link rel="stylesheet" href="../styles.css" />
 
   <style>
+    :root{
+      --black:#020204;
+      --night:#050812;
+      --deep:#071321;
+      --hot-pink:#ff005d;
+      --pink:#ff2a7f;
+      --orange:#ff7a18;
+      --sun:#ffb13b;
+      --teal:#00d7e8;
+      --white:#ffffff;
+      --soft:#dff8ff;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,0,93,.20), transparent 28%),
+        radial-gradient(circle at 88% 10%, rgba(0,215,232,.18), transparent 28%),
+        linear-gradient(180deg,#020204 0%,#071321 50%,#020204 100%);
+      color: var(--soft);
+    }
+
     .simple-header {
-      background: linear-gradient(180deg,#07333f 0%,#0d4957 100%);
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.14);
+      background:
+        linear-gradient(90deg, rgba(255,0,93,.18), rgba(0,215,232,.16)),
+        linear-gradient(180deg,#020204 0%,#071321 100%);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,42,127,.35);
       position: sticky;
       top: 0;
       z-index: 9999;
+      box-shadow: 0 8px 30px rgba(0,0,0,.45);
     }
+
     .simple-header .wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
     }
+
     .simple-header .brand img {
-      height: 46px;
-      border-radius: 10px;
+      height: 54px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 18px rgba(255,0,93,.35);
     }
+
     .simple-nav {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
     }
+
     .simple-nav a {
       color: #ffffff;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 800;
       font-size: 1rem;
     }
-    .simple-nav a:hover {
-      color: #ffc247;
-    }
 
-    @media(max-width: 650px){
-      .simple-header .wrap {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .simple-nav {
-        width: 100%;
-        justify-content: center;
-        gap: 14px;
-      }
-      .simple-nav a {
-        font-size: .92rem;
-      }
+    .simple-nav a:hover {
+      color: var(--hot-pink);
+      text-shadow: 0 0 12px rgba(255,0,93,.8);
     }
 
     .guest-hero {
       text-align: center;
-      padding: 60px 20px 30px;
+      padding: 90px 20px 55px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,0,93,.22), transparent 34%),
+        radial-gradient(circle at 75% 25%, rgba(0,215,232,.16), transparent 30%);
     }
+
     .guest-hero h1 {
-      font-size: clamp(2.4rem, 3vw + 1.4rem, 3.3rem);
-      margin-bottom: 12px;
-      color: var(--ink-strong);
+      font-size: clamp(2.4rem, 3vw + 1.4rem, 3.6rem);
+      margin-bottom: 16px;
+      color: var(--white);
+      text-shadow: 0 0 24px rgba(255,0,93,.35);
     }
+
     .guest-hero p {
       font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 690px;
+      color: var(--soft);
+      max-width: 720px;
       margin: 0 auto 18px;
+      line-height: 1.7;
+    }
+
+    .guest-note {
+      color: var(--sun) !important;
+      font-weight: 900;
+      text-shadow: 0 0 14px rgba(255,122,24,.35);
     }
 
     .info-block {
-      padding: 30px 0 30px;
+      padding: 42px 0;
     }
+
+    .info-block .wrap {
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(0,215,232,.25);
+      border-radius: 20px;
+      padding: 34px;
+      box-shadow: 0 14px 38px rgba(0,0,0,.45);
+    }
+
     .info-block h2 {
-      color: var(--sun-soft);
-      font-size: 1.8rem;
-      margin-bottom: 10px;
+      color: var(--sun);
+      font-size: 1.9rem;
+      margin-bottom: 14px;
+      text-shadow: 0 0 14px rgba(255,122,24,.35);
     }
+
     .info-block p {
-      color: var(--muted);
+      color: var(--soft);
       margin-bottom: 16px;
-      line-height: 1.6;
-    }
-    .info-block ul {
-      color: var(--ink);
-      padding-left: 20px;
       line-height: 1.7;
+    }
+
+    .info-block ul {
+      color: #ffffff;
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    .info-block strong {
+      color: var(--sun);
     }
 
     .form-section {
       display: flex;
       justify-content: center;
-      padding: 10px 0 60px;
+      padding: 20px 20px 70px;
     }
+
     .form-card {
       width: 100%;
-      max-width: 700px;
-      background: var(--card);
-      border-radius: 18px;
-      border: 1px solid var(--card-border);
+      max-width: 760px;
+      background: rgba(255,255,255,.045);
+      border-radius: 20px;
+      border: 1px solid rgba(255,42,127,.38);
       overflow: hidden;
-      box-shadow: var(--shadow);
+      box-shadow: 0 20px 60px rgba(0,0,0,.6),0 0 28px rgba(255,0,93,.16);
     }
+
     .form-card iframe {
       width: 100%;
       border: none;
@@ -122,8 +171,43 @@
       height: 2100px;
     }
 
+    .site-footer {
+      background:#020204;
+      border-top:1px solid rgba(255,42,127,.28);
+      color:#cdeff5;
+    }
+
     @media(max-width: 650px){
-      .form-card iframe { height: 2400px; }
+      .simple-header .wrap {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .simple-nav {
+        width: 100%;
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .simple-nav a {
+        font-size: .92rem;
+      }
+
+      .simple-header .brand img {
+        height: 50px;
+      }
+
+      .guest-hero {
+        padding: 60px 18px 35px;
+      }
+
+      .info-block .wrap {
+        padding: 24px;
+      }
+
+      .form-card iframe {
+        height: 2400px;
+      }
     }
   </style>
 </head>
@@ -140,7 +224,7 @@
       <a href="/watch/">Watch</a>
       <a href="/#about">About</a>
       <a href="/#hosts">Hosts</a>
-      <a href="/#social-tea">Social Tea</a>
+      <a href="/#social-tea">Throuple Hotline</a>
       <a href="/#subscribe">Subscribe</a>
       <a href="/guest/" aria-current="page">Be a Guest</a>
     </nav>
@@ -156,7 +240,7 @@
       We’re always looking for incredible voices to join us on the couch.
       If you’ve got a story, lived experience, relationship insight, chaos, wisdom, or you’re just funny as hell — we want to hear from you.
     </p>
-    <p style="color:#ffc247;font-weight:600;margin-top:16px;">
+    <p class="guest-note">
       Filming takes place on select Sundays, scheduled by mutual availability ✨
     </p>
   </div>
@@ -188,10 +272,10 @@
   <div class="wrap">
     <h2>What to Expect</h2>
     <ul>
-      <li>📅 Filming on select Sundays (scheduled by mutual agreement)</li>
-      <li>🎥 Filming takes ~1 hour</li>
-      <li>🎙 Episodes are 40–70 minutes</li>
-      <li>📍 In-person in San Diego OR remote via video</li>
+      <li>📅 Filming on select Sundays, scheduled by mutual agreement</li>
+      <li>🎥 Filming takes about 1 hour</li>
+      <li>🎙 Episodes are usually 40–70 minutes</li>
+      <li>📍 In-person in San Diego or remote via video</li>
       <li>☕️ Casual, funny, unfiltered — nothing formal</li>
       <li>💅 No media experience needed — just vibes</li>
     </ul>
