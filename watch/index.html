@@ -239,53 +239,61 @@
       color: var(--sun);
     }
 
-    @media (max-width: 700px) {
-      .simple-header .wrap {
-        flex-direction: column;
-        gap: 10px;
-      }
+@media (max-width: 700px) {
+  .simple-header .wrap {
+    flex-direction: column;
+    gap: 10px;
+  }
 
-      .simple-nav {
-        justify-content: center;
-        gap: 14px;
-      }
+  .simple-nav {
+    justify-content: center;
+    gap: 14px;
+  }
 
-      .simple-nav a {
-        font-size: 0.92rem;
-      }
+  .simple-nav a {
+    font-size: 0.92rem;
+  }
 
-      .simple-header .brand img {
-        height: 50px;
-      }
+  .simple-header .brand img {
+    height: 50px;
+  }
 
-      .watch-hero {
-        padding: 60px 18px 40px;
-      }
+  .watch-hero {
+    padding: 60px 18px 40px;
+  }
 
-      .watch-section .wrap {
-        padding: 24px;
-      }
+  .watch-section .wrap {
+    padding: 24px;
+  }
 
-      #shorts-grid {
-        display: flex;
-        overflow-x: auto;
-        gap: 16px;
-        scroll-snap-type: x mandatory;
-        padding: 4px 0 14px;
-        -webkit-overflow-scrolling: touch;
-      }
+  /* 🔥 SHORTS SWIPE FIX */
+  #shorts-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    padding: 4px 0 14px;
+    -webkit-overflow-scrolling: touch;
+  }
 
-      #shorts-grid .video-card {
-        min-width: 260px;
-        max-width: 260px;
-        flex: 0 0 auto;
-        scroll-snap-align: center;
-      }
+  #shorts-grid .video-card {
+    min-width: 260px;
+    max-width: 260px;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
 
-      #shorts-grid .video-thumb {
-        padding-top: 62%;
-      }
-    }
+  #shorts-grid .video-thumb {
+    padding-top: 62%;
+  }
+
+  /* 🔥 FULL EPISODES STACK BELOW */
+  #episodes-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+}
   </style>
 </head>
 
