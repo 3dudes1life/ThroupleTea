@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Episodes | A Little Throuple Tea | Gay Throuple Podcast</title>
+  <meta name="description" content="Browse the latest episodes of A Little Throuple Tea, a gay throuple podcast hosted by William, Caleb, and Daniel. New episodes every Friday with LGBTQ relationship stories, throuple life, chaos, humor, and three men in love." />
+  <link rel="canonical" href="https://throupletea.com/episodes/" />
+
+  <meta property="og:title" content="Episodes — A Little Throuple Tea" />
+  <meta property="og:description" content="Listen to the latest episodes of A Little Throuple Tea, the real-life gay throuple podcast hosted by William, Caleb, and Daniel." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://throupletea.com/podcastartwork.jpg?v=4" />
+  <meta property="og:image:secure_url" content="https://throupletea.com/podcastartwork.jpg?v=4" />
+  <meta property="og:url" content="https://throupletea.com/episodes/" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://throupletea.com/podcastartwork.jpg?v=4" />
+  <meta name="theme-color" content="#020204" />
+
+  <link rel="icon" href="../images/favicon.png" />
+  <link rel="stylesheet" href="../styles.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8PDTZFJHE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V8PDTZFJHE');
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "A Little Throuple Tea Episodes",
+    "url": "https://throupletea.com/episodes/",
+    "description": "Latest episodes of A Little Throuple Tea, a gay throuple podcast hosted by William, Caleb, and Daniel.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "A Little Throuple Tea",
+      "url": "https://throupletea.com/"
+    },
+    "about": {
+      "@type": "PodcastSeries",
+      "name": "A Little Throuple Tea",
+      "description": "A gay throuple podcast hosted by William, Caleb, and Daniel."
+    }
+  }
+  </script>
+
+  <style>
+    :root{
+      --black:#020204;
+      --deep:#071321;
+      --hot-pink:#ff005d;
+      --orange:#ff7a18;
+      --sun:#ffb13b;
+      --teal:#00d7e8;
+      --white:#ffffff;
+      --soft:#dff8ff;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at 10% 6%, rgba(255,0,93,.22), transparent 30%),
+        radial-gradient(circle at 88% 10%, rgba(0,215,232,.18), transparent 30%),
+        linear-gradient(180deg,#020204 0%,#071321 48%,#020204 100%);
+      color:var(--soft);
+    }
+
+    .simple-header {
+      background:
+        linear-gradient(90deg, rgba(255,0,93,.18), rgba(0,215,232,.16)),
+        linear-gradient(180deg,#020204 0%,#071321 100%);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,42,127,.35);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      box-shadow: 0 8px 30px rgba(0,0,0,.45);
+    }
+
+    .simple-header .wrap {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .simple-header .brand img {
+      height:54px;
+      width:auto;
+      border-radius:12px;
+      box-shadow:0 0 18px rgba(255,0,93,.35);
+    }
+
+    .simple-nav {
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .simple-nav a {
+      color:#ffffff;
+      font-weight:800;
+      text-decoration:none;
+      font-size:1rem;
+    }
+
+    .simple-nav a:hover,
+    .simple-nav a.active {
+      color:var(--hot-pink);
+      text-shadow:0 0 12px rgba(255,0,93,.8);
+    }
+
+    .episodes-hero {
+      text-align:center;
+      padding:88px 20px 52px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,0,93,.24), transparent 36%),
+        radial-gradient(circle at 72% 24%, rgba(0,215,232,.18), transparent 32%);
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      color:var(--sun);
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:.82rem;
+      margin-bottom:14px;
+    }
+
+    .episodes-hero h1 {
+      max-width:980px;
+      margin:0 auto 18px;
+      color:var(--white);
+      font-size:clamp(2.35rem, 4vw + 1rem, 4.8rem);
+      line-height:1.02;
+      text-shadow:0 0 26px rgba(255,0,93,.35);
+    }
+
+    .episodes-hero .subtitle {
+      max-width:850px;
+      margin:0 auto 26px;
+      color:var(--soft);
+      font-size:1.16rem;
+      line-height:1.75;
+    }
+
+    .page-section {
+      padding:54px 0;
+    }
+
+    .content-card {
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(0,215,232,.24);
+      border-radius:24px;
+      padding:34px;
+      box-shadow:0 16px 45px rgba(0,0,0,.44);
+    }
+
+    .content-card + .content-card {
+      margin-top:28px;
+    }
+
+    .content-card h2 {
+      color:var(--sun);
+      font-size:2rem;
+      line-height:1.15;
+      margin:0 0 14px;
+      text-shadow:0 0 14px rgba(255,122,24,.35);
+    }
+
+    .content-card p,
+    .content-card li {
+      color:#eaf7ff;
+      font-size:1.05rem;
+      line-height:1.78;
+    }
+
+    .status-card {
+      text-align:center;
+      border:1px solid rgba(255,42,127,.34);
+      background:rgba(255,255,255,.045);
+    }
+
+    .episodes-toolbar {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+    }
+
+    .episodes-count {
+      color:#bfefff;
+      font-weight:800;
+    }
+
+    .search-box {
+      flex:1;
+      min-width:230px;
+      max-width:420px;
+      padding:12px 14px;
+      color:#eaf7ff;
+      background:#050812;
+      border:1px solid rgba(0,215,232,.35);
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .search-box::placeholder {
+      color:#8fb4b8;
+    }
+
+    .episodes-grid {
+      display:grid;
+      gap:22px;
+    }
+
+    .episode-card {
+      display:grid;
+      grid-template-columns:140px 1fr;
+      gap:20px;
+      align-items:start;
+      border:1px solid rgba(0,215,232,.24);
+      border-radius:22px;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+      padding:20px;
+      box-shadow:0 12px 34px rgba(0,0,0,.38);
+    }
+
+    .episode-art {
+      width:140px;
+      height:140px;
+      border-radius:16px;
+      object-fit:cover;
+      background:#020204;
+      box-shadow:0 10px 24px rgba(0,0,0,.38);
+    }
+
+    .episode-meta {
+      color:var(--sun);
+      font-weight:900;
+      font-size:.9rem;
+      margin-bottom:6px;
+    }
+
+    .episode-title {
+      margin:0 0 10px;
+      color:#fff;
+      font-size:1.35rem;
+      line-height:1.25;
+      text-shadow:0 0 14px rgba(255,0,93,.22);
+    }
+
+    .episode-description {
+      color:#eaf7ff;
+      line-height:1.7;
+      margin:0 0 14px;
+    }
+
+    .episode-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .btn.primary {
+      background:linear-gradient(135deg,var(--hot-pink),var(--orange));
+      color:#fff;
+      border:none;
+      border-radius:999px;
+      font-weight:900;
+      box-shadow:0 8px 24px rgba(255,0,93,.35);
+    }
+
+    .btn {
+      border:1px solid rgba(0,215,232,.55);
+      color:#ffffff;
+      background:rgba(255,255,255,.04);
+      border-radius:999px;
+      font-weight:800;
+      text-decoration:none;
+    }
+
+    .small-btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:.92rem;
+      line-height:1;
+    }
+
+    .empty-state {
+      display:none;
+      text-align:center;
+      color:#bfefff;
+      padding:26px;
+      border:1px dashed rgba(0,215,232,.34);
+      border-radius:18px;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+      margin-top:20px;
+    }
+
+    .related-card {
+      border:1px solid rgba(255,42,127,.26);
+      border-radius:18px;
+      padding:20px;
+      background:rgba(255,255,255,.035);
+      text-decoration:none;
+      color:#fff;
+      font-weight:850;
+    }
+
+    .related-card span {
+      display:block;
+      color:#bfefff;
+      font-weight:650;
+      margin-top:6px;
+      line-height:1.5;
+    }
+
+    .related-card:hover {
+      border-color:var(--hot-pink);
+      color:var(--sun);
+      box-shadow:0 0 20px rgba(255,0,93,.22);
+    }
+
+    .cta-panel {
+      text-align:center;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255,0,93,.22), transparent 30%),
+        radial-gradient(circle at 88% 15%, rgba(0,215,232,.18), transparent 32%),
+        rgba(255,255,255,.05);
+      border:1px solid rgba(255,42,127,.36);
+    }
+
+    .cta-row {
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .site-footer {
+      background:#020204;
+      border-top:1px solid rgba(255,42,127,.28);
+      color:#cdeff5;
+    }
+
+    @media(max-width:760px){
+      .simple-header .wrap {
+        flex-direction:column;
+        gap:10px;
+      }
+
+      .simple-nav {
+        justify-content:center;
+        gap:13px;
+      }
+
+      .simple-nav a {
+        font-size:.9rem;
+      }
+
+      .simple-header .brand img {
+        height:50px;
+      }
+
+      .episodes-hero {
+        padding:58px 18px 38px;
+      }
+
+      .content-card {
+        padding:24px;
+      }
+
+      .episode-card {
+        grid-template-columns:1fr;
+      }
+
+      .episode-art {
+        width:100%;
+        height:auto;
+        max-height:340px;
+      }
+
+      .episodes-toolbar {
+        align-items:stretch;
+      }
+
+      .search-box {
+        max-width:none;
+      }
+
+      .episode-actions .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="simple-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/throuple-tea-logo-new.jpg?v=3" alt="A Little Throuple Tea logo" />
+    </a>
+
+    <nav class="simple-nav">
+      <a href="/#listen">Listen</a>
+      <a href="/watch/">Watch</a>
+      <a href="/episodes/" class="active">Episodes</a>
+      <a href="/what-is-a-throuple/">What Is a Throuple?</a>
+      <a href="/meet-the-throuple/">Meet the Throuple</a>
+      <a href="/throuple-faq/">FAQ</a>
+      <a href="/gay-throuple-podcast/">Gay Throuple Podcast</a>
+      <a href="/#social-tea">Throuple Hotline</a>
+      <a href="/guest/">Be a Guest</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="episodes-hero">
+    <div class="wrap">
+      <div class="eyebrow">Episodes · Gay Throuple Podcast · Updated From RSS</div>
+      <h1>Latest Episodes</h1>
+      <p class="subtitle">
+        Browse the newest episodes of <strong>A Little Throuple Tea</strong>, the real-life gay throuple podcast hosted by William, Caleb, and Daniel. This page updates from our podcast RSS feed, so new episodes appear automatically.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn primary" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank">Listen on Apple Podcasts</a>
+        <a class="btn primary" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank">Listen on Spotify</a>
+        <a class="btn" href="/watch/">Watch Video Episodes</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+
+      <article id="loading-card" class="content-card status-card">
+        <h2>Loading the tea…</h2>
+        <p>Pulling the latest episodes from the podcast feed.</p>
+      </article>
+
+      <article id="episodes-card" class="content-card" style="display:none;">
+        <div class="episodes-toolbar">
+          <h2 style="margin:0;">Episode Archive</h2>
+          <input id="episode-search" class="search-box" type="search" placeholder="Search episodes..." aria-label="Search episodes" />
+          <div id="episodes-count" class="episodes-count"></div>
+        </div>
+
+        <div id="episodes-grid" class="episodes-grid"></div>
+        <div id="empty-state" class="empty-state">No episodes matched your search.</div>
+      </article>
+
+      <article id="fallback-card" class="content-card status-card" style="display:none;">
+        <h2>Episodes did not load automatically.</h2>
+        <p>
+          The podcast feed may be temporarily blocked by the browser or RSS service. You can still listen on Apple Podcasts, Spotify, YouTube, or the RSS feed below.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank">Apple Podcasts</a>
+          <a class="btn primary" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank">Spotify</a>
+          <a class="btn" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank">YouTube</a>
+          <a class="btn" href="https://anchor.fm/s/1087008c4/podcast/rss" target="_blank">RSS Feed</a>
+        </div>
+      </article>
+
+      <article class="content-card">
+        <h2>Explore more Throuple Tea</h2>
+        <div class="related-grid">
+          <a class="related-card" href="/gay-throuple-podcast/">
+            Gay Throuple Podcast
+            <span>Learn what the show is about and where to start.</span>
+          </a>
+          <a class="related-card" href="/what-is-a-throuple/">
+            What Is a Throuple?
+            <span>Understand throuple relationships and three-person partnerships.</span>
+          </a>
+          <a class="related-card" href="/meet-the-throuple/">
+            Meet the Throuple
+            <span>Get to know William, Caleb, and Daniel.</span>
+          </a>
+          <a class="related-card" href="/throuple-faq/">
+            Throuple FAQ
+            <span>Answers to common questions about throuple life.</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const RSS_FEED = 'https://anchor.fm/s/1087008c4/podcast/rss';
+const DEFAULT_ART = 'https://throupletea.com/podcastartwork.jpg?v=4';
+
+const sources = [
+  RSS_FEED,
+  `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_FEED)}`,
+  `https://corsproxy.io/?${encodeURIComponent(RSS_FEED)}`
+];
+
+let allEpisodes = [];
+
+const loadingCard = document.getElementById('loading-card');
+const episodesCard = document.getElementById('episodes-card');
+const fallbackCard = document.getElementById('fallback-card');
+const episodesGrid = document.getElementById('episodes-grid');
+const episodesCount = document.getElementById('episodes-count');
+const searchInput = document.getElementById('episode-search');
+const emptyState = document.getElementById('empty-state');
+
+function stripHtml(html = '') {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return (doc.body.textContent || '').replace(/\s+/g, ' ').trim();
+}
+
+function truncate(text, max = 340) {
+  if (!text) return '';
+  return text.length > max ? text.slice(0, max).trim() + '…' : text;
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+function getText(item, selector) {
+  return item.querySelector(selector)?.textContent?.trim() || '';
+}
+
+function getEpisodeImage(item, channelImage) {
+  const itunesImage = item.querySelector('image')?.getAttribute('href');
+  const mediaThumbnail = item.querySelector('thumbnail')?.getAttribute('url');
+  const enclosureImage = item.querySelector('enclosure')?.getAttribute('url');
+
+  if (itunesImage) return itunesImage;
+  if (mediaThumbnail) return mediaThumbnail;
+  if (channelImage) return channelImage;
+  if (enclosureImage && /\.(jpg|jpeg|png|webp)(\?|$)/i.test(enclosureImage)) return enclosureImage;
+  return DEFAULT_ART;
+}
+
+function parseEpisodes(xmlText) {
+  const xml = new DOMParser().parseFromString(xmlText, 'application/xml');
+
+  const parserError = xml.querySelector('parsererror');
+  if (parserError) {
+    throw new Error('RSS parser error');
+  }
+
+  const channelImage =
+    xml.querySelector('channel > image > url')?.textContent?.trim() ||
+    xml.querySelector('channel > image')?.getAttribute('href') ||
+    DEFAULT_ART;
+
+  const items = Array.from(xml.querySelectorAll('item'));
+
+  if (!items.length) {
+    throw new Error('No RSS items found');
+  }
+
+  return items.map((item) => {
+    const title = getText(item, 'title');
+    const pubDate = getText(item, 'pubDate');
+    const link = getText(item, 'link') || RSS_FEED;
+    const guid = getText(item, 'guid') || link || title;
+    const rawDescription =
+      getText(item, 'description') ||
+      getText(item, 'encoded') ||
+      getText(item, 'summary');
+
+    const description = stripHtml(rawDescription);
+
+    return {
+      id: guid,
+      title,
+      pubDate,
+      link,
+      image: getEpisodeImage(item, channelImage),
+      description,
+      searchText: `${title} ${description}`.toLowerCase()
+    };
+  }).filter(ep => ep.title);
+}
+
+async function fetchWithTimeout(url, ms = 9000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), ms);
+
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      cache: 'no-store'
+    });
+
+    if (!response.ok) {
+      throw new Error(`Fetch failed: ${response.status}`);
+    }
+
+    return await response.text();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function loadEpisodes() {
+  let lastError;
+
+  for (const source of sources) {
+    try {
+      const xmlText = await fetchWithTimeout(source);
+      const episodes = parseEpisodes(xmlText);
+      allEpisodes = episodes.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+      renderEpisodes(allEpisodes);
+      loadingCard.style.display = 'none';
+      episodesCard.style.display = 'block';
+      return;
+    } catch (error) {
+      lastError = error;
+      console.warn('Episode feed source failed:', source, error);
+    }
+  }
+
+  console.error(lastError);
+  loadingCard.style.display = 'none';
+  fallbackCard.style.display = 'block';
+}
+
+function renderEpisodes(episodes) {
+  episodesGrid.innerHTML = '';
+
+  episodesCount.textContent = `${episodes.length} episode${episodes.length === 1 ? '' : 's'}`;
+
+  emptyState.style.display = episodes.length ? 'none' : 'block';
+
+  episodes.forEach((episode) => {
+    const card = document.createElement('article');
+    card.className = 'episode-card';
+
+    const img = document.createElement('img');
+    img.className = 'episode-art';
+    img.src = episode.image || DEFAULT_ART;
+    img.alt = '';
+    img.loading = 'lazy';
+    img.onerror = () => {
+      img.src = DEFAULT_ART;
+    };
+
+    const body = document.createElement('div');
+
+    const meta = document.createElement('div');
+    meta.className = 'episode-meta';
+    meta.textContent = formatDate(episode.pubDate);
+
+    const title = document.createElement('h3');
+    title.className = 'episode-title';
+    title.textContent = episode.title;
+
+    const description = document.createElement('p');
+    description.className = 'episode-description';
+    description.textContent = truncate(episode.description);
+
+    const actions = document.createElement('div');
+    actions.className = 'episode-actions';
+
+    const listen = document.createElement('a');
+    listen.className = 'btn primary small-btn';
+    listen.href = episode.link;
+    listen.target = '_blank';
+    listen.rel = 'noopener';
+    listen.textContent = 'Listen';
+
+    const spotify = document.createElement('a');
+    spotify.className = 'btn small-btn';
+    spotify.href = 'https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5';
+    spotify.target = '_blank';
+    spotify.rel = 'noopener';
+    spotify.textContent = 'Spotify';
+
+    const apple = document.createElement('a');
+    apple.className = 'btn small-btn';
+    apple.href = 'https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399';
+    apple.target = '_blank';
+    apple.rel = 'noopener';
+    apple.textContent = 'Apple';
+
+    actions.appendChild(listen);
+    actions.appendChild(spotify);
+    actions.appendChild(apple);
+
+    body.appendChild(meta);
+    body.appendChild(title);
+    body.appendChild(description);
+    body.appendChild(actions);
+
+    card.appendChild(img);
+    card.appendChild(body);
+
+    episodesGrid.appendChild(card);
+  });
+}
+
+searchInput?.addEventListener('input', () => {
+  const query = searchInput.value.trim().toLowerCase();
+
+  if (!query) {
+    renderEpisodes(allEpisodes);
+    return;
+  }
+
+  const filtered = allEpisodes.filter(ep => ep.searchText.includes(query));
+  renderEpisodes(filtered);
+});
+
+loadEpisodes();
+</script>
+
+</body>
+</html>
