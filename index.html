@@ -323,25 +323,9 @@ gtag('config', 'G-V8PDTZFJHE');
   color:#cdeff5;
 }
 
-@media(max-width: 650px){
-  .simple-header .wrap {
-    flex-direction:column;
-    gap:10px;
-  }
+/* Newsletter Popup */
 
-  .simple-nav {
-    justify-content:center;
-    gap:14px;
-  }
-
-  .simple-nav a {
-    font-size:.92rem;
-  }
-
-  .simple-header .brand img {
-    height:50px;
-  }
-  .signup-popup{
+.signup-popup{
   display:none;
   position:fixed;
   inset:0;
@@ -404,6 +388,37 @@ gtag('config', 'G-V8PDTZFJHE');
   bottom:1rem;
   z-index:99998;
 }
+
+/* Mobile */
+
+@media(max-width:650px){
+
+  .simple-header .wrap{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .simple-nav{
+    justify-content:center;
+    gap:14px;
+  }
+
+  .simple-nav a{
+    font-size:.92rem;
+  }
+
+  .simple-header .brand img{
+    height:50px;
+  }
+
+  .signup-box{
+    width:95vw;
+    max-height:90vh;
+  }
+
+  .signup-box iframe{
+    height:560px;
+  }
 }
 </style>
 </head>
@@ -528,6 +543,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <section id="subscribe" class="subscribe">
+  <div class="wrap">
+    <h2>Get episode alerts</h2>
+    <p>Join the tea list for new episodes, behind-the-scenes chaos, and podcast updates.</p>
+
+    <button class="btn primary" id="newsletter-trigger" type="button">
+      ☕ Join the Tea List
+    </button>
+
     <div class="social">
       <a href="https://instagram.com/ThroupleTea" target="_blank">Throuple Tea IG</a>
       <a href="https://3dudes1lifecreative.com" target="_blank">3Dudes1Life Creative</a>
