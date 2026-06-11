@@ -552,7 +552,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </iframe>
   </div>
 </div>
-
+<button class="newsletter-float btn primary" id="newsletter-float" type="button">
+  ☕ Join the Tea List
+</button>
 <footer class="site-footer">
   <div class="wrap">
     <p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project</p>
@@ -585,8 +587,10 @@ function closeSignupPopup() {
     gtag('event', 'podcast_newsletter_popup_closed');
   }
 }
+const newsletterFloat = document.getElementById('newsletter-float');
 
 newsletterTrigger.addEventListener('click', openSignupPopup);
+newsletterFloat.addEventListener('click', openSignupPopup);
 signupClose.addEventListener('click', closeSignupPopup);
 signupOverlay.addEventListener('click', closeSignupPopup);
 
