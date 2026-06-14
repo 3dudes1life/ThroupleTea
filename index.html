@@ -575,6 +575,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span>🔔 Alerts Coming Soon</span>
   </div>
 
+    <button onclick="openInstallModal()" class="install-btn">
+  📲 Add Throuple Tea to Your Home Screen
+    </button>
+    
 <div id="installModal" class="install-modal" hidden>
   <div class="install-content">
     <span class="close-install" onclick="closeInstallModal()">&times;</span>
@@ -747,7 +751,7 @@ document.addEventListener('keydown', (event) => {
     setTimeout(openSignupPopup, 18000);
   }
 })();
-<script>
+
 function openInstallModal(){
   document.getElementById('installModal').hidden = false;
 
