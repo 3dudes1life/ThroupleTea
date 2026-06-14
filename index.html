@@ -23,8 +23,12 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://throupletea.com/podcastartwork.jpg?v=4" />
 
-<meta name="theme-color" content="#020204" />
-<link rel="icon" href="images/favicon.png" />
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#020204">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Throuple Tea">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="/app-icon.png">
 
 <script>
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -368,6 +372,102 @@ gtag('config', 'G-V8PDTZFJHE');
   bottom:1rem;
   z-index:99998;
 }
+  .app-install{
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,42,127,.38);
+  border-radius:22px;
+  padding:26px 22px;
+  margin:34px auto 0;
+  max-width:860px;
+  text-align:center;
+  box-shadow:0 14px 38px rgba(0,0,0,.5),0 0 24px rgba(255,0,93,.16);
+}
+
+.app-install h2{
+  color:var(--sun);
+  margin:0 0 12px;
+  text-shadow:0 0 14px rgba(255,122,24,.35);
+}
+
+.app-install p{
+  color:#eaf7ff;
+  line-height:1.7;
+  margin:0 auto 18px;
+  max-width:720px;
+}
+
+.app-features{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin:18px 0;
+}
+
+.app-features span{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(0,215,232,.25);
+  color:#eaf7ff;
+  padding:.6rem 1rem;
+  border-radius:999px;
+  font-weight:800;
+}
+
+.install-btn{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--hot-pink),var(--orange));
+  color:#fff;
+  border:none;
+  border-radius:999px;
+  padding:1rem 1.5rem;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(255,0,93,.35);
+}
+
+.install-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 34px rgba(255,0,93,.55);
+}
+
+.install-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  z-index:100001;
+  backdrop-filter:blur(4px);
+}
+
+.install-content{
+  background:#050812;
+  color:#eaf7ff;
+  max-width:520px;
+  margin:10vh auto;
+  padding:2rem;
+  border-radius:22px;
+  position:relative;
+  border:2px solid rgba(255,42,127,.45);
+  box-shadow:0 24px 70px rgba(0,0,0,.65),0 0 30px rgba(255,0,93,.28);
+}
+
+.install-content h2{
+  color:var(--sun);
+  margin-top:0;
+}
+
+.install-content strong{
+  color:var(--hot-pink);
+}
+
+.close-install{
+  position:absolute;
+  top:12px;
+  right:18px;
+  font-size:2rem;
+  cursor:pointer;
+  color:#fff;
+}
 
 /* Mobile */
 
@@ -460,6 +560,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
+  <div class="app-install">
+  <h2>📱 Add A Little Throuple Tea to Your Home Screen</h2>
+
+  <p>
+    Save the podcast site like an app for one-tap access to new episodes,
+    full YouTube videos, shorts, clips, guest info, and the Throuple Hotline.
+    Push alerts for new episode drops are coming later.
+  </p>
+
+  <div class="app-features">
+    <span>🎙️ New Episodes</span>
+    <span>▶️ YouTube Videos</span>
+    <span>📲 Shorts & Clips</span>
+    <span>☕ Throuple Hotline</span>
+    <span>🔔 Alerts Coming Soon</span>
+  </div>
+
+  <button onclick="openInstallModal()" class="install-btn">
+    📲 Add Throuple Tea to Your Home Screen
+  </button>
+</div>
+  <div id="installModal" class="install-modal">
+  <div class="install-content">
+    <span class="close-install" onclick="closeInstallModal()">&times;</span>
+
+    <h2>📲 Add Throuple Tea to Your Home Screen</h2>
+
+    <p><strong>iPhone / iPad:</strong></p>
+    <ol>
+      <li>Tap the Share button in Safari.</li>
+      <li>Select <strong>Add to Home Screen</strong>.</li>
+      <li>Tap <strong>Add</strong>.</li>
+    </ol>
+
+    <p><strong>Android:</strong></p>
+    <ol>
+      <li>Tap the browser menu.</li>
+      <li>Select <strong>Install App</strong> or <strong>Add to Home Screen</strong>.</li>
+      <li>Confirm installation.</li>
+    </ol>
+
+    <p>☕ Once installed, A Little Throuple Tea opens just like an app.</p>
+  </div>
+</div>
 </section>
 
 <section id="listen" class="listen">
@@ -609,8 +753,20 @@ document.addEventListener('keydown', (event) => {
     setTimeout(openSignupPopup, 18000);
   }
 })();
+  function openInstallModal(){
+  document.getElementById('installModal').style.display='block';
+
+  if (typeof gtag === 'function') {
+    gtag('event', 'podcast_app_install_modal_open');
+  }
+}
+
+function closeInstallModal(){
+  document.getElementById('installModal').style.display='none';
+}
 </script>
 <script src="script.js" defer></script>
+  
 
 </body>
 </html>
