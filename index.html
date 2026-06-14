@@ -425,18 +425,16 @@ gtag('config', 'G-V8PDTZFJHE');
   box-shadow:0 8px 24px rgba(255,0,93,.35);
 }
 
-.install-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 34px rgba(255,0,93,.55);
-}
-
 .install-modal{
-  display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.78);
   z-index:100001;
   backdrop-filter:blur(4px);
+}
+
+.install-modal[hidden]{
+  display:none;
 }
 
 .install-content{
@@ -577,11 +575,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span>🔔 Alerts Coming Soon</span>
   </div>
 
-  <button onclick="openInstallModal()" class="install-btn">
-    📲 Add Throuple Tea to Your Home Screen
-  </button>
-</div>
-  <div id="installModal" class="install-modal">
+<div id="installModal" class="install-modal" hidden>
   <div class="install-content">
     <span class="close-install" onclick="closeInstallModal()">&times;</span>
 
@@ -753,8 +747,9 @@ document.addEventListener('keydown', (event) => {
     setTimeout(openSignupPopup, 18000);
   }
 })();
-  function openInstallModal(){
-  document.getElementById('installModal').style.display='block';
+<script>
+function openInstallModal(){
+  document.getElementById('installModal').hidden = false;
 
   if (typeof gtag === 'function') {
     gtag('event', 'podcast_app_install_modal_open');
@@ -762,7 +757,7 @@ document.addEventListener('keydown', (event) => {
 }
 
 function closeInstallModal(){
-  document.getElementById('installModal').style.display='none';
+  document.getElementById('installModal').hidden = true;
 }
 </script>
 <script src="script.js" defer></script>
