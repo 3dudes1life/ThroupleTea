@@ -501,21 +501,24 @@ body.modal-open{
 
 @media(max-width:650px){
 
-  .simple-header .wrap{
+.simple-header .wrap{
     flex-direction:column;
     gap:10px;
-  }
 
-  .simple-nav{
+    /* Push content below iPhone notch/dynamic island */
+   padding-top: calc(env(safe-area-inset-top) + 24px);
+}
+
+.simple-nav{
     justify-content:center;
     gap:14px;
-  }
+}
 
-  .simple-nav a{
+.simple-nav a{
     font-size:.92rem;
-  }
+}
 
-  .simple-header .brand img{
+.simple-header .brand img{
     height:50px;
   }
 
