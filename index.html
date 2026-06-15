@@ -639,7 +639,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 Get notified when new episodes, clips, and special announcements drop.
 </p>
 
-<button onclick="subscribeToTeaNotifications()" class="install-btn">
+<button type="button" onclick="subscribeToTeaNotifications()" class="install-btn">
   🔔 Turn On Episode Alerts
 </button>
   </div>
@@ -805,17 +805,25 @@ function openInstallModal(){
 function closeInstallModal(){
   document.getElementById('installModal').hidden = true;
 }
-</script>
-<script src="script.js" defer></script>
- <script>
+<script>
 async function subscribeToTeaNotifications(){
   window.OneSignalDeferred = window.OneSignalDeferred || [];
 
   OneSignalDeferred.push(async function(OneSignal) {
+    console.log("OneSignal loaded");
+
+    const permission = OneSignal.Notifications.permission;
+    console.log("Current permission:", permission);
+
+    if (permission) {
+      alert("Episode alerts are already turned on!");
+      return;
+    }
+
     await OneSignal.Notifications.requestPermission();
   });
 }
-</script> 
+</script>
 
 </body>
 </html>
