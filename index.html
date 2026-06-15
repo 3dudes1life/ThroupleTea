@@ -447,6 +447,8 @@ gtag('config', 'G-V8PDTZFJHE');
   background:rgba(0,0,0,.78);
   z-index:100001;
   backdrop-filter:blur(4px);
+  overflow-y:auto;
+  padding:24px 16px;
 }
 
 .install-modal[hidden]{
@@ -457,7 +459,7 @@ gtag('config', 'G-V8PDTZFJHE');
   background:#050812;
   color:#eaf7ff;
   max-width:520px;
-  margin:10vh auto;
+  margin:40px auto;
   padding:2rem;
   border-radius:22px;
   position:relative;
@@ -481,6 +483,10 @@ gtag('config', 'G-V8PDTZFJHE');
   font-size:2rem;
   cursor:pointer;
   color:#fff;
+}
+
+body.modal-open{
+  overflow:hidden;
 }
 
 /* Mobile */
@@ -632,8 +638,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h3 style="color:var(--sun);">🔔 Never Miss an Episode</h3>
     <p>Get notified when new episodes, clips, and special announcements drop.</p>
 
-    <button type="button" id="subscribeTeaBtn" class="install-btn">
-      🔔 Turn On Episode Alerts
+    <button type="button" id="subscribeTeaBtn" class="install-btn" style="font-size:16px;">
+  🔔 Turn On Episode Alerts
     </button>
     <p style="font-size:.9rem;color:#bfefff;margin-top:12px;">
   iPhone users: save Throuple Tea to your Home Screen first, then open it from the app icon to turn on episode alerts.
@@ -783,6 +789,7 @@ signupOverlay.addEventListener('click', closeSignupPopup);
 
 openInstallModalBtn.addEventListener('click', function () {
   installModal.hidden = false;
+  document.body.classList.add('modal-open');
 
   if (typeof gtag === 'function') {
     gtag('event', 'podcast_app_install_modal_open');
@@ -790,30 +797,31 @@ openInstallModalBtn.addEventListener('click', function () {
 });
 
 closeInstallModalBtn.addEventListener('click', function () {
-  installModal.hidden = true;
+installModal.hidden = true;
+document.body.classList.remove('modal-open');
 });
 
 installModal.addEventListener('click', function (event) {
   if (event.target === installModal) {
-    installModal.hidden = true;
+ installModal.hidden = true;
+document.body.classList.remove('modal-open');
   }
 });
+subscribeTeaBtn.addEventListener('click', function (event) {
+  event.preventDefault();
+  event.stopPropagation();
 
-subscribeTeaBtn.addEventListener('click', function () {
   window.OneSignalDeferred = window.OneSignalDeferred || [];
 
   OneSignalDeferred.push(async function (OneSignal) {
+    console.log('Trying OneSignal permission');
+
     try {
       await OneSignal.Notifications.requestPermission();
-
-      if (typeof gtag === 'function') {
-        gtag('event', 'podcast_push_permission_clicked');
-      }
+      console.log('Permission:', OneSignal.Notifications.permission);
     } catch (error) {
       console.error('OneSignal permission error:', error);
-      alert(
-        'Notifications could not open yet. Make sure OneSignal is verified and notifications are allowed in your browser.'
-      );
+      alert('Notifications could not open. Try Chrome desktop first to verify OneSignal is working.');
     }
   });
 });
@@ -826,6 +834,7 @@ document.addEventListener('keydown', function (event) {
 
     if (!installModal.hidden) {
       installModal.hidden = true;
+     document.body.classList.remove('modal-open');
     }
   }
 });
