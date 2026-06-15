@@ -591,7 +591,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p>
     Save the podcast site like an app for one-tap access to new episodes,
     full YouTube videos, shorts, clips, guest info, and the Throuple Hotline.
-    Push alerts for new episode drops are coming later.
   </p>
 
   <div class="app-features">
@@ -602,14 +601,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span>🔔 Episode Alerts</span>
   </div>
 
-  <button onclick="openInstallModal()" class="install-btn">
+  <button type="button" id="openInstallModalBtn" class="install-btn">
     📲 Add Throuple Tea to Your Home Screen
   </button>
 </div>
 
 <div id="installModal" class="install-modal" hidden>
   <div class="install-content">
-    <span class="close-install" onclick="closeInstallModal()">&times;</span>
+    <button type="button" id="closeInstallModalBtn" class="close-install">×</button>
 
     <h2>📲 Add Throuple Tea to Your Home Screen</h2>
 
@@ -627,24 +626,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li>Confirm installation.</li>
     </ol>
 
-   <p>☕ Once installed, A Little Throuple Tea opens just like an app.</p>
+    <hr style="margin:24px 0;border-color:rgba(255,255,255,.12);">
 
-<hr style="margin:24px 0;border-color:rgba(255,255,255,.12);">
+    <h3 style="color:var(--sun);">🔔 Never Miss an Episode</h3>
+    <p>Get notified when new episodes, clips, and special announcements drop.</p>
 
-<h3 style="color:var(--sun);margin-bottom:10px;">
-🔔 Never Miss an Episode
-</h3>
-
-<p>
-Get notified when new episodes, clips, and special announcements drop.
-</p>
-
-<button type="button" onclick="subscribeToTeaNotifications()" class="install-btn">
-  🔔 Turn On Episode Alerts
-</button>
+    <button type="button" id="subscribeTeaBtn" class="install-btn">
+      🔔 Turn On Episode Alerts
+    </button>
   </div>
 </div>
-</section>
 
 <section id="listen" class="listen">
   <div class="wrap">
@@ -805,24 +796,35 @@ function openInstallModal(){
 function closeInstallModal(){
   document.getElementById('installModal').hidden = true;
 }
+</script>
+
 <script>
-async function subscribeToTeaNotifications(){
+const installModal = document.getElementById('installModal');
+const openInstallModalBtn = document.getElementById('openInstallModalBtn');
+const closeInstallModalBtn = document.getElementById('closeInstallModalBtn');
+const subscribeTeaBtn = document.getElementById('subscribeTeaBtn');
+
+openInstallModalBtn.addEventListener('click', function(){
+  installModal.hidden = false;
+});
+
+closeInstallModalBtn.addEventListener('click', function(){
+  installModal.hidden = true;
+});
+
+installModal.addEventListener('click', function(event){
+  if (event.target === installModal) {
+    installModal.hidden = true;
+  }
+});
+
+subscribeTeaBtn.addEventListener('click', async function(){
   window.OneSignalDeferred = window.OneSignalDeferred || [];
 
   OneSignalDeferred.push(async function(OneSignal) {
-    console.log("OneSignal loaded");
-
-    const permission = OneSignal.Notifications.permission;
-    console.log("Current permission:", permission);
-
-    if (permission) {
-      alert("Episode alerts are already turned on!");
-      return;
-    }
-
     await OneSignal.Notifications.requestPermission();
   });
-}
+});
 </script>
 
 </body>
