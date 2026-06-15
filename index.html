@@ -478,11 +478,21 @@ gtag('config', 'G-V8PDTZFJHE');
 
 .close-install{
   position:absolute;
-  top:12px;
-  right:18px;
-  font-size:2rem;
-  cursor:pointer;
+  top:14px;
+  right:14px;
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
   color:#fff;
+  font-size:1.4rem;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
 }
 
 body.modal-open{
@@ -811,17 +821,19 @@ subscribeTeaBtn.addEventListener('click', function (event) {
   event.preventDefault();
   event.stopPropagation();
 
+  if (!window.matchMedia('(display-mode: standalone)').matches) {
+    alert('On iPhone, save Throuple Tea to your Home Screen first, then open it from the app icon to turn on alerts.');
+    return;
+  }
+
   window.OneSignalDeferred = window.OneSignalDeferred || [];
 
   OneSignalDeferred.push(async function (OneSignal) {
-    console.log('Trying OneSignal permission');
-
     try {
       await OneSignal.Notifications.requestPermission();
-      console.log('Permission:', OneSignal.Notifications.permission);
     } catch (error) {
       console.error('OneSignal permission error:', error);
-      alert('Notifications could not open. Try Chrome desktop first to verify OneSignal is working.');
+      alert('Notifications could not open yet.');
     }
   });
 });
