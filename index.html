@@ -743,6 +743,12 @@ const signupPopup = document.getElementById('signup-popup');
 const signupClose = document.getElementById('signup-close');
 const signupOverlay = document.getElementById('signup-overlay');
 const newsletterTrigger = document.getElementById('newsletter-trigger');
+const newsletterFloat = document.getElementById('newsletter-float');
+
+const installModal = document.getElementById('installModal');
+const openInstallModalBtn = document.getElementById('openInstallModalBtn');
+const closeInstallModalBtn = document.getElementById('closeInstallModalBtn');
+const subscribeTeaBtn = document.getElementById('subscribeTeaBtn');
 
 function openSignupPopup() {
   signupPopup.classList.add('active');
@@ -756,55 +762,43 @@ function openSignupPopup() {
 function closeSignupPopup() {
   signupPopup.classList.remove('active');
   signupPopup.setAttribute('aria-hidden', 'true');
-  localStorage.setItem('throupleTeaNewsletterPopupClosed', Date.now().toString());
+  localStorage.setItem(
+    'throupleTeaNewsletterPopupClosed',
+    Date.now().toString()
+  );
 
   if (typeof gtag === 'function') {
     gtag('event', 'podcast_newsletter_popup_closed');
   }
 }
-const newsletterFloat = document.getElementById('newsletter-float');
 
 newsletterTrigger.addEventListener('click', openSignupPopup);
 newsletterFloat.addEventListener('click', openSignupPopup);
 signupClose.addEventListener('click', closeSignupPopup);
 signupOverlay.addEventListener('click', closeSignupPopup);
 
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && signupPopup.classList.contains('active')) {
-    closeSignupPopup();
-  }
-});
-
-(function showSignupPopupOnceInAWhile(){
-  const lastClosed = Number(localStorage.getItem('throupleTeaNewsletterPopupClosed') || 0);
-  const thirtyDays = 1000 * 60 * 60 * 24 * 30;
-  const shouldShow = !lastClosed || Date.now() - lastClosed > thirtyDays;
-
-  if (shouldShow) {
-    setTimeout(openSignupPopup, 18000);
-  }
-})();
-
-function openInstallModal(){
-  document.getElementById('installModal').hidden = false;
+openInstallModalBtn.addEventListener('click', function () {
+  installModal.hidden = false;
 
   if (typeof gtag === 'function') {
     gtag('event', 'podcast_app_install_modal_open');
   }
-}
+});
 
-function closeInstallModal(){
-  document.getElementById('installModal').hidden = true;
-}
-</script>
+closeInstallModalBtn.addEventListener('click', function () {
+  installModal.hidden = true;
+});
 
-<script>
-const subscribeTeaBtn = document.getElementById('subscribeTeaBtn');
+installModal.addEventListener('click', function (event) {
+  if (event.target === installModal) {
+    installModal.hidden = true;
+  }
+});
 
-subscribeTeaBtn.addEventListener('click', function(){
+subscribeTeaBtn.addEventListener('click', function () {
   window.OneSignalDeferred = window.OneSignalDeferred || [];
 
-  OneSignalDeferred.push(async function(OneSignal) {
+  OneSignalDeferred.push(async function (OneSignal) {
     try {
       await OneSignal.Notifications.requestPermission();
 
@@ -813,11 +807,40 @@ subscribeTeaBtn.addEventListener('click', function(){
       }
     } catch (error) {
       console.error('OneSignal permission error:', error);
-      alert('Notifications could not open yet. Make sure OneSignal is fully verified and the site is live on HTTPS.');
+      alert(
+        'Notifications could not open yet. Make sure OneSignal is verified and notifications are allowed in your browser.'
+      );
     }
   });
 });
+
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape') {
+    if (signupPopup.classList.contains('active')) {
+      closeSignupPopup();
+    }
+
+    if (!installModal.hidden) {
+      installModal.hidden = true;
+    }
+  }
+});
+
+(function showSignupPopupOnceInAWhile() {
+  const lastClosed = Number(
+    localStorage.getItem('throupleTeaNewsletterPopupClosed') || 0
+  );
+
+  const thirtyDays = 1000 * 60 * 60 * 24 * 30;
+  const shouldShow =
+    !lastClosed || Date.now() - lastClosed > thirtyDays;
+
+  if (shouldShow) {
+    setTimeout(openSignupPopup, 18000);
+  }
+})();
 </script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
