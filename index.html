@@ -599,7 +599,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span>▶️ YouTube Videos</span>
     <span>📲 Shorts & Clips</span>
     <span>☕ Throuple Hotline</span>
-    <span>🔔 Alerts Coming Soon</span>
+    <span>🔔 Episode Alerts</span>
   </div>
 
   <button onclick="openInstallModal()" class="install-btn">
@@ -627,7 +627,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li>Confirm installation.</li>
     </ol>
 
-    <p>☕ Once installed, A Little Throuple Tea opens just like an app.</p>
+   <p>☕ Once installed, A Little Throuple Tea opens just like an app.</p>
+
+<hr style="margin:24px 0;border-color:rgba(255,255,255,.12);">
+
+<h3 style="color:var(--sun);margin-bottom:10px;">
+🔔 Never Miss an Episode
+</h3>
+
+<p>
+Get notified when new episodes, clips, and special announcements drop.
+</p>
+
+<button onclick="subscribeToTeaNotifications()" class="install-btn">
+  🔔 Turn On Episode Alerts
+</button>
   </div>
 </div>
 </section>
@@ -793,7 +807,15 @@ function closeInstallModal(){
 }
 </script>
 <script src="script.js" defer></script>
-  
+ <script>
+async function subscribeToTeaNotifications(){
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.Notifications.requestPermission();
+  });
+}
+</script> 
 
 </body>
 </html>
