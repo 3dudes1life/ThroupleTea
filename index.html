@@ -821,8 +821,17 @@ subscribeTeaBtn.addEventListener('click', function (event) {
   event.preventDefault();
   event.stopPropagation();
 
-  if (!window.matchMedia('(display-mode: standalone)').matches) {
-    alert('On iPhone, save Throuple Tea to your Home Screen first, then open it from the app icon to turn on alerts.');
+  const isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true;
+
+  if (!isStandalone) {
+    alert('Open Throuple Tea from the Home Screen app icon first, then tap alerts.');
+    return;
+  }
+
+  if (!('Notification' in window)) {
+    alert('This device/browser does not support web notifications here.');
     return;
   }
 
@@ -831,9 +840,10 @@ subscribeTeaBtn.addEventListener('click', function (event) {
   OneSignalDeferred.push(async function (OneSignal) {
     try {
       await OneSignal.Notifications.requestPermission();
+      alert('Notification status: ' + OneSignal.Notifications.permission);
     } catch (error) {
-      console.error('OneSignal permission error:', error);
-      alert('Notifications could not open yet.');
+      console.error(error);
+      alert('OneSignal is loaded, but iPhone did not allow the permission prompt.');
     }
   });
 });
