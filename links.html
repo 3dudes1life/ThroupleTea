@@ -2,33 +2,113 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+
   <title>A Little Throuple Tea — Official Links</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+
   <meta name="theme-color" content="#020204" />
-  <meta name="description" content="Official links for A Little Throuple Tea — Throuple Hotline, podcast platforms, video episodes, throuple FAQ, gay throuple podcast page, guest application, and more." />
 
-  <meta property="og:title" content="A Little Throuple Tea — Official Links" />
-  <meta property="og:description" content="Send the Throuple Hotline, listen to the podcast, watch episodes, meet the throuple, and explore our FAQ." />
+  <meta
+    name="description"
+    content="Official links for A Little Throuple Tea — Throuple Hotline, podcast platforms, video episodes, throuple FAQ, gay throuple podcast page, guest application, and more."
+  />
+
+  <meta
+    property="og:title"
+    content="A Little Throuple Tea — Official Links"
+  />
+
+  <meta
+    property="og:description"
+    content="Send the Throuple Hotline, listen to the podcast, watch episodes, meet the throuple, and explore our FAQ."
+  />
+
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://throupletea.com/podcastartwork.jpg?v=4" />
-  <meta property="og:image:secure_url" content="https://throupletea.com/podcastartwork.jpg?v=4" />
-  <meta property="og:url" content="https://throupletea.com/links.html" />
-  <meta property="og:site_name" content="A Little Throuple Tea" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="A Little Throuple Tea — Official Links" />
-  <meta name="twitter:description" content="Send the Throuple Hotline, listen, watch, meet the throuple, and explore the tea." />
-  <meta name="twitter:image" content="https://throupletea.com/podcastartwork.jpg?v=4" />
+  <meta
+    property="og:image"
+    content="https://throupletea.com/podcastartwork.jpg?v=4"
+  />
+
+  <meta
+    property="og:image:secure_url"
+    content="https://throupletea.com/podcastartwork.jpg?v=4"
+  />
+
+  <meta
+    property="og:url"
+    content="https://throupletea.com/links.html"
+  />
+
+  <meta
+    property="og:site_name"
+    content="A Little Throuple Tea"
+  />
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
+
+  <meta
+    name="twitter:title"
+    content="A Little Throuple Tea — Official Links"
+  />
+
+  <meta
+    name="twitter:description"
+    content="Send the Throuple Hotline, listen, watch, meet the throuple, and explore the tea."
+  />
+
+  <meta
+    name="twitter:image"
+    content="https://throupletea.com/podcastartwork.jpg?v=4"
+  />
 
   <link rel="icon" href="images/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet" />
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8PDTZFJHE"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- OneSignal -->
+  <script
+    src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+    defer
+  ></script>
+
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+    OneSignalDeferred.push(async function (OneSignal) {
+      await OneSignal.init({
+        appId: "ab9bc131-fe14-4de7-ad30-8671d7cae438"
+      });
+
+      updateNotificationButton(OneSignal);
+    });
+  </script>
+
+  <!-- Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-V8PDTZFJHE"
+  ></script>
+
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-V8PDTZFJHE');
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-V8PDTZFJHE");
   </script>
 
   <style>
@@ -46,14 +126,19 @@
       --muted:#bfefff;
       --radius:18px;
       --shadow:0 10px 30px rgba(0,0,0,.45);
-      --shadow-strong:0 16px 42px rgba(0,0,0,.6),0 0 26px rgba(255,0,93,.22);
-      --pad: clamp(16px, 6vw, 28px);
-      --btn-h: 58px;
+      --shadow-strong:
+        0 16px 42px rgba(0,0,0,.6),
+        0 0 26px rgba(255,0,93,.22);
+      --pad:clamp(16px,6vw,28px);
+      --btn-h:58px;
     }
 
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
 
-    html,body{
+    html,
+    body{
       margin:0;
       padding:0;
     }
@@ -61,11 +146,38 @@
     body{
       color:var(--soft);
       background:
-        radial-gradient(circle at 12% 4%, rgba(255,0,93,.25), transparent 30%),
-        radial-gradient(circle at 88% 8%, rgba(0,215,232,.20), transparent 30%),
-        radial-gradient(circle at 50% 90%, rgba(255,122,24,.12), transparent 36%),
-        linear-gradient(180deg,#020204 0%,#071321 55%,#020204 100%);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+        radial-gradient(
+          circle at 12% 4%,
+          rgba(255,0,93,.25),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 88% 8%,
+          rgba(0,215,232,.20),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(255,122,24,.12),
+          transparent 36%
+        ),
+        linear-gradient(
+          180deg,
+          #020204 0%,
+          #071321 55%,
+          #020204 100%
+        );
+
+      font-family:
+        system-ui,
+        -apple-system,
+        Segoe UI,
+        Roboto,
+        Inter,
+        Helvetica,
+        Arial,
+        sans-serif;
+
       line-height:1.6;
       overflow-x:hidden;
       min-height:100vh;
@@ -109,7 +221,9 @@
 
     .brand h1{
       margin:0;
-      font:800 clamp(1.35rem,2.5vw,1.75rem)/1 'Baloo 2';
+      font:
+        800 clamp(1.35rem,2.5vw,1.75rem)/1
+        "Baloo 2";
       color:var(--white);
       text-shadow:0 0 18px rgba(255,0,93,.35);
     }
@@ -124,7 +238,7 @@
     .group-title{
       margin:24px 0 8px;
       color:var(--sun);
-      font:800 1.25rem 'Baloo 2';
+      font:800 1.25rem "Baloo 2";
       text-shadow:0 0 14px rgba(255,122,24,.35);
     }
 
@@ -138,17 +252,27 @@
       display:flex;
       align-items:center;
       gap:12px;
+      width:100%;
       min-height:var(--btn-h);
       padding:14px 16px;
       border-radius:999px;
       border:1px solid rgba(0,215,232,.32);
-      background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.025)
+        );
       color:var(--white);
       text-decoration:none;
+      font-family:inherit;
+      font-size:1rem;
       font-weight:900;
       letter-spacing:.2px;
+      text-align:left;
       box-shadow:var(--shadow);
       transition:all .15s ease;
+      cursor:pointer;
     }
 
     .btn:hover{
@@ -160,14 +284,24 @@
 
     .btn:active,
     .btn:focus-visible{
-      background:linear-gradient(135deg,var(--hot-pink),var(--orange));
+      background:
+        linear-gradient(
+          135deg,
+          var(--hot-pink),
+          var(--orange)
+        );
       color:#fff;
       border-color:transparent;
       outline:none;
     }
 
     .btn.primary{
-      background:linear-gradient(135deg,var(--hot-pink),var(--orange));
+      background:
+        linear-gradient(
+          135deg,
+          var(--hot-pink),
+          var(--orange)
+        );
       color:#fff;
       border-color:transparent;
       box-shadow:0 10px 28px rgba(255,0,93,.38);
@@ -175,6 +309,23 @@
 
     .btn.primary:hover{
       box-shadow:0 14px 38px rgba(255,0,93,.55);
+    }
+
+    .btn.notification-enabled{
+      background:
+        linear-gradient(
+          135deg,
+          #007c9c,
+          var(--teal)
+        );
+      color:#fff;
+      border-color:transparent;
+    }
+
+    .btn.notification-blocked{
+      background:rgba(255,255,255,.07);
+      border-color:rgba(255,177,59,.55);
+      color:var(--sun);
     }
 
     .btn .icon{
@@ -206,7 +357,7 @@
     .ranked-title{
       margin:0 0 6px;
       color:var(--hot-pink);
-      font:800 1.25rem 'Baloo 2';
+      font:800 1.25rem "Baloo 2";
       text-shadow:0 0 14px rgba(255,0,93,.45);
     }
 
@@ -240,19 +391,29 @@
       animation-name:dropFall;
       animation-timing-function:linear;
       animation-fill-mode:forwards;
-      will-change:transform, opacity;
+      will-change:transform,opacity;
     }
 
     @keyframes dropFall{
       0%{
-        transform:translate3d(0,-60px,0) rotate(0deg);
+        transform:
+          translate3d(0,-60px,0)
+          rotate(0deg);
         opacity:0;
       }
+
       10%{
         opacity:1;
       }
+
       100%{
-        transform:translate3d(var(--drift, 0px), 110vh, 0) rotate(var(--spin, 360deg));
+        transform:
+          translate3d(
+            var(--drift,0px),
+            110vh,
+            0
+          )
+          rotate(var(--spin,360deg));
         opacity:0;
       }
     }
@@ -273,19 +434,32 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce){
-      .drop-item{display:none}
-      .btn{transition:none}
+    @media (prefers-reduced-motion:reduce){
+      .drop-item{
+        display:none;
+      }
+
+      .btn{
+        transition:none;
+      }
     }
   </style>
 </head>
 
 <body>
+
   <main class="wrap">
 
     <header>
-      <a class="brand" href="https://throupletea.com/">
-        <img src="/throuple-tea-logo-new.jpg?v=3" alt="A Little Throuple Tea logo" />
+      <a
+        class="brand"
+        href="https://throupletea.com/"
+      >
+        <img
+          src="/throuple-tea-logo-new.jpg?v=3"
+          alt="A Little Throuple Tea logo"
+        />
+
         <div>
           <h1>A Little Throuple Tea</h1>
           <div class="tag">Official Links</div>
@@ -294,111 +468,452 @@
     </header>
 
     <div class="ranked-card">
-      <h2 class="ranked-title">🏆 Ranked #1 Throuple Podcast by Feedspot</h2>
+      <h2 class="ranked-title">
+        🏆 Ranked #1 Throuple Podcast by Feedspot
+      </h2>
+
       <p class="ranked-copy">
-        Hosted by a <strong>real-life gay throuple</strong> — William, Caleb & Daniel of 3Dudes1Life.
+        Hosted by a
+        <strong>real-life gay throuple</strong>
+        — William, Caleb & Daniel of 3Dudes1Life.
         New episodes every Friday.
       </p>
     </div>
 
+    <!-- Notification sign-up -->
     <div class="stack">
-      <a class="btn primary" href="mailto:throupletea@gmail.com?subject=Throuple%20Hotline">
+      <button
+        id="notificationButton"
+        class="btn primary"
+        type="button"
+        onclick="turnOnNotifications()"
+      >
+        <span
+          id="notificationIcon"
+          class="icon"
+        >
+          🔔
+        </span>
+
+        <span id="notificationText">
+          Get New Episode Alerts
+        </span>
+      </button>
+    </div>
+
+    <!-- Throuple Hotline -->
+    <div class="stack">
+      <a
+        class="btn primary"
+        href="mailto:throupletea@gmail.com?subject=Throuple%20Hotline"
+      >
         <span class="icon">☎️</span>
         Throuple Hotline — Send It In
       </a>
     </div>
 
     <div class="hotline-card">
-      <h2 class="hotline-title">The Throuple Hotline is open.</h2>
+      <h2 class="hotline-title">
+        The Throuple Hotline is open.
+      </h2>
+
       <p class="hotline-copy">
-        Got a confession, weird question, dating disaster, throuple curiosity, or pure chaos?
-        <strong>Email us at throupletea@gmail.com</strong> and we might read it on the podcast.
+        Got a confession, weird question, dating disaster,
+        throuple curiosity, or pure chaos?
+
+        <strong>
+          Email us at throupletea@gmail.com
+        </strong>
+
+        and we might read it on the podcast.
       </p>
     </div>
 
-<div class="group-title">Start Here</div>
-<div class="stack">
-
-  <a class="btn" href="https://throupletea.com/" target="_blank">
-    <span class="icon">🌐</span>
-    Visit the Website
-  </a>
-
-  <a class="btn" href="https://throupletea.com/episodes/" target="_blank">
-    <span class="icon">🎙️</span>
-    Latest Episodes
-  </a>
-
-  <a class="btn" href="https://throupletea.com/what-is-a-throuple/" target="_blank">
-    <span class="icon">📖</span>
-    What Is a Throuple?
-  </a>
-
-  <a class="btn" href="https://throupletea.com/meet-the-throuple/" target="_blank">
-    <span class="icon">👋</span>
-    Meet the Throuple
-  </a>
-
-  <a class="btn" href="https://throupletea.com/throuple-faq/" target="_blank">
-    <span class="icon">❓</span>
-    Throuple FAQ
-  </a>
-
-</div>
-
-    <div class="group-title">Listen</div>
-    <div class="stack">
-      <a class="btn" href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399" target="_blank"><span class="icon"><img src="images/apple_podcasts.png" alt="Apple Podcasts"></span>Apple Podcasts</a>
-      <a class="btn" href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5" target="_blank"><span class="icon"><img src="images/spotify.png" alt="Spotify"></span>Spotify</a>
-      <a class="btn" href="https://www.iheart.com/podcast/1333-a-little-throuple-tea-gay-291849404" target="_blank"><span class="icon"><img src="images/iheartradio.png" alt="iHeartRadio"></span>iHeartRadio</a>
-      <a class="btn" href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ" target="_blank"><span class="icon"><img src="images/youtube.png" alt="YouTube"></span>YouTube</a>
-      <a class="btn" href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea" target="_blank"><span class="icon"><img src="images/amazon_music.png" alt="Amazon Music"></span>Amazon Music</a>
-      <a class="btn" href="https://anchor.fm/s/1087008c4/podcast/rss" target="_blank"><span class="icon"><img src="images/rss.png" alt="RSS Feed"></span>RSS Feed</a>
+    <div class="group-title">
+      Start Here
     </div>
 
-    <div class="group-title">Watch</div>
     <div class="stack">
-      <a class="btn" href="https://throupletea.com/watch/" target="_blank">
-        <span class="icon"><img src="images/youtube.png" alt="YouTube"></span>
+
+      <a
+        class="btn"
+        href="https://throupletea.com/"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">🌐</span>
+        Visit the Website
+      </a>
+
+      <a
+        class="btn"
+        href="https://throupletea.com/episodes/"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">🎙️</span>
+        Latest Episodes
+      </a>
+
+      <a
+        class="btn"
+        href="https://throupletea.com/what-is-a-throuple/"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">📖</span>
+        What Is a Throuple?
+      </a>
+
+      <a
+        class="btn"
+        href="https://throupletea.com/meet-the-throuple/"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">👋</span>
+        Meet the Throuple
+      </a>
+
+      <a
+        class="btn"
+        href="https://throupletea.com/throuple-faq/"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">❓</span>
+        Throuple FAQ
+      </a>
+
+    </div>
+
+    <div class="group-title">
+      Listen
+    </div>
+
+    <div class="stack">
+
+      <a
+        class="btn"
+        href="https://podcasts.apple.com/us/podcast/3dudes1life-a-little-throuple-tea/id1837237399"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">
+          <img
+            src="images/apple_podcasts.png"
+            alt="Apple Podcasts"
+          />
+        </span>
+
+        Apple Podcasts
+      </a>
+
+      <a
+        class="btn"
+        href="https://open.spotify.com/show/6cb9Y7qcyDO1L7O15X2oL5"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">
+          <img
+            src="images/spotify.png"
+            alt="Spotify"
+          />
+        </span>
+
+        Spotify
+      </a>
+
+      <a
+        class="btn"
+        href="https://www.iheart.com/podcast/1333-a-little-throuple-tea-gay-291849404"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">
+          <img
+            src="images/iheartradio.png"
+            alt="iHeartRadio"
+          />
+        </span>
+
+        iHeartRadio
+      </a>
+
+      <a
+        class="btn"
+        href="https://www.youtube.com/channel/UCswzye8bcm8bByqLlW0QaFQ"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">
+          <img
+            src="images/youtube.png"
+            alt="YouTube"
+          />
+        </span>
+
+        YouTube
+      </a>
+
+      <a
+        class="btn"
+        href="https://music.amazon.com/podcasts/2a3cfc8f-2a79-4aac-b48b-625a20f08421/3dudes1life-a-little-throuple-tea"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">
+          <img
+            src="images/amazon_music.png"
+            alt="Amazon Music"
+          />
+        </span>
+
+        Amazon Music
+      </a>
+
+      <a
+        class="btn"
+        href="https://anchor.fm/s/1087008c4/podcast/rss"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">
+          <img
+            src="images/rss.png"
+            alt="RSS Feed"
+          />
+        </span>
+
+        RSS Feed
+      </a>
+
+    </div>
+
+    <div class="group-title">
+      Watch
+    </div>
+
+    <div class="stack">
+
+      <a
+        class="btn"
+        href="https://throupletea.com/watch/"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon">
+          <img
+            src="images/youtube.png"
+            alt="YouTube"
+          />
+        </span>
+
         Watch Full Episodes
       </a>
+
     </div>
 
-    <div class="group-title">Join the Show</div>
+    <div class="group-title">
+      Join the Show
+    </div>
+
     <div class="stack">
-      <a class="btn" href="https://throupletea.com/guest/" target="_blank">
+
+      <a
+        class="btn"
+        href="https://throupletea.com/guest/"
+        target="_blank"
+        rel="noopener"
+      >
         <span class="icon">🔥</span>
         Apply to Be a Guest
       </a>
+
     </div>
 
     <footer>
-      © <span id="year"></span> A Little Throuple Tea · 3Dudes1Life Creative
+      © <span id="year"></span>
+      A Little Throuple Tea · 3Dudes1Life Creative
     </footer>
 
   </main>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
-    const partyItems = ["🎉","✨","🍹","🍸","🍋","🍈","🧂"];
+    async function updateNotificationButton(OneSignal) {
+      const button =
+        document.getElementById("notificationButton");
+
+      const icon =
+        document.getElementById("notificationIcon");
+
+      const text =
+        document.getElementById("notificationText");
+
+      if (!button || !icon || !text) {
+        return;
+      }
+
+      if (!("Notification" in window)) {
+        icon.textContent = "⚠️";
+        text.textContent =
+          "Notifications Not Supported";
+
+        button.classList.remove(
+          "primary",
+          "notification-enabled"
+        );
+
+        button.classList.add(
+          "notification-blocked"
+        );
+
+        return;
+      }
+
+      const permission =
+        Notification.permission;
+
+      if (
+        permission === "granted" ||
+        OneSignal.Notifications.permission
+      ) {
+        icon.textContent = "✅";
+        text.textContent =
+          "Episode Alerts Are On";
+
+        button.classList.remove(
+          "primary",
+          "notification-blocked"
+        );
+
+        button.classList.add(
+          "notification-enabled"
+        );
+
+        return;
+      }
+
+      if (permission === "denied") {
+        icon.textContent = "🔕";
+        text.textContent =
+          "Notifications Are Blocked";
+
+        button.classList.remove(
+          "primary",
+          "notification-enabled"
+        );
+
+        button.classList.add(
+          "notification-blocked"
+        );
+
+        return;
+      }
+
+      icon.textContent = "🔔";
+      text.textContent =
+        "Get New Episode Alerts";
+
+      button.classList.remove(
+        "notification-enabled",
+        "notification-blocked"
+      );
+
+      button.classList.add("primary");
+    }
+
+    function turnOnNotifications() {
+      window.OneSignalDeferred =
+        window.OneSignalDeferred || [];
+
+      OneSignalDeferred.push(
+        async function (OneSignal) {
+          try {
+            await OneSignal.Notifications
+              .requestPermission();
+
+            updateNotificationButton(OneSignal);
+
+          } catch (error) {
+            console.error(
+              "Notification permission error:",
+              error
+            );
+
+            const text =
+              document.getElementById(
+                "notificationText"
+              );
+
+            if (text) {
+              text.textContent =
+                "Please Try Again";
+            }
+          }
+        }
+      );
+    }
+
+    const partyItems = [
+      "🎉",
+      "✨",
+      "🍹",
+      "🍸",
+      "🍋",
+      "🍈",
+      "🧂"
+    ];
+
     let partyTriggered = false;
 
     function createDropItem() {
-      const item = document.createElement("div");
+      const item =
+        document.createElement("div");
+
       item.className = "drop-item";
-      item.textContent = partyItems[Math.floor(Math.random() * partyItems.length)];
-      item.style.left = Math.random() * 100 + "vw";
-      item.style.fontSize = (22 + Math.random() * 18) + "px";
-      item.style.animationDuration = (3.5 + Math.random() * 2.5) + "s";
-      item.style.animationDelay = (Math.random() * 0.5) + "s";
-      item.style.setProperty("--drift", ((Math.random() * 160) - 80) + "px");
-      item.style.setProperty("--spin", ((Math.random() * 720) - 360) + "deg");
+
+      item.textContent =
+        partyItems[
+          Math.floor(
+            Math.random() * partyItems.length
+          )
+        ];
+
+      item.style.left =
+        Math.random() * 100 + "vw";
+
+      item.style.fontSize =
+        22 + Math.random() * 18 + "px";
+
+      item.style.animationDuration =
+        3.5 + Math.random() * 2.5 + "s";
+
+      item.style.animationDelay =
+        Math.random() * 0.5 + "s";
+
+      item.style.setProperty(
+        "--drift",
+        Math.random() * 160 - 80 + "px"
+      );
+
+      item.style.setProperty(
+        "--spin",
+        Math.random() * 720 - 360 + "deg"
+      );
+
       document.body.appendChild(item);
 
-      item.addEventListener("animationend", () => {
-        item.remove();
-      });
+      item.addEventListener(
+        "animationend",
+        () => {
+          item.remove();
+        }
+      );
     }
 
     function dropPartyBurst(count = 28) {
@@ -408,15 +923,29 @@
     }
 
     function launchPartyOnce() {
-      if (partyTriggered) return;
+      if (partyTriggered) {
+        return;
+      }
+
       partyTriggered = true;
+
       dropPartyBurst(30);
-      setTimeout(() => dropPartyBurst(18), 700);
+
+      setTimeout(() => {
+        dropPartyBurst(18);
+      }, 700);
     }
 
-    window.addEventListener("load", () => {
-      setTimeout(launchPartyOnce, 250);
-    });
+    window.addEventListener(
+      "load",
+      () => {
+        setTimeout(
+          launchPartyOnce,
+          250
+        );
+      }
+    );
   </script>
 
 </body>
+</html>
