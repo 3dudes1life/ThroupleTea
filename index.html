@@ -544,19 +544,29 @@ body.modal-open{
 
 
 /* THROUPLE HOTLINE HEADER FIX */
-.simple-nav a.hotline-nav-link {
+.hotline-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   background: linear-gradient(135deg, var(--hot-pink, #ff005d), var(--orange, #ff7a18));
-  padding: .45rem .85rem;
+  padding: .45rem .95rem;
   border-radius: 999px;
   box-shadow: 0 0 18px rgba(255,0,93,.38);
+  text-decoration: none;
+  font-weight: 900;
 }
 
-.simple-nav a.hotline-nav-link:hover,
-.simple-nav a.hotline-nav-link.active {
+.hotline-nav-link:hover,
+.hotline-nav-link.active {
   color: #fff;
   transform: translateY(-1px);
   box-shadow: 0 0 24px rgba(255,0,93,.58);
+}
+
+.hotline-row {
+  text-align: center;
+  padding: 4px 0 14px;
 }
 
 .hotline-hero-cta {
@@ -565,10 +575,6 @@ body.modal-open{
   .hotline-row {
   text-align: center;
   padding: 0 0 12px;
-}
-
-.hotline-row .hotline-nav-link {
-  display: inline-block;
 }
 
 @keyframes hotlinePulse {
