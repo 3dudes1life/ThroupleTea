@@ -4,7 +4,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
   const hotlineHref = window.location.pathname === '/' ? '#social-tea' : '/#social-tea';
   const nav = document.querySelector('.simple-nav');
 
-  if (nav && !nav.querySelector('[data-hotline-nav]')) {
+  if (nav && !nav.querySelector('[data-hotline-nav]') && !nav.querySelector('.hotline-nav-link')) {
     const guestLink = nav.querySelector('a[href="/guest/"]');
     const hotlineLink = document.createElement('a');
     hotlineLink.href = hotlineHref;
@@ -20,7 +20,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
   }
 
   const ctaRow = document.querySelector('.hero .cta-row');
-  if (ctaRow && !ctaRow.querySelector('[data-hotline-cta]')) {
+  if (ctaRow && !ctaRow.querySelector('[data-hotline-cta]') && !ctaRow.querySelector('.hotline-hero-cta')) {
     const hotlineCta = document.createElement('a');
     hotlineCta.href = '#social-tea';
     hotlineCta.className = 'btn primary hotline-hero-cta';
@@ -37,9 +37,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
       padding: .45rem .85rem;
       border-radius: 999px;
       box-shadow: 0 0 18px rgba(255,0,93,.38);
-      order: 8;
     }
-    .simple-nav a[href="/guest/"] { order: 9; }
     .simple-nav a.hotline-nav-link:hover {
       color: #fff;
       transform: translateY(-1px);
@@ -52,9 +50,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
       0%, 100% { box-shadow: 0 8px 24px rgba(255,0,93,.35); }
       50% { box-shadow: 0 10px 32px rgba(255,0,93,.68), 0 0 18px rgba(255,122,24,.45); }
     }
-    @media(max-width:650px) {
+    @media(max-width:760px) {
       .simple-nav a.hotline-nav-link {
-        order: -1;
         width: 100%;
         justify-content: center;
         text-align: center;
