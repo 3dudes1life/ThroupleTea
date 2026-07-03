@@ -542,24 +542,13 @@ body.modal-open{
 }
 
 /* THROUPLE HOTLINE HEADER FIX */
-.hotline-nav-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  background: linear-gradient(135deg, var(--hot-pink, #ff005d), var(--orange, #ff7a18));
-  padding: .45rem .95rem;
-  border-radius: 999px;
-  box-shadow: 0 0 18px rgba(255,0,93,.38);
-  text-decoration: none;
-  font-weight: 900;
+.simple-header .wrap {
+  gap: 28px;
 }
 
-.hotline-nav-link:hover,
-.hotline-nav-link.active {
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 0 24px rgba(255,0,93,.58);
+.simple-nav {
+  flex: 1;
+  justify-content: center;
 }
 
 .hotline-row {
@@ -579,6 +568,25 @@ body.modal-open{
 .hotline-guest-link:hover {
   color:var(--hot-pink);
   text-shadow:0 0 12px rgba(255,0,93,.8);
+}
+
+.hotline-nav-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  background:linear-gradient(135deg,var(--hot-pink,#ff005d),var(--orange,#ff7a18));
+  padding:.45rem .95rem;
+  border-radius:999px;
+  box-shadow:0 0 18px rgba(255,0,93,.38);
+  text-decoration:none;
+  font-weight:900;
+}
+
+.hotline-nav-link:hover {
+  color:#fff;
+  transform:translateY(-1px);
+  box-shadow:0 0 24px rgba(255,0,93,.58);
 }
 
 .hotline-hero-cta {
