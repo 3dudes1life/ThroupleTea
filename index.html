@@ -597,6 +597,29 @@ body.modal-open{
   0%, 100% { box-shadow: 0 8px 24px rgba(255,0,93,.35); }
   50% { box-shadow: 0 10px 32px rgba(255,0,93,.68), 0 0 18px rgba(255,122,24,.45); }
 }
+  .push-giveaway-card{
+  max-width:900px;
+  margin:2rem auto;
+  padding:2rem;
+  text-align:center;
+  border-radius:24px;
+  background:linear-gradient(
+    135deg,
+    rgba(255,0,93,.12),
+    rgba(255,122,24,.12)
+  );
+  border:1px solid rgba(255,255,255,.15);
+}
+
+.push-giveaway-card h2{
+  margin-top:0;
+}
+
+.tiny-note{
+  margin-top:1rem;
+  opacity:.8;
+  font-size:.9rem;
+}
 
 @media(max-width:760px) {
   .simple-nav a.hotline-nav-link {
@@ -796,6 +819,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="btn primary" id="newsletter-trigger" type="button">
       ☕ Join the Tea List
     </button>
+    
+    <section class="push-giveaway-card">
+  <h2>📲 Win Signed Books</h2>
+
+  <p>
+    Turn on Throuple Tea alerts and be the first to know when new episodes,
+    giveaways, and surprise signed book drops happen.
+  </p>
+
+  <p>
+    A few times each month we'll send a giveaway alert. The first listeners
+    to respond win signed copies and other fun surprises.
+  </p>
+
+<button id="push-subscribe-btn" class="btn primary" type="button">
+    🎁 Get Giveaway Alerts
+  </button>
+
+  <p id="push-help-text" class="tiny-note"></p>
+</section>
 
     <div class="social">
       <a href="https://instagram.com/ThroupleTea" target="_blank">Throuple Tea IG</a>
@@ -945,6 +988,32 @@ document.addEventListener('keydown', function (event) {
     setTimeout(openSignupPopup, 18000);
   }
 })();
+document.addEventListener("DOMContentLoaded", function(){
+  const btn = document.getElementById("push-subscribe-btn");
+  const help = document.getElementById("push-help-text");
+
+  if(!btn) return;
+
+  btn.addEventListener("click", function(){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+    window.OneSignalDeferred.push(async function(OneSignal) {
+      const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+
+      if(isIos && !isStandalone){
+        help.innerHTML = "iPhone drama: tap Share → Add to Home Screen, then open Throuple Tea and tap this again.";
+        return;
+      }
+
+      try{
+        await OneSignal.Slidedown.promptPush();
+      }catch(e){
+        help.innerHTML = "If nothing popped up, check your browser notification settings and try again.";
+      }
+    });
+  });
+});
 </script>
 </body>
 </html>
