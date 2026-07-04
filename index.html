@@ -998,17 +998,31 @@ document.addEventListener("DOMContentLoaded", function(){
 
     window.OneSignalDeferred.push(async function(OneSignal) {
       const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+      const isStandalone =
+        window.navigator.standalone === true ||
+        window.matchMedia('(display-mode: standalone)').matches;
 
       if(isIos && !isStandalone){
-        help.innerHTML = "iPhone drama: tap Share → Add to Home Screen, then open Throuple Tea and tap this again.";
+        help.innerHTML = "iPhone drama: tap Share → Add to Home Screen, then open Throuple Tea from the app icon and tap this again.";
+        return;
+      }
+
+      if(!('Notification' in window)){
+        help.innerHTML = "This browser does not support push notifications.";
         return;
       }
 
       try{
-        await OneSignal.Slidedown.promptPush();
+        await OneSignal.Notifications.requestPermission();
+
+        if(OneSignal.Notifications.permission){
+          help.innerHTML = "✅ You're in! You'll get signed book giveaway and episode alerts.";
+        }else{
+          help.innerHTML = "Notifications were not enabled. Check your browser settings and try again.";
+        }
       }catch(e){
-        help.innerHTML = "If nothing popped up, check your browser notification settings and try again.";
+        console.error(e);
+        help.innerHTML = "Something blocked the notification prompt. Try Chrome, Safari, or Edge outside private mode.";
       }
     });
   });
