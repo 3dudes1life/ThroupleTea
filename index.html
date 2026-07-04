@@ -994,35 +994,44 @@ document.addEventListener("DOMContentLoaded", function(){
   if(!btn) return;
 
   btn.addEventListener("click", function(){
+    help.innerHTML = "Checking your browser...";
+
+    const isIos =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    const isStandalone =
+      window.navigator.standalone === true ||
+      window.matchMedia("(display-mode: standalone)").matches;
+
+    if(isIos && !isStandalone){
+      help.innerHTML =
+        "iPhone/iPad drama: tap Share → Add to Home Screen, then open Throuple Tea from the app icon and tap this again.";
+      return;
+    }
+
+    if(!("Notification" in window)){
+      help.innerHTML = "This browser does not support web notifications.";
+      return;
+    }
+
     window.OneSignalDeferred = window.OneSignalDeferred || [];
 
     window.OneSignalDeferred.push(async function(OneSignal) {
-      const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const isStandalone =
-        window.navigator.standalone === true ||
-        window.matchMedia('(display-mode: standalone)').matches;
-
-      if(isIos && !isStandalone){
-        help.innerHTML = "iPhone drama: tap Share → Add to Home Screen, then open Throuple Tea from the app icon and tap this again.";
-        return;
-      }
-
-      if(!('Notification' in window)){
-        help.innerHTML = "This browser does not support push notifications.";
-        return;
-      }
-
       try{
+        help.innerHTML = "Opening notification prompt...";
+
         await OneSignal.Notifications.requestPermission();
 
         if(OneSignal.Notifications.permission){
           help.innerHTML = "✅ You're in! You'll get signed book giveaway and episode alerts.";
         }else{
-          help.innerHTML = "Notifications were not enabled. Check your browser settings and try again.";
+          help.innerHTML = "Notifications were not enabled. Check browser settings and try again.";
         }
       }catch(e){
         console.error(e);
-        help.innerHTML = "Something blocked the notification prompt. Try Chrome, Safari, or Edge outside private mode.";
+        help.innerHTML =
+          "Something blocked the notification prompt. Try desktop Chrome, Edge, or the installed Home Screen app.";
       }
     });
   });
