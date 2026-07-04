@@ -2,7 +2,7 @@
   "name": "A Little Throuple Tea",
   "short_name": "Throuple Tea",
   "description": "The gay throuple podcast hosted by William, Caleb & Daniel.",
-  "start_url": "/",
+  "start_url": "./index.html?v=20260703-3",
   "scope": "/",
   "display": "standalone",
   "background_color": "#020204",
