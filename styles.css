@@ -209,8 +209,13 @@ section { scroll-margin-top:86px }
   display: none;
 }
 
+/* Hotline row hidden by default (shown only on mobile) */
+.simple-header .hotline-row {
+  display: none;
+}
+
 @media(max-width:650px) {
-  /* Premium mobile header: single horizontal row */
+  /* Premium mobile header: full-width branded block from safe area through hotline row */
   .simple-header {
     position: sticky;
     top: 0;
@@ -218,10 +223,11 @@ section { scroll-margin-top:86px }
     background: linear-gradient(180deg, rgba(7,33,41,.95), rgba(7,33,41,.92));
     backdrop-filter: saturate(160%) blur(12px);
     border-bottom: 1px solid rgba(24,165,166,.2);
-    padding-top: max(8px, env(safe-area-inset-top));
-    padding-bottom: 8px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
+    margin-top: calc(-1 * max(12px, env(safe-area-inset-top)));
   }
   
   .simple-header .wrap {
@@ -234,7 +240,7 @@ section { scroll-margin-top:86px }
     width: 100%;
     max-width: 100% !important;
     margin: 0;
-    padding: 0 16px !important;
+    padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px 12px 16px !important;
   }
   
   .simple-header .brand {
@@ -280,19 +286,49 @@ section { scroll-margin-top:86px }
     display: none;
   }
 
-  /* Lightweight dropdown menu — appears below header */
+  /* Hotline row on mobile — visible below logo/hamburger, spans full width */
+  .simple-header .hotline-row {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(255,42,127,.12), rgba(255,122,26,.12));
+    border-top: 1px solid rgba(255,42,127,.25);
+  }
+  
+  .simple-header .hotline-row a {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #ff2a7f, #ff7a1a);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    text-align: center;
+    font-size: 0.95rem;
+    transition: all .15s ease;
+    box-shadow: 0 4px 12px rgba(255,42,127,.25);
+  }
+  
+  .simple-header .hotline-row a:active,
+  .simple-header .hotline-row a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(255,42,127,.4);
+  }
+
+  /* Lightweight dropdown menu — appears below hotline row */
   .simple-header.nav-ready.nav-open .simple-nav {
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: var(--header-height, 60px);
+    top: var(--header-height, 110px);
     left: 0;
     right: 0;
-    max-height: calc(100vh - var(--header-height, 60px));
+    max-height: calc(100vh - var(--header-height, 110px));
     overflow-y: auto;
     background: linear-gradient(180deg, rgba(5,8,18,.98), rgba(5,8,18,.96));
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255,42,127,.2);
+    border-top: 1px solid rgba(255,42,127,.2);
     padding: 8px 0;
     gap: 0;
     z-index: 9998;
@@ -327,11 +363,6 @@ section { scroll-margin-top:86px }
   
   .simple-header.nav-ready.nav-open .simple-nav a:last-child {
     border-bottom: none;
-  }
-
-  /* Hide hotline row on mobile */
-  .simple-header .hotline-row {
-    display: none;
   }
 }
 

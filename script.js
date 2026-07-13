@@ -10,7 +10,18 @@ document.getElementById('year').textContent = new Date().getFullYear();
   // Mark ready so CSS collapses the nav (JS-gated: safe fallback without JS)
   hdr.classList.add('nav-ready');
 
+  // Set header height CSS variable for dropdown positioning
+  function updateHeaderHeight() {
+    var headerHeight = hdr.offsetHeight;
+    document.documentElement.style.setProperty('--header-height', headerHeight + 'px');
+  }
+
+  // Update on window resize and initial load
+  updateHeaderHeight();
+  window.addEventListener('resize', updateHeaderHeight);
+
   function openNav() {
+    updateHeaderHeight();
     hdr.classList.add('nav-open');
     btn.setAttribute('aria-expanded', 'true');
     btn.setAttribute('aria-label', 'Close navigation menu');
