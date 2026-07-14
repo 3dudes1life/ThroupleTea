@@ -8,69 +8,77 @@ permissions:
 
 jobs:
   inspect-rss:
-    name: Inspect podcast RSS feed
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download RSS feed
+      - name: Download and inspect RSS feed
         run: |
           set -euo pipefail
+
           curl --fail --location --silent --show-error \
             "https://anchor.fm/s/1087008c4/podcast/rss" \
             --output /tmp/throupletea-rss.xml
-          test -s /tmp/throupletea-rss.xml
 
-      - name: Report newest episode
-        shell: python
-        run: |
+          python3 <<'PY'
           import os
           import xml.etree.ElementTree as ET
           from email.utils import parsedate_to_datetime
 
-          feed_path = "/tmp/throupletea-rss.xml"
           namespaces = {
               "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd"
           }
 
-          root = ET.parse(feed_path).getroot()
+          root = ET.parse("/tmp/throupletea-rss.xml").getroot()
           channel = root.find("channel")
+
           if channel is None:
-              raise SystemExit("RSS check failed: channel element was not found.")
+              raise SystemExit("RSS channel was not found.")
 
           items = channel.findall("item")
+
           if not items:
-              raise SystemExit("RSS check failed: no episode items were found.")
+              raise SystemExit("No podcast episodes were found.")
 
           def published_at(item):
-              raw = item.findtext("pubDate") or ""
-              fallback = "Thu, 01 Jan 1970 00:00:00 +0000"
-              return parsedate_to_datetime(raw or fallback)
+              raw = item.findtext("pubDate")
+              return parsedate_to_datetime(raw)
 
           newest = max(items, key=published_at)
-          title = (newest.findtext("title") or "Untitled").strip()
-          pub_date = published_at(newest)
-          season = newest.findtext("itunes:season", namespaces=namespaces) or "Not provided"
-          episode = newest.findtext("itunes:episode", namespaces=namespaces) or "Not provided"
-          episode_type = newest.findtext("itunes:episodeType", namespaces=namespaces) or "Not provided"
-          link = (newest.findtext("link") or "Not provided").strip()
+
+          title = newest.findtext("title") or "Untitled"
+          published = published_at(newest).isoformat()
+          season = newest.findtext(
+              "itunes:season",
+              namespaces=namespaces
+          ) or "Not provided"
+          episode = newest.findtext(
+              "itunes:episode",
+              namespaces=namespaces
+          ) or "Not provided"
+          episode_type = newest.findtext(
+              "itunes:episodeType",
+              namespaces=namespaces
+          ) or "Not provided"
 
           print(f"Feed items found: {len(items)}")
           print(f"Newest title: {title}")
-          print(f"Published: {pub_date.isoformat()}")
+          print(f"Published: {published}")
           print(f"Season: {season}")
           print(f"Episode: {episode}")
           print(f"Episode type: {episode_type}")
-          print(f"Spotify/Anchor link: {link}")
 
           summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+
           if summary_path:
               with open(summary_path, "a", encoding="utf-8") as summary:
-                  summary.write("# Throuple Tea RSS check\n\n")
+                  summary.write("# Throuple Tea RSS Check\n\n")
                   summary.write(f"- **Feed items:** {len(items)}\n")
                   summary.write(f"- **Newest title:** {title}\n")
-                  summary.write(f"- **Published:** {pub_date.isoformat()}\n")
+                  summary.write(f"- **Published:** {published}\n")
                   summary.write(f"- **Season:** {season}\n")
                   summary.write(f"- **Episode:** {episode}\n")
-                  summary.write(f"- **Episode type:** {episode_type}\n")
-                  summary.write(f"- **Feed link:** {link}\n\n")
-                  summary.write("This workflow is read-only. It did not modify the website.\n")
+                  summary.write(f"- **Episode type:** {episode_type}\n\n")
+                  summary.write(
+                      "This was a read-only test. No website files were changed.\n"
+                  )
+          PY
