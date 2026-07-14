@@ -28,3 +28,54 @@ body.episode-body{margin:0;min-height:100vh;color:var(--soft);background:radial-
 @media(max-width:900px){.episode-body .nav-toggle{display:inline-flex;align-items:center;justify-content:center}.episode-body .simple-nav{display:none;position:absolute;left:0;right:0;top:78px;padding:18px 20px;background:linear-gradient(180deg,#050812,#071321);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}.episode-body .simple-nav.open{display:flex}.episode-body .simple-nav a{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}.episode-hero-grid,.episode-content-grid{grid-template-columns:1fr}.episode-art{justify-self:center;width:min(100%,430px)}.episode-side-card{position:static}.related-grid,.archive-grid,.topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.episode-body .simple-header{padding-top:max(12px,env(safe-area-inset-top));margin-top:calc(-1 * max(12px,env(safe-area-inset-top)))}.episode-body .simple-header>.wrap{width:100%;max-width:none;padding:calc(env(safe-area-inset-top,0px) + 16px) 16px 12px;flex-wrap:nowrap;gap:12px}.episode-body .simple-header .brand img{height:40px}.episode-body .simple-nav{top:calc(env(safe-area-inset-top,0px) + 68px)}.episode-body .hotline-row{display:flex}.episode-body .hotline-nav-link{width:100%}.episode-breadcrumb{padding-top:18px}.episode-hero{padding:30px 0 48px}.episode-hero h1{font-size:clamp(2.5rem,12.5vw,3.9rem)}.episode-deck{font-size:1rem}.episode-actions{display:grid}.episode-actions .btn{width:100%}.episode-section{padding:50px 0}.episode-copy,.episode-side-card{padding:21px}.related-grid,.archive-grid,.topic-grid{grid-template-columns:1fr}.episode-footer{flex-direction:column;align-items:flex-start}.archive-hero{padding:48px 0 38px}.archive-tools{align-items:stretch}.episode-search{max-width:none;width:100%}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Unified permanent Hotline header action across archive, topics and episode pages. */
+.episode-body .simple-header{
+  display:grid;
+  grid-template-columns:auto auto minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:18px;
+  padding-left:max(20px,calc((100vw - 1100px)/2 + 20px));
+  padding-right:max(20px,calc((100vw - 1100px)/2 + 20px));
+}
+.episode-body .simple-header>.wrap{display:contents!important}
+.episode-body .simple-header .brand{grid-column:1;grid-row:1}
+.episode-body .simple-header .hotline-row{
+  display:flex!important;
+  grid-column:2;
+  grid-row:1;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  width:auto;
+}
+.episode-body .simple-header .hotline-nav-link{
+  width:auto!important;
+  min-height:42px;
+  padding:9px 14px;
+  gap:7px;
+  white-space:nowrap;
+}
+.episode-body .simple-header .simple-nav{grid-column:3;grid-row:1;min-width:0}
+.episode-body .simple-header .nav-toggle{grid-column:4;grid-row:1}
+@media(max-width:900px){
+  .episode-body .simple-header{
+    grid-template-columns:auto minmax(0,1fr) auto;
+    column-gap:10px;
+    padding-left:16px;
+    padding-right:16px;
+  }
+  .episode-body .simple-header .brand{grid-column:1}
+  .episode-body .simple-header .hotline-row{grid-column:2;justify-self:center;max-width:100%}
+  .episode-body .simple-header .hotline-nav-link{font-size:.86rem;padding:9px 12px}
+  .episode-body .simple-header .nav-toggle{grid-column:3}
+  .episode-body .simple-header .simple-nav{
+    grid-column:1/-1;
+    grid-row:2;
+    top:100%!important;
+  }
+}
+@media(max-width:390px){
+  .episode-body .simple-header .hotline-nav-link{font-size:.76rem;padding:8px 8px;gap:4px}
+  .episode-body .simple-header .brand img{height:40px}
+}

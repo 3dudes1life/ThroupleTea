@@ -1,11 +1,16 @@
-THROUPLE TEA HOMEPAGE UI FIX
+THROUPLE TEA — UNIFIED HOTLINE HEADER
 
-Upload only index.html to the root of the GitHub repository.
+Upload these two replacement files to the ROOT of the GitHub repository:
+- script.js
+- episode-seo.css
 
-Fixes:
-- Removes the giant empty gap above the hero content.
-- Replaces missing /podcastartwork.jpg with the actual artwork URL from the RSS feed.
-- Changes the header button to: ☎️ Throuple Hotline
-- Keeps the OneSignal app ID and giveaway subscription behavior.
-- Keeps GA4, SEO schema, sitemap links, episode archive links, manifest, PWA and existing assets.
-- Does not modify episode pages, service workers, manifest.json or OneSignal files.
+What this changes:
+- Mobile order becomes: logo → ☎️ Throuple Hotline → hamburger.
+- The Hotline is removed from the opened mobile menu.
+- The Hotline remains visible even when the menu is closed.
+- Desktop headers also keep the Hotline visible.
+- Applies to homepage, legacy pages, episode archive, topic hubs, and every episode page.
+- Hotline always links to /#hotline.
+- OneSignal, giveaway code, sitemap, episode pages, manifest and service workers are untouched.
+
+After GitHub deploys, hard refresh Safari or close/reopen the Home Screen app.
