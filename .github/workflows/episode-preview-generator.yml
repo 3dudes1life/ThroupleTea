@@ -1,0 +1,477 @@
+name: Episode Preview Generator
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-preview:
+    name: Build newest episode preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the website
+        uses: actions/checkout@v4
+
+      - name: Download podcast RSS feed
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            "https://anchor.fm/s/1087008c4/podcast/rss" \
+            --output /tmp/throupletea-rss.xml
+          test -s /tmp/throupletea-rss.xml
+
+      - name: Generate preview package
+        run: |
+          python3 <<'PY'
+          import html
+          import json
+          import os
+          import re
+          import shutil
+          import unicodedata
+          import xml.etree.ElementTree as ET
+          from email.utils import parsedate_to_datetime
+          from pathlib import Path
+
+          FEED = Path("/tmp/throupletea-rss.xml")
+          OUT = Path("preview-site")
+          NS = {
+              "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+              "content": "http://purl.org/rss/1.0/modules/content/",
+          }
+
+          def clean_html(raw):
+              raw = raw or ""
+              raw = re.sub(r"<br\s*/?>", "\n", raw, flags=re.I)
+              raw = re.sub(r"</p\s*>", "\n\n", raw, flags=re.I)
+              raw = re.sub(r"<[^>]+>", "", raw)
+              raw = html.unescape(raw)
+              raw = raw.replace("\u200b", "").replace("\ufeff", "")
+              raw = re.sub(r"[ \t]+", " ", raw)
+              raw = re.sub(r"\n{3,}", "\n\n", raw)
+              return raw.strip()
+
+          def paragraphs(raw):
+              text = clean_html(raw)
+              blocks = [p.strip() for p in text.split("\n\n") if p.strip()]
+              ignored = (
+                  "full video on spotify",
+                  "audio everywhere",
+                  "follow us on instagram",
+                  "website:",
+                  "thank you for",
+                  "episode segments",
+                  "season segments",
+              )
+              useful = []
+              for block in blocks:
+                  lower = block.lower()
+                  if len(block) < 30:
+                      continue
+                  if any(token in lower for token in ignored):
+                      continue
+                  useful.append(block)
+                  if len(useful) >= 8:
+                      break
+              return useful or ([text] if text else ["Episode description unavailable."])
+
+          def slugify(value):
+              value = clean_html(value)
+              value = re.sub(r"\s*\|\s*S\d+\s*Ep\d+\s*$", "", value, flags=re.I)
+              value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode()
+              value = value.lower()
+              value = re.sub(r"[^a-z0-9]+", "-", value).strip("-")
+              return value[:88] or "episode"
+
+          def esc(value):
+              return html.escape(str(value or ""), quote=True)
+
+          def duration_iso(value):
+              if not value:
+                  return ""
+              parts = [int(x) for x in value.split(":")]
+              if len(parts) == 3:
+                  hours, minutes, seconds = parts
+              elif len(parts) == 2:
+                  hours, minutes, seconds = 0, parts[0], parts[1]
+              else:
+                  return ""
+              result = "PT"
+              if hours:
+                  result += f"{hours}H"
+              if minutes:
+                  result += f"{minutes}M"
+              if seconds or result == "PT":
+                  result += f"{seconds}S"
+              return result
+
+          root = ET.parse(FEED).getroot()
+          channel = root.find("channel")
+          if channel is None:
+              raise SystemExit("RSS channel element was not found.")
+
+          items = channel.findall("item")
+          if not items:
+              raise SystemExit("No RSS episode items were found.")
+
+          def published(item):
+              value = item.findtext("pubDate")
+              if not value:
+                  raise SystemExit("An RSS item is missing pubDate.")
+              return parsedate_to_datetime(value)
+
+          items.sort(key=published, reverse=True)
+          newest = items[0]
+
+          raw_title = (newest.findtext("title") or "Untitled episode").strip()
+          title = re.sub(r"\s*\|\s*S\d+\s*Ep\d+\s*$", "", raw_title, flags=re.I).strip()
+          season = (newest.findtext("itunes:season", namespaces=NS) or "").strip()
+          episode = (newest.findtext("itunes:episode", namespaces=NS) or "").strip()
+          episode_type = (newest.findtext("itunes:episodeType", namespaces=NS) or "full").strip()
+          duration = (newest.findtext("itunes:duration", namespaces=NS) or "").strip()
+          description_html = newest.findtext("description") or ""
+          description = clean_html(description_html)
+          date = published(newest)
+          link = (newest.findtext("link") or "").strip()
+
+          enclosure = newest.find("enclosure")
+          audio = enclosure.attrib.get("url", "") if enclosure is not None else ""
+
+          image_node = newest.find("itunes:image", NS)
+          image = image_node.attrib.get("href", "") if image_node is not None else ""
+
+          prefix = f"s{season}-ep{episode}" if season and episode else "episode"
+          slug = f"{prefix}-{slugify(title)}"
+          canonical = f"https://throupletea.com/episodes/{slug}/"
+          display_label = (
+              f"Season {season} · Episode {episode}"
+              if season and episode
+              else "Podcast episode"
+          )
+          display_date = date.strftime("%B %d, %Y").replace(" 0", " ")
+          meta_description = re.sub(r"\s+", " ", description).strip()
+          if len(meta_description) > 157:
+              meta_description = meta_description[:154].rsplit(" ", 1)[0] + "…"
+
+          related = items[1:4]
+          related_cards = []
+          for item in related:
+              related_title_raw = (item.findtext("title") or "Related episode").strip()
+              related_title = re.sub(
+                  r"\s*\|\s*S\d+\s*Ep\d+\s*$",
+                  "",
+                  related_title_raw,
+                  flags=re.I,
+              ).strip()
+              related_season = (item.findtext("itunes:season", namespaces=NS) or "").strip()
+              related_episode = (item.findtext("itunes:episode", namespaces=NS) or "").strip()
+              related_prefix = (
+                  f"s{related_season}-ep{related_episode}"
+                  if related_season and related_episode
+                  else "episode"
+              )
+              related_slug = f"{related_prefix}-{slugify(related_title)}"
+              related_image_node = item.find("itunes:image", NS)
+              related_image = (
+                  related_image_node.attrib.get("href", "")
+                  if related_image_node is not None
+                  else ""
+              )
+              related_description = re.sub(
+                  r"\s+",
+                  " ",
+                  clean_html(item.findtext("description") or ""),
+              ).strip()
+              if len(related_description) > 145:
+                  related_description = (
+                      related_description[:142].rsplit(" ", 1)[0] + "…"
+                  )
+              related_label = (
+                  f"S{related_season} Ep{related_episode}"
+                  if related_season and related_episode
+                  else "Episode"
+              )
+              related_cards.append(
+                  f"""
+                  <a class="related-card" href="https://throupletea.com/episodes/{esc(related_slug)}/">
+                    <img src="{esc(related_image)}" alt="{esc(related_title)} episode artwork" loading="lazy">
+                    <div class="card-body">
+                      <div class="card-label">{esc(related_label)}</div>
+                      <h3>{esc(related_title)}</h3>
+                      <p>{esc(related_description)}</p>
+                    </div>
+                  </a>
+                  """
+              )
+
+          copy_paragraphs = "\n".join(
+              f"<p>{esc(block)}</p>" for block in paragraphs(description_html)
+          )
+
+          schema = {
+              "@context": "https://schema.org",
+              "@graph": [
+                  {
+                      "@type": "PodcastEpisode",
+                      "@id": canonical + "#episode",
+                      "url": canonical,
+                      "name": title,
+                      "description": meta_description,
+                      "datePublished": date.isoformat(),
+                      "duration": duration_iso(duration),
+                      "episodeNumber": int(episode) if episode.isdigit() else episode,
+                      "partOfSeason": {
+                          "@type": "PodcastSeason",
+                          "seasonNumber": int(season) if season.isdigit() else season,
+                      } if season else None,
+                      "partOfSeries": {
+                          "@type": "PodcastSeries",
+                          "@id": "https://throupletea.com/#podcast",
+                          "name": "A Little Throuple Tea",
+                      },
+                      "associatedMedia": {
+                          "@type": "AudioObject",
+                          "contentUrl": audio,
+                          "encodingFormat": "audio/mpeg",
+                      },
+                      "image": image,
+                      "isFamilyFriendly": False,
+                      "author": {
+                          "@type": "Organization",
+                          "name": "3Dudes1Life Creative",
+                          "url": "https://3dudes1lifecreative.com/",
+                      },
+                  },
+                  {
+                      "@type": "BreadcrumbList",
+                      "itemListElement": [
+                          {
+                              "@type": "ListItem",
+                              "position": 1,
+                              "name": "Home",
+                              "item": "https://throupletea.com/",
+                          },
+                          {
+                              "@type": "ListItem",
+                              "position": 2,
+                              "name": "Episodes",
+                              "item": "https://throupletea.com/episodes/",
+                          },
+                          {
+                              "@type": "ListItem",
+                              "position": 3,
+                              "name": title,
+                              "item": canonical,
+                          },
+                      ],
+                  },
+              ],
+          }
+
+          # Remove optional null values from the episode schema.
+          episode_schema = schema["@graph"][0]
+          for key in list(episode_schema):
+              if episode_schema[key] in (None, ""):
+                  del episode_schema[key]
+
+          page = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+            <title>{esc(title)} | A Little Throuple Tea</title>
+            <meta name="description" content="{esc(meta_description)}">
+            <meta name="robots" content="noindex, nofollow">
+            <link rel="canonical" href="{esc(canonical)}">
+            <meta property="og:type" content="article">
+            <meta property="og:site_name" content="A Little Throuple Tea">
+            <meta property="og:title" content="{esc(title)}">
+            <meta property="og:description" content="{esc(meta_description)}">
+            <meta property="og:url" content="{esc(canonical)}">
+            <meta property="og:image" content="{esc(image)}">
+            <meta property="article:published_time" content="{esc(date.isoformat())}">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="{esc(title)}">
+            <meta name="twitter:description" content="{esc(meta_description)}">
+            <meta name="twitter:image" content="{esc(image)}">
+            <meta name="theme-color" content="#160712">
+            <link rel="icon" href="../../images/favicon.png">
+            <link rel="stylesheet" href="../../styles.css">
+            <link rel="stylesheet" href="../../episode-seo.css">
+            <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>
+          </head>
+          <body class="episode-body">
+            <header class="simple-header">
+              <div class="wrap">
+                <a class="brand" href="../../">
+                  <img src="../../throuple-tea-logo-new.jpg?v=3" alt="A Little Throuple Tea logo">
+                </a>
+                <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainNav">☰</button>
+                <nav class="simple-nav" id="mainNav">
+                  <a href="../../#listen">Listen</a>
+                  <a href="../../watch/">Watch</a>
+                  <a class="active" href="../../episodes/">Episodes</a>
+                  <a href="../../what-is-a-throuple/">What Is a Throuple?</a>
+                  <a href="../../meet-the-throuple/">Meet the Throuple</a>
+                  <a href="../../throuple-faq/">FAQ</a>
+                  <a href="../../gay-throuple-podcast/">Gay Throuple Podcast</a>
+                  <a class="hotline-guest-link" href="../../guest/">Be a Guest</a>
+                </nav>
+              </div>
+              <div class="hotline-row">
+                <a class="hotline-nav-link" href="mailto:throupletea@gmail.com?subject=Throuple%20Hotline&body=Spill%20the%20tea%20here%3A%0A%0A">☎️ Throuple Hotline</a>
+              </div>
+            </header>
+
+            <main>
+              <div class="wrap episode-breadcrumb">
+                <a href="../../">Home</a> / <a href="../../episodes/">Episodes</a> / {esc(display_label)}
+              </div>
+
+              <section class="episode-hero">
+                <div class="wrap episode-hero-grid">
+                  <div>
+                    <div class="episode-eyebrow">{esc(display_label)} · {esc(display_date)}</div>
+                    <h1>{esc(title)}</h1>
+                    <p class="episode-deck">{esc(meta_description)}</p>
+                    <div class="episode-meta">
+                      {f'<span>Duration: {esc(duration)}</span>' if duration else ''}
+                      <span>{esc(episode_type.title())}</span>
+                      <span>3Dudes1Life Creative</span>
+                    </div>
+                    <div class="episode-actions">
+                      <a class="btn primary" href="#listen">Listen Now</a>
+                      <a class="btn" href="{esc(link)}" target="_blank" rel="noopener">Open on Spotify</a>
+                      <a class="btn" href="https://throupletea.com/episodes/">All Episodes</a>
+                    </div>
+                  </div>
+                  <div class="episode-art">
+                    <img src="{esc(image)}" alt="{esc(title)} episode artwork" width="1200" height="1200">
+                  </div>
+                </div>
+              </section>
+
+              <section class="episode-section" id="listen">
+                <div class="wrap episode-content-grid">
+                  <article class="episode-copy">
+                    <h2>About this episode</h2>
+                    {copy_paragraphs}
+                  </article>
+                  <aside class="episode-side-card">
+                    <h2>Listen to the episode</h2>
+                    <audio class="audio-player" controls preload="metadata">
+                      <source src="{esc(audio)}" type="audio/mpeg">
+                      Your browser does not support the audio player.
+                    </audio>
+                    <p><a class="btn primary" href="{esc(link)}" target="_blank" rel="noopener">Listen on Spotify</a></p>
+                    <h2>Preview status</h2>
+                    <p>This page was generated by the read-only preview workflow and has not been published.</p>
+                  </aside>
+                </div>
+              </section>
+
+              <section class="episode-section related-wrap">
+                <div class="wrap">
+                  <h2>Related episodes</h2>
+                  <div class="related-grid">
+                    {''.join(related_cards)}
+                  </div>
+                </div>
+              </section>
+            </main>
+
+            <footer class="site-footer">
+              <div class="wrap episode-footer">
+                <p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project</p>
+                <nav>
+                  <a href="../../">Home</a>
+                  <a href="https://throupletea.com/episodes/">Episodes</a>
+                  <a href="mailto:throupletea@gmail.com?subject=Throuple%20Hotline&body=Spill%20the%20tea%20here%3A%0A%0A">Throuple Hotline</a>
+                </nav>
+              </div>
+            </footer>
+
+            <script>
+              document.getElementById('year').textContent = new Date().getFullYear();
+              const navToggle = document.getElementById('navToggle');
+              const mainNav = document.getElementById('mainNav');
+              if (navToggle && mainNav) {{
+                navToggle.addEventListener('click', () => {{
+                  const open = mainNav.classList.toggle('open');
+                  navToggle.setAttribute('aria-expanded', String(open));
+                  navToggle.innerHTML = open ? '✕' : '☰';
+                }});
+                mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {{
+                  mainNav.classList.remove('open');
+                  navToggle.setAttribute('aria-expanded', 'false');
+                  navToggle.innerHTML = '☰';
+                }}));
+              }}
+            </script>
+          </body>
+          </html>
+          """
+
+          destination = OUT / "episodes" / slug
+          destination.mkdir(parents=True, exist_ok=True)
+          (destination / "index.html").write_text(page, encoding="utf-8")
+
+          # Copy only the shared assets needed to open the artifact locally.
+          for source in [
+              Path("styles.css"),
+              Path("episode-seo.css"),
+              Path("throuple-tea-logo-new.jpg"),
+          ]:
+              if source.exists():
+                  shutil.copy2(source, OUT / source.name)
+
+          favicon_source = Path("images/favicon.png")
+          if favicon_source.exists():
+              (OUT / "images").mkdir(parents=True, exist_ok=True)
+              shutil.copy2(favicon_source, OUT / "images" / "favicon.png")
+
+          report = {
+              "read_only": True,
+              "feed_items": len(items),
+              "title": title,
+              "season": season,
+              "episode": episode,
+              "published": date.isoformat(),
+              "slug": slug,
+              "future_url": canonical,
+              "preview_file": f"episodes/{slug}/index.html",
+              "website_files_modified": False,
+          }
+          (OUT / "PREVIEW-REPORT.json").write_text(
+              json.dumps(report, indent=2, ensure_ascii=False),
+              encoding="utf-8",
+          )
+          (OUT / "OPEN-ME.txt").write_text(
+              "Unzip the artifact, then open:\n"
+              f"episodes/{slug}/index.html\n\n"
+              "This is a read-only preview. Nothing was published.\n",
+              encoding="utf-8",
+          )
+
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+              with open(summary, "a", encoding="utf-8") as handle:
+                  handle.write("# Episode preview generated\n\n")
+                  handle.write(f"- **Title:** {title}\n")
+                  handle.write(f"- **Season / episode:** {season} / {episode}\n")
+                  handle.write(f"- **Slug:** `{slug}`\n")
+                  handle.write(f"- **Future URL:** {canonical}\n")
+                  handle.write("- **Live website modified:** No\n")
+                  handle.write("- **Next:** Download the artifact below and inspect the generated page.\n")
+          PY
+
+      - name: Upload episode preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: throuple-tea-episode-preview
+          path: preview-site/
+          if-no-files-found: error
+          retention-days: 7
