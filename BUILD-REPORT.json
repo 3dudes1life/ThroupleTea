@@ -1,0 +1,19 @@
+{
+  "feed_items": 36,
+  "full_episode_pages": 36,
+  "topic_hubs": 8,
+  "sitemap_urls": 52,
+  "onesignal_files_modified": false,
+  "homepage_modified": false,
+  "generated": "2026-07-14",
+  "schema_durations_corrected": 36,
+  "generated_html_files": 45,
+  "unexpected_missing_internal_links": 0,
+  "invalid_json_ld_blocks": 0,
+  "duplicate_canonical_urls": 0,
+  "root_index_included": false,
+  "onesignal_sdk_included_or_modified": false,
+  "service_worker_included_or_modified": false,
+  "manifest_included_or_modified": false,
+  "all_generated_links_valid": true
+}

@@ -1,0 +1,102 @@
+
+/* Episode SEO system — extends the existing Throuple Tea tropical dark theme */
+:root{
+  --seo-black:#020204;
+  --seo-night:#050812;
+  --seo-deep:#071321;
+  --seo-pink:#ff005d;
+  --seo-orange:#ff7a18;
+  --seo-sun:#ffb13b;
+  --seo-teal:#00d7e8;
+  --seo-soft:#dff8ff;
+  --seo-muted:#a9dce6;
+  --seo-line:rgba(0,215,232,.25);
+}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body.episode-body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 12% 4%,rgba(255,0,93,.18),transparent 28%),
+    radial-gradient(circle at 88% 8%,rgba(0,215,232,.15),transparent 29%),
+    linear-gradient(180deg,var(--seo-black),var(--seo-deep) 48%,var(--seo-black));
+  color:var(--seo-soft);
+}
+.episode-body .wrap{max-width:1160px}
+.episode-header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.episode-body .simple-header{background:rgba(2,2,4,.9);backdrop-filter:blur(18px)}
+.episode-body .simple-header .brand img{height:52px;width:auto}
+.episode-body .simple-nav{display:flex;align-items:center;gap:18px}
+.episode-body .simple-nav a{margin:0;color:#fff;font-size:.9rem}
+.episode-body .nav-toggle{display:none}
+.episode-breadcrumb{padding:24px 0 0;color:var(--seo-muted);font-size:.88rem}
+.episode-breadcrumb a{color:var(--seo-muted);text-decoration:none}
+.episode-hero{padding:44px 0 62px}
+.episode-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.55fr);gap:52px;align-items:center}
+.episode-eyebrow{color:var(--seo-sun);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
+.episode-hero h1{margin:14px 0 20px;color:#fff;font-family:'Baloo 2',system-ui,sans-serif;font-size:clamp(2.7rem,5.8vw,5.8rem);line-height:.98;letter-spacing:-.045em}
+.episode-deck{max-width:760px;color:#dff8ff;font-size:1.14rem;line-height:1.72}
+.episode-meta{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0}
+.episode-meta span,.topic-chip{display:inline-flex;padding:8px 11px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.045);color:#fff;font-weight:800;font-size:.82rem}
+.episode-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.episode-art{padding:12px;border:1px solid var(--seo-line);border-radius:25px;background:rgba(255,255,255,.045);box-shadow:0 28px 80px rgba(0,0,0,.48)}
+.episode-art img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:18px}
+.episode-section{padding:64px 0;border-top:1px solid rgba(255,255,255,.075)}
+.episode-content-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:38px;align-items:start}
+.episode-copy,.episode-side-card{padding:28px;border:1px solid var(--seo-line);border-radius:23px;background:rgba(255,255,255,.038);box-shadow:0 16px 44px rgba(0,0,0,.24)}
+.episode-copy h2,.episode-side-card h2,.related-wrap h2,.archive-title{color:#fff;font-family:'Baloo 2',system-ui,sans-serif}
+.episode-copy h2{font-size:2rem;margin-top:0}
+.episode-copy p{color:#d7f3f7;font-size:1.05rem;line-height:1.78}
+.episode-side-card{position:sticky;top:100px}
+.episode-side-card h2{margin-top:0;color:var(--seo-sun)}
+.audio-player{width:100%;margin:12px 0 18px}
+.topic-list{display:flex;flex-wrap:wrap;gap:8px}
+.topic-chip{text-decoration:none;border-color:rgba(255,42,127,.34)}
+.topic-chip:hover{border-color:var(--seo-pink);color:#fff}
+.related-grid,.archive-grid,.topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card,.archive-card,.topic-card{overflow:hidden;border:1px solid var(--seo-line);border-radius:21px;background:rgba(255,255,255,.04);text-decoration:none;color:inherit;transition:.2s}
+.related-card:hover,.archive-card:hover,.topic-card:hover{transform:translateY(-3px);border-color:var(--seo-pink)}
+.related-card img,.archive-card img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.card-body{padding:20px}
+.card-label{color:var(--seo-sun);text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;font-weight:900}
+.card-body h3{margin:8px 0 10px;color:#fff;font-size:1.25rem}
+.card-body p{margin:0;color:var(--seo-muted);font-size:.93rem}
+.episode-footer{display:flex;justify-content:space-between;gap:22px;align-items:center}
+.episode-footer nav{display:flex;flex-wrap:wrap;gap:14px}
+.episode-footer a{color:var(--seo-muted);text-decoration:none}
+.archive-hero{padding:70px 0 52px;text-align:center}
+.archive-hero h1{max-width:960px;margin:12px auto 18px;color:#fff;font-family:'Baloo 2',system-ui,sans-serif;font-size:clamp(3rem,6vw,6rem);line-height:1}
+.archive-hero p{max-width:800px;margin:auto;color:var(--seo-muted);font-size:1.12rem}
+.archive-tools{display:flex;flex-wrap:wrap;justify-content:space-between;gap:15px;margin:0 0 28px}
+.episode-search{flex:1;min-width:240px;max-width:500px;padding:13px 16px;border:1px solid var(--seo-line);border-radius:999px;background:#050812;color:#fff;font:inherit}
+.archive-grid{grid-template-columns:repeat(3,1fr)}
+.archive-card[hidden]{display:none}
+.topic-card{padding:24px}
+.topic-card h2{margin:12px 0 8px;color:#fff;font-family:'Baloo 2',system-ui,sans-serif}
+.topic-card p{color:var(--seo-muted)}
+.topic-card strong{color:var(--seo-sun)}
+.topic-page-intro{max-width:820px}
+.topic-page-intro h1{color:#fff;font-family:'Baloo 2',system-ui,sans-serif;font-size:clamp(3rem,6vw,6rem);line-height:1}
+.topic-page-intro p{color:var(--seo-muted);font-size:1.13rem}
+@media(max-width:900px){
+  .episode-body .nav-toggle{display:inline-flex}
+  .episode-body .simple-nav{display:none;position:absolute;left:0;right:0;top:76px;padding:18px;background:#050812;border-bottom:1px solid var(--seo-line);flex-direction:column;align-items:stretch}
+  .episode-body .simple-nav.open{display:flex}
+  .episode-body .simple-nav a{padding:10px 0}
+  .episode-hero-grid,.episode-content-grid{grid-template-columns:1fr}
+  .episode-side-card{position:static}
+  .related-grid,.archive-grid,.topic-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:620px){
+  .episode-header-inner{min-height:68px;padding-top:env(safe-area-inset-top)}
+  .episode-body .simple-header .brand img{height:42px}
+  .episode-body .simple-nav{top:68px}
+  .episode-hero{padding:34px 0 48px}
+  .episode-hero h1{font-size:clamp(2.65rem,13.6vw,4.15rem)}
+  .episode-actions{display:grid}
+  .episode-actions .btn{width:100%}
+  .episode-section{padding:52px 0}
+  .episode-copy,.episode-side-card{padding:21px}
+  .related-grid,.archive-grid,.topic-grid{grid-template-columns:1fr}
+  .episode-footer{flex-direction:column;align-items:flex-start}
+  .archive-hero{padding:50px 0 40px}
+}
