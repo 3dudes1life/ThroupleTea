@@ -28,7 +28,7 @@ if (yearNode) yearNode.textContent = new Date().getFullYear();
   if (headerWrap) {
     var hotline = document.createElement('a');
     hotline.className = 'header-hotline';
-    hotline.href = '/#hotline';
+    hotline.href = 'mailto:throupletea@gmail.com?subject=Throuple%20Hotline&body=Spill%20the%20tea%20here%3A%0A%0A';
     hotline.setAttribute('aria-label', 'Open the Throuple Hotline');
     hotline.innerHTML = '<span aria-hidden="true">☎️</span><span class="hotline-label">Throuple Hotline</span>';
     if (nav) headerWrap.insertBefore(hotline, nav);
@@ -304,4 +304,65 @@ if (yearNode) yearNode.textContent = new Date().getFullYear();
   nav.addEventListener('click', function (event) {
     if (event.target.tagName === 'A') closeNav();
   });
+}());
+
+
+/* One-click Hotline fallback for older archive/episode links. */
+(function () {
+  var hash = window.location.hash.toLowerCase();
+  if (hash !== '#hotline' && hash !== '#social-tea') return;
+
+  var mailto = 'mailto:throupletea@gmail.com?subject=Throuple%20Hotline&body=Spill%20the%20tea%20here%3A%0A%0A';
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+  }
+  window.setTimeout(function () {
+    window.location.href = mailto;
+  }, 120);
+}());
+
+/* Keep the weekly giveaway directly beneath the hero while preserving OneSignal IDs/events. */
+(function () {
+  var hero = document.querySelector('main .hero');
+  var hotlineSection = document.getElementById('hotline');
+  var giveaway = hotlineSection ? hotlineSection.querySelector('.giveaway') : null;
+  if (!hero || !giveaway || document.querySelector('.giveaway-focus-section')) return;
+
+  var focusSection = document.createElement('section');
+  focusSection.className = 'section giveaway-focus-section';
+  focusSection.setAttribute('aria-label', 'Weekly signed book giveaway');
+
+  var wrap = document.createElement('div');
+  wrap.className = 'wrap';
+  wrap.appendChild(giveaway);
+  focusSection.appendChild(wrap);
+  hero.insertAdjacentElement('afterend', focusSection);
+
+  var style = document.createElement('style');
+  style.id = 'giveaway-focus-position-v1';
+  style.textContent = `
+    .giveaway-focus-section{
+      padding:34px 0!important;
+      border-top:1px solid rgba(255,42,127,.22)!important;
+      border-bottom:1px solid rgba(0,215,232,.18)!important;
+      background:
+        radial-gradient(circle at 18% 0%,rgba(255,0,93,.13),transparent 34%),
+        radial-gradient(circle at 82% 100%,rgba(255,122,24,.10),transparent 34%),
+        linear-gradient(180deg,#050812,#071321)!important;
+    }
+    .giveaway-focus-section .giveaway{
+      max-width:900px!important;
+      margin:0 auto!important;
+    }
+    #hotline .search-cluster{
+      grid-template-columns:1fr!important;
+      max-width:820px!important;
+      margin:0 auto!important;
+    }
+    @media(max-width:680px){
+      .giveaway-focus-section{padding:24px 0!important}
+      .giveaway-focus-section .giveaway{padding:26px 20px!important}
+    }
+  `;
+  document.head.appendChild(style);
 }());
