@@ -1,0 +1,675 @@
+name: Publish New Podcast Episode
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: podcast-episode-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish-newest:
+    name: Publish newest RSS episode when missing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the website
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download podcast RSS feed
+        run: |
+          set -euo pipefail
+          curl --fail --location --silent --show-error \
+            "https://anchor.fm/s/1087008c4/podcast/rss" \
+            --output /tmp/throupletea-rss.xml
+          test -s /tmp/throupletea-rss.xml
+
+      - name: Detect and generate newest episode
+        id: generate
+        run: |
+          python3 <<'PY'
+          import html
+          import json
+          import os
+          import re
+          import unicodedata
+          import xml.etree.ElementTree as ET
+          from email.utils import parsedate_to_datetime
+          from pathlib import Path
+
+          FEED = Path("/tmp/throupletea-rss.xml")
+          ARCHIVE = Path("episodes/index.html")
+          SITEMAP = Path("sitemap.xml")
+          NS = {
+              "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+          }
+
+          def clean_html(raw):
+              raw = raw or ""
+              raw = re.sub(r"<br\s*/?>", "\n", raw, flags=re.I)
+              raw = re.sub(r"</p\s*>", "\n\n", raw, flags=re.I)
+              raw = re.sub(r"<[^>]+>", "", raw)
+              raw = html.unescape(raw)
+              raw = raw.replace("\u200b", "").replace("\ufeff", "")
+              raw = re.sub(r"[ \t]+", " ", raw)
+              raw = re.sub(r"\n{3,}", "\n\n", raw)
+              return raw.strip()
+
+          def useful_paragraphs(raw):
+              text = clean_html(raw)
+              blocks = [p.strip() for p in text.split("\n\n") if p.strip()]
+              ignored = (
+                  "full video on spotify",
+                  "audio everywhere",
+                  "follow us on instagram",
+                  "website:",
+                  "thank you for",
+                  "episode segments",
+                  "season segments",
+              )
+              useful = []
+              for block in blocks:
+                  lower = block.lower()
+                  if len(block) < 30:
+                      continue
+                  if any(token in lower for token in ignored):
+                      continue
+                  useful.append(block)
+                  if len(useful) >= 8:
+                      break
+              return useful or ([text] if text else ["Episode description unavailable."])
+
+          def slugify(value):
+              value = clean_html(value)
+              value = re.sub(r"\s*\|\s*S\d+\s*Ep\d+\s*$", "", value, flags=re.I)
+              value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode()
+              value = value.lower()
+              value = re.sub(r"[^a-z0-9]+", "-", value).strip("-")
+              return value[:88] or "episode"
+
+          def esc(value):
+              return html.escape(str(value or ""), quote=True)
+
+          def duration_iso(value):
+              if not value:
+                  return ""
+              try:
+                  parts = [int(x) for x in value.split(":")]
+              except ValueError:
+                  return ""
+              if len(parts) == 3:
+                  hours, minutes, seconds = parts
+              elif len(parts) == 2:
+                  hours, minutes, seconds = 0, parts[0], parts[1]
+              else:
+                  return ""
+              result = "PT"
+              if hours:
+                  result += f"{hours}H"
+              if minutes:
+                  result += f"{minutes}M"
+              if seconds or result == "PT":
+                  result += f"{seconds}S"
+              return result
+
+          def meta_description(text):
+              text = re.sub(r"\s+", " ", text).strip()
+              recurring = (
+                  "Full video on Spotify",
+                  "Audio everywhere",
+                  "Follow us on Instagram",
+                  "Website:",
+              )
+              for marker in recurring:
+                  location = text.lower().find(marker.lower())
+                  if location > 80:
+                      text = text[:location].strip()
+              if len(text) > 157:
+                  text = text[:154].rsplit(" ", 1)[0] + "…"
+              return text
+
+          root = ET.parse(FEED).getroot()
+          channel = root.find("channel")
+          if channel is None:
+              raise SystemExit("RSS channel element was not found.")
+
+          items = channel.findall("item")
+          if not items:
+              raise SystemExit("No RSS episode items were found.")
+
+          def published(item):
+              value = item.findtext("pubDate")
+              if not value:
+                  raise SystemExit("An RSS item is missing pubDate.")
+              return parsedate_to_datetime(value)
+
+          items.sort(key=published, reverse=True)
+          newest = items[0]
+
+          raw_title = (newest.findtext("title") or "Untitled episode").strip()
+          title = re.sub(r"\s*\|\s*S\d+\s*Ep\d+\s*$", "", raw_title, flags=re.I).strip()
+          season = (newest.findtext("itunes:season", namespaces=NS) or "").strip()
+          episode = (newest.findtext("itunes:episode", namespaces=NS) or "").strip()
+          episode_type = (newest.findtext("itunes:episodeType", namespaces=NS) or "full").strip()
+          duration = (newest.findtext("itunes:duration", namespaces=NS) or "").strip()
+          description_html = newest.findtext("description") or ""
+          description = clean_html(description_html)
+          date = published(newest)
+          link = (newest.findtext("link") or "").strip()
+
+          enclosure = newest.find("enclosure")
+          audio = enclosure.attrib.get("url", "") if enclosure is not None else ""
+          if not audio:
+              raise SystemExit("Newest RSS episode is missing its audio enclosure URL.")
+
+          image_node = newest.find("itunes:image", NS)
+          image = image_node.attrib.get("href", "") if image_node is not None else ""
+          if not image:
+              raise SystemExit("Newest RSS episode is missing its artwork URL.")
+
+          prefix = f"s{season}-ep{episode}" if season and episode else "episode"
+          slug = f"{prefix}-{slugify(title)}"
+          destination = Path("episodes") / slug / "index.html"
+          canonical = f"https://throupletea.com/episodes/{slug}/"
+
+          output = Path(os.environ["GITHUB_OUTPUT"])
+          with output.open("a", encoding="utf-8") as handle:
+              handle.write(f"slug={slug}\n")
+              handle.write(f"title={title}\n")
+              handle.write(f"canonical={canonical}\n")
+
+          if destination.exists():
+              print(f"NO-OP: {destination} already exists.")
+              with output.open("a", encoding="utf-8") as handle:
+                  handle.write("changed=false\n")
+                  handle.write("reason=episode-page-already-exists\n")
+
+              summary = os.environ.get("GITHUB_STEP_SUMMARY")
+              if summary:
+                  with open(summary, "a", encoding="utf-8") as handle:
+                      handle.write("# Podcast publisher safety check\n\n")
+                      handle.write(f"- **Newest episode:** {title}\n")
+                      handle.write(f"- **Detected slug:** `{slug}`\n")
+                      handle.write("- **Result:** No changes needed\n")
+                      handle.write("- **Reason:** Episode page already exists\n")
+                      handle.write("- **Commit created:** No\n")
+              raise SystemExit(0)
+
+          if not ARCHIVE.exists():
+              raise SystemExit("Safety stop: episodes/index.html does not exist.")
+          if not SITEMAP.exists():
+              raise SystemExit("Safety stop: sitemap.xml does not exist.")
+
+          display_label = (
+              f"Season {season} · Episode {episode}"
+              if season and episode
+              else "Podcast episode"
+          )
+          compact_label = (
+              f"S{season} Ep{episode}"
+              if season and episode
+              else "Episode"
+          )
+          display_date = date.strftime("%B %d, %Y").replace(" 0", " ")
+          description_meta = meta_description(description)
+          copy_paragraphs = "\n".join(
+              f"<p>{esc(block)}</p>" for block in useful_paragraphs(description_html)
+          )
+
+          related_cards = []
+          for item in items[1:4]:
+              related_raw_title = (item.findtext("title") or "Related episode").strip()
+              related_title = re.sub(
+                  r"\s*\|\s*S\d+\s*Ep\d+\s*$",
+                  "",
+                  related_raw_title,
+                  flags=re.I,
+              ).strip()
+              related_season = (item.findtext("itunes:season", namespaces=NS) or "").strip()
+              related_episode = (item.findtext("itunes:episode", namespaces=NS) or "").strip()
+              related_prefix = (
+                  f"s{related_season}-ep{related_episode}"
+                  if related_season and related_episode
+                  else "episode"
+              )
+              related_slug = f"{related_prefix}-{slugify(related_title)}"
+              related_image_node = item.find("itunes:image", NS)
+              related_image = (
+                  related_image_node.attrib.get("href", "")
+                  if related_image_node is not None
+                  else ""
+              )
+              related_description = meta_description(
+                  clean_html(item.findtext("description") or "")
+              )
+              related_label = (
+                  f"S{related_season} Ep{related_episode}"
+                  if related_season and related_episode
+                  else "Episode"
+              )
+              related_cards.append(
+                  f"""
+                  <a class="related-card" href="../{esc(related_slug)}/">
+                    <img src="{esc(related_image)}" alt="{esc(related_title)} episode artwork" loading="lazy">
+                    <div class="card-body">
+                      <div class="card-label">{esc(related_label)}</div>
+                      <h3>{esc(related_title)}</h3>
+                      <p>{esc(related_description)}</p>
+                    </div>
+                  </a>
+                  """
+              )
+
+          schema_episode = {
+              "@type": "PodcastEpisode",
+              "@id": canonical + "#episode",
+              "url": canonical,
+              "name": title,
+              "description": description_meta,
+              "datePublished": date.isoformat(),
+              "episodeNumber": int(episode) if episode.isdigit() else episode,
+              "partOfSeries": {
+                  "@type": "PodcastSeries",
+                  "@id": "https://throupletea.com/#podcast",
+                  "name": "A Little Throuple Tea",
+              },
+              "associatedMedia": {
+                  "@type": "AudioObject",
+                  "contentUrl": audio,
+                  "encodingFormat": "audio/mpeg",
+              },
+              "image": image,
+              "isFamilyFriendly": False,
+              "author": {
+                  "@type": "Organization",
+                  "name": "3Dudes1Life Creative",
+                  "url": "https://3dudes1lifecreative.com/",
+              },
+          }
+          if season:
+              schema_episode["partOfSeason"] = {
+                  "@type": "PodcastSeason",
+                  "seasonNumber": int(season) if season.isdigit() else season,
+              }
+          duration_value = duration_iso(duration)
+          if duration_value:
+              schema_episode["duration"] = duration_value
+
+          schema = {
+              "@context": "https://schema.org",
+              "@graph": [
+                  schema_episode,
+                  {
+                      "@type": "BreadcrumbList",
+                      "itemListElement": [
+                          {
+                              "@type": "ListItem",
+                              "position": 1,
+                              "name": "Home",
+                              "item": "https://throupletea.com/",
+                          },
+                          {
+                              "@type": "ListItem",
+                              "position": 2,
+                              "name": "Episodes",
+                              "item": "https://throupletea.com/episodes/",
+                          },
+                          {
+                              "@type": "ListItem",
+                              "position": 3,
+                              "name": title,
+                              "item": canonical,
+                          },
+                      ],
+                  },
+              ],
+          }
+
+          page = f"""<!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+            <title>{esc(title)} | A Little Throuple Tea</title>
+            <meta name="description" content="{esc(description_meta)}">
+            <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+            <link rel="canonical" href="{esc(canonical)}">
+            <meta property="og:type" content="article">
+            <meta property="og:site_name" content="A Little Throuple Tea">
+            <meta property="og:title" content="{esc(title)}">
+            <meta property="og:description" content="{esc(description_meta)}">
+            <meta property="og:url" content="{esc(canonical)}">
+            <meta property="og:image" content="{esc(image)}">
+            <meta property="article:published_time" content="{esc(date.isoformat())}">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="{esc(title)}">
+            <meta name="twitter:description" content="{esc(description_meta)}">
+            <meta name="twitter:image" content="{esc(image)}">
+            <meta name="theme-color" content="#160712">
+            <link rel="icon" href="../../images/favicon.png">
+            <link rel="manifest" href="../../manifest.json">
+            <link rel="stylesheet" href="../../styles.css">
+            <link rel="stylesheet" href="../../episode-seo.css">
+            <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>
+          </head>
+          <body class="episode-body">
+            <header class="simple-header">
+              <div class="wrap">
+                <a class="brand" href="../../">
+                  <img src="../../throuple-tea-logo-new.jpg?v=3" alt="A Little Throuple Tea logo">
+                </a>
+                <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainNav">☰</button>
+                <nav class="simple-nav" id="mainNav">
+                  <a href="../../#listen">Listen</a>
+                  <a href="../../watch/">Watch</a>
+                  <a class="active" href="../../episodes/">Episodes</a>
+                  <a href="../../what-is-a-throuple/">What Is a Throuple?</a>
+                  <a href="../../meet-the-throuple/">Meet the Throuple</a>
+                  <a href="../../throuple-faq/">FAQ</a>
+                  <a href="../../gay-throuple-podcast/">Gay Throuple Podcast</a>
+                  <a class="hotline-guest-link" href="../../guest/">Be a Guest</a>
+                </nav>
+              </div>
+              <div class="hotline-row">
+                <a class="hotline-nav-link" href="mailto:throupletea@gmail.com?subject=Throuple%20Hotline&body=Spill%20the%20tea%20here%3A%0A%0A">☎️ Throuple Hotline</a>
+              </div>
+            </header>
+
+            <main>
+              <div class="wrap episode-breadcrumb">
+                <a href="../../">Home</a> / <a href="../../episodes/">Episodes</a> / {esc(display_label)}
+              </div>
+              <section class="episode-hero">
+                <div class="wrap episode-hero-grid">
+                  <div>
+                    <div class="episode-eyebrow">{esc(display_label)} · {esc(display_date)}</div>
+                    <h1>{esc(title)}</h1>
+                    <p class="episode-deck">{esc(description_meta)}</p>
+                    <div class="episode-meta">
+                      {f'<span>Duration: {esc(duration)}</span>' if duration else ''}
+                      <span>{esc(episode_type.title())}</span>
+                      <span>3Dudes1Life Creative</span>
+                    </div>
+                    <div class="episode-actions">
+                      <a class="btn primary" href="#listen">Listen Now</a>
+                      <a class="btn" href="{esc(link)}" target="_blank" rel="noopener">Open on Spotify</a>
+                      <a class="btn" href="../">All Episodes</a>
+                    </div>
+                  </div>
+                  <div class="episode-art">
+                    <img src="{esc(image)}" alt="{esc(title)} episode artwork" width="1200" height="1200">
+                  </div>
+                </div>
+              </section>
+
+              <section class="episode-section" id="listen">
+                <div class="wrap episode-content-grid">
+                  <article class="episode-copy">
+                    <h2>About this episode</h2>
+                    {copy_paragraphs}
+                  </article>
+                  <aside class="episode-side-card">
+                    <h2>Listen to the episode</h2>
+                    <audio class="audio-player" controls preload="metadata">
+                      <source src="{esc(audio)}" type="audio/mpeg">
+                      Your browser does not support the audio player.
+                    </audio>
+                    <p><a class="btn primary" href="{esc(link)}" target="_blank" rel="noopener">Listen on Spotify</a></p>
+                  </aside>
+                </div>
+              </section>
+
+              <section class="episode-section related-wrap">
+                <div class="wrap">
+                  <h2>Related episodes</h2>
+                  <div class="related-grid">{''.join(related_cards)}</div>
+                </div>
+              </section>
+            </main>
+
+            <footer class="site-footer">
+              <div class="wrap episode-footer">
+                <p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project</p>
+                <nav>
+                  <a href="../../">Home</a>
+                  <a href="../">Episodes</a>
+                  <a href="mailto:throupletea@gmail.com?subject=Throuple%20Hotline&body=Spill%20the%20tea%20here%3A%0A%0A">Throuple Hotline</a>
+                </nav>
+              </div>
+            </footer>
+
+            <script>
+              document.getElementById('year').textContent = new Date().getFullYear();
+              const navToggle = document.getElementById('navToggle');
+              const mainNav = document.getElementById('mainNav');
+              if (navToggle && mainNav) {{
+                navToggle.addEventListener('click', () => {{
+                  const open = mainNav.classList.toggle('open');
+                  navToggle.setAttribute('aria-expanded', String(open));
+                  navToggle.innerHTML = open ? '✕' : '☰';
+                }});
+                mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {{
+                  mainNav.classList.remove('open');
+                  navToggle.setAttribute('aria-expanded', 'false');
+                  navToggle.innerHTML = '☰';
+                }}));
+              }}
+            </script>
+          </body>
+          </html>
+          """
+
+          destination.parent.mkdir(parents=True, exist_ok=False)
+          destination.write_text(page, encoding="utf-8")
+
+          # Update the archive with strict safety checks.
+          archive = ARCHIVE.read_text(encoding="utf-8")
+          if f'href="{slug}/"' in archive or canonical in archive:
+              raise SystemExit("Safety stop: archive already contains this episode.")
+
+          card_search = esc((title + " " + description).lower())
+          card_description = esc(description_meta)
+          card = f"""
+          <a class="archive-card" data-search="{card_search}" href="{esc(slug)}/">
+            <img alt="{esc(title)} episode artwork" loading="lazy" src="{esc(image)}"/>
+            <div class="card-body">
+              <div class="card-label">{esc(compact_label)} · {esc(display_date)}</div>
+              <h2>{esc(title)}</h2>
+              <p>{card_description}</p>
+            </div>
+          </a>
+          """
+
+          grid_pattern = r'(<div class="archive-grid" id="episodeGrid">\s*)'
+          archive, insertions = re.subn(
+              grid_pattern,
+              lambda match: match.group(1) + card,
+              archive,
+              count=1,
+          )
+          if insertions != 1:
+              raise SystemExit("Safety stop: archive episode grid marker was not found exactly once.")
+
+          old_count_match = re.search(r'Browse all (\d+) episodes and trailers', archive)
+          if not old_count_match:
+              raise SystemExit("Safety stop: archive meta count marker was not found.")
+          old_count = int(old_count_match.group(1))
+          new_count = old_count + 1
+
+          archive = archive.replace(
+              f"Browse all {old_count} episodes and trailers",
+              f"Browse all {new_count} episodes and trailers",
+              1,
+          )
+          archive = archive.replace(
+              f"Search {old_count} episodes and trailers",
+              f"Search {new_count} episodes and trailers",
+              1,
+          )
+          archive = archive.replace(
+              f'<span id="episodeCount">{old_count} episodes and trailers</span>',
+              f'<span id="episodeCount">{new_count} episodes and trailers</span>',
+              1,
+          )
+
+          schema_pattern = re.compile(
+              r'<script type="application/ld\+json">(.*?)</script>',
+              flags=re.S,
+          )
+          schema_match = schema_pattern.search(archive)
+          if not schema_match:
+              raise SystemExit("Safety stop: archive JSON-LD was not found.")
+
+          try:
+              archive_schema = json.loads(schema_match.group(1))
+          except json.JSONDecodeError as error:
+              raise SystemExit(f"Safety stop: archive JSON-LD could not be parsed: {error}")
+
+          main_entity = archive_schema.get("mainEntity", {})
+          item_list = main_entity.get("itemListElement")
+          if not isinstance(item_list, list):
+              raise SystemExit("Safety stop: archive JSON-LD ItemList is missing.")
+
+          new_item = {
+              "@type": "ListItem",
+              "position": 1,
+              "url": canonical,
+              "name": title,
+          }
+          for existing in item_list:
+              existing["position"] = int(existing.get("position", 0)) + 1
+          item_list.insert(0, new_item)
+          main_entity["numberOfItems"] = len(item_list)
+
+          archive = (
+              archive[:schema_match.start(1)]
+              + json.dumps(archive_schema, ensure_ascii=False)
+              + archive[schema_match.end(1):]
+          )
+          ARCHIVE.write_text(archive, encoding="utf-8")
+
+          # Add the new canonical URL to the sitemap, without touching existing URLs.
+          ET.register_namespace("", "http://www.sitemaps.org/schemas/sitemap/0.9")
+          sitemap_tree = ET.parse(SITEMAP)
+          sitemap_root = sitemap_tree.getroot()
+          sitemap_ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          existing_locs = {
+              node.text.strip()
+              for node in sitemap_root.findall("sm:url/sm:loc", sitemap_ns)
+              if node.text
+          }
+          if canonical in existing_locs:
+              raise SystemExit("Safety stop: sitemap already contains the new episode URL.")
+
+          namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+          url_node = ET.SubElement(sitemap_root, namespace + "url")
+          ET.SubElement(url_node, namespace + "loc").text = canonical
+          ET.SubElement(url_node, namespace + "lastmod").text = date.date().isoformat()
+          ET.SubElement(url_node, namespace + "changefreq").text = "yearly"
+          ET.SubElement(url_node, namespace + "priority").text = "0.75"
+          sitemap_tree.write(
+              SITEMAP,
+              encoding="utf-8",
+              xml_declaration=True,
+          )
+
+          with output.open("a", encoding="utf-8") as handle:
+              handle.write("changed=true\n")
+              handle.write("reason=new-episode-generated\n")
+
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+              with open(summary, "a", encoding="utf-8") as handle:
+                  handle.write("# New episode generated\n\n")
+                  handle.write(f"- **Title:** {title}\n")
+                  handle.write(f"- **Slug:** `{slug}`\n")
+                  handle.write(f"- **URL:** {canonical}\n")
+                  handle.write(f"- **Archive count:** {old_count} → {new_count}\n")
+                  handle.write("- **Files prepared:** Episode page, archive, sitemap\n")
+                  handle.write("- **Commit step:** Pending validation\n")
+          PY
+
+      - name: Validate generated changes
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+
+          test -f "episodes/${{ steps.generate.outputs.slug }}/index.html"
+
+          python3 - <<'PY'
+          import json
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          from html.parser import HTMLParser
+
+          class Parser(HTMLParser):
+              pass
+
+          changed_html = [
+              Path("episodes/index.html"),
+              Path("episodes") / "${{ steps.generate.outputs.slug }}" / "index.html",
+          ]
+
+          for path in changed_html:
+              parser = Parser()
+              parser.feed(path.read_text(encoding="utf-8"))
+
+          ET.parse("sitemap.xml")
+
+          episode_page = changed_html[1].read_text(encoding="utf-8")
+          if "${{ steps.generate.outputs.canonical }}" not in episode_page:
+              raise SystemExit("Generated page is missing its canonical URL.")
+          if 'mailto:throupletea@gmail.com' not in episode_page:
+              raise SystemExit("Generated page is missing the one-click Hotline.")
+          if 'episode-seo.css' not in episode_page:
+              raise SystemExit("Generated page is missing shared episode styling.")
+
+          print("HTML and sitemap validation passed.")
+          PY
+
+          changed_files="$(git status --short)"
+          echo "$changed_files"
+
+          expected_page="episodes/${{ steps.generate.outputs.slug }}/index.html"
+
+          echo "$changed_files" | grep -F "$expected_page"
+          echo "$changed_files" | grep -F "episodes/index.html"
+          echo "$changed_files" | grep -F "sitemap.xml"
+
+          unexpected="$(echo "$changed_files" | grep -vF "$expected_page" | grep -vF "episodes/index.html" | grep -vF "sitemap.xml" || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed:"
+            echo "$unexpected"
+            exit 1
+          fi
+
+      - name: Commit generated episode
+        if: steps.generate.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "Throuple Tea Episode Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            "episodes/${{ steps.generate.outputs.slug }}/index.html" \
+            "episodes/index.html" \
+            "sitemap.xml"
+
+          git commit -m "Auto-publish podcast episode: ${{ steps.generate.outputs.title }}"
+          git push origin HEAD:main
+
+      - name: Confirm no-op safety result
+        if: steps.generate.outputs.changed != 'true'
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Safety failure: repository changed during a no-op run."
+            git status --short
+            exit 1
+          fi
+          echo "No files changed and no commit was created."
