@@ -28,21 +28,21 @@
 </head>
 <body class="episode-body">
 <header class="simple-header">
-<div class="wrap episode-header-inner">
-<a aria-label="A Little Throuple Tea home" class="brand" href="../../">
-<img alt="A Little Throuple Tea logo" src="../../throuple-tea-logo-new.jpg?v=3"/>
-</a>
+<div class="wrap">
+<a class="brand" href="../../"><img alt="A Little Throuple Tea logo" src="../../throuple-tea-logo-new.jpg?v=3"/></a>
 <button aria-controls="mainNav" aria-expanded="false" aria-label="Open navigation menu" class="nav-toggle" id="navToggle">☰</button>
-<nav aria-label="Primary navigation" class="simple-nav" id="mainNav">
+<nav class="simple-nav" id="mainNav">
 <a href="../../#listen">Listen</a>
-<a href="../">Episodes</a>
 <a href="../../watch/">Watch</a>
+<a class="active" href="../../episodes/">Episodes</a>
 <a href="../../what-is-a-throuple/">What Is a Throuple?</a>
-<a href="../../meet-the-throuple/">Meet Us</a>
+<a href="../../meet-the-throuple/">Meet the Throuple</a>
 <a href="../../throuple-faq/">FAQ</a>
-<a href="../../guest/">Be a Guest</a>
+<a href="../../gay-throuple-podcast/">Gay Throuple Podcast</a>
+<a class="hotline-guest-link" href="../../guest/">Be a Guest</a>
 </nav>
 </div>
+<div class="hotline-row"><a class="hotline-nav-link" href="../../#social-tea">☎️ Throuple Hotline</a></div>
 </header>
 <main>
 <div class="wrap episode-breadcrumb"><a href="../../">Home</a> / <a href="../">Episodes</a> / Season 1 · Episode 9</div>
@@ -121,32 +121,10 @@ and
 </div>
 </section>
 </main>
-<footer class="site-footer">
-<div class="wrap episode-footer">
-<p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project</p>
-<nav aria-label="Footer navigation">
-<a href="../../">Home</a>
-<a href="../">Episodes</a>
-<a href="../../topics/throuple-life/">Throuple Life</a>
-<a href="../../topics/gay-relationships/">Gay Relationships</a>
-<a href="../../topics/travel-adventures/">Travel</a>
-</nav>
-</div>
-</footer>
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
+<footer class="site-footer"><div class="wrap episode-footer"><p>© <span id="year"></span> A Little Throuple Tea · A 3Dudes1Life Creative project</p><nav><a href="../../">Home</a><a href="../../episodes/">Episodes</a><a href="../../watch/">Watch</a><a href="../../throuple-faq/">FAQ</a></nav></div></footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();
 const navToggle=document.getElementById('navToggle');
 const mainNav=document.getElementById('mainNav');
-if(navToggle&&mainNav){
-  navToggle.addEventListener('click',()=>{
-    const open=mainNav.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded',String(open));
-  });
-  mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-    mainNav.classList.remove('open');
-    navToggle.setAttribute('aria-expanded','false');
-  }));
-}
-</script>
+if(navToggle&&mainNav){navToggle.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');navToggle.setAttribute('aria-expanded',String(open));});mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mainNav.classList.remove('open');navToggle.setAttribute('aria-expanded','false');}));}</script>
 </body>
 </html>
