@@ -27,3 +27,12 @@ The OneSignal worker files, app ID, SDK initialization, notification button ID, 
 - Converted the existing Caleb host image from mislabeled HEIF data into a standards-compatible JPEG without changing the photo.
 
 - Fixed the skip-navigation link appearing in the mobile Safari header; it remains available to desktop keyboard users.
+
+## Cumulative round 2
+
+- Replaced the older one-off mobile navigation script on the episode archive, all episode pages, and all topic hubs with the same shared, accessible `/script.js` controller used by the live-tested core pages.
+- Removed 45 redundant inline navigation controllers, reducing duplicated JavaScript and keeping header/menu behavior consistent site-wide.
+- Updated the manifest Hotline shortcut to open the real on-site Hotline section before the existing mail flow, improving shortcut compatibility.
+- Added safe PWA launch preferences (`prefer_related_applications` and `launch_handler`) without registering or changing any service worker.
+- Added deduplicated analytics for outbound links, form submissions, audio/video plays, scroll depth, install availability, completed installation, and standalone-app launches.
+- OneSignal worker files, SDK initialization, app ID, button IDs, and permission flow remain untouched.

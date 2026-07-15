@@ -64,7 +64,7 @@
       "name": "Throuple Hotline",
       "short_name": "Hotline",
       "description": "Send a question or confession to the podcast.",
-      "url": "mailto:throupletea@gmail.com?subject=Throuple%20Hotline",
+      "url": "/#hotline",
       "icons": [
         {
           "src": "/app-icon.png",
@@ -73,5 +73,9 @@
         }
       ]
     }
-  ]
+  ],
+  "prefer_related_applications": false,
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
 }

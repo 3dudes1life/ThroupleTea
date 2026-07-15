@@ -421,3 +421,76 @@ if (yearNode) yearNode.textContent = new Date().getFullYear();
     try{var ap=new URL(a.href,location.origin).pathname.replace(/\/index\.html$/,'/');if(ap!=='/'&&path.startsWith(ap)){a.classList.add('active');a.setAttribute('aria-current','page');}else if(path==='/'&&ap==='/'){a.classList.add('active');a.setAttribute('aria-current','page');}}catch(e){}
   });
 }());
+
+/* Deeper, deduplicated engagement analytics. This does not alter OneSignal behavior. */
+(function(){
+  function send(name,params){
+    if(typeof window.gtag==='function') window.gtag('event',name,params||{});
+  }
+  function once(key,name,params){
+    try{
+      if(sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key,'1');
+    }catch(e){}
+    send(name,params);
+  }
+
+  document.addEventListener('click',function(event){
+    var link=event.target.closest('a[href]');
+    if(!link) return;
+    try{
+      var url=new URL(link.href,location.href);
+      if(/^https?:$/.test(url.protocol) && url.origin!==location.origin){
+        send('outbound_click',{
+          link_url:url.href,
+          link_domain:url.hostname,
+          link_text:(link.getAttribute('aria-label')||link.textContent||'').trim().replace(/\s+/g,' ').slice(0,100)
+        });
+      }
+    }catch(e){}
+  },{passive:true});
+
+  document.addEventListener('submit',function(event){
+    var form=event.target;
+    send('form_submit',{
+      form_id:form.id||undefined,
+      form_name:form.getAttribute('name')||undefined,
+      form_action:form.getAttribute('action')||undefined
+    });
+  },true);
+
+  document.addEventListener('play',function(event){
+    var media=event.target;
+    if(!media || !/^(AUDIO|VIDEO)$/.test(media.tagName)) return;
+    send(media.tagName==='AUDIO'?'podcast_play':'video_play',{
+      media_src:media.currentSrc||media.getAttribute('src')||undefined,
+      page_path:location.pathname
+    });
+  },true);
+
+  var marks=[25,50,75,90];
+  function scrollDepth(){
+    var doc=document.documentElement;
+    var available=Math.max(1,doc.scrollHeight-window.innerHeight);
+    var percent=Math.round((window.scrollY/available)*100);
+    marks.forEach(function(mark){
+      if(percent>=mark) once('tt_scroll_'+location.pathname+'_'+mark,'scroll_depth',{percent_scrolled:mark,page_path:location.pathname});
+    });
+  }
+  var ticking=false;
+  window.addEventListener('scroll',function(){
+    if(ticking) return;
+    ticking=true;
+    window.requestAnimationFrame(function(){scrollDepth();ticking=false;});
+  },{passive:true});
+
+  window.addEventListener('beforeinstallprompt',function(){
+    once('tt_install_available','pwa_install_available',{page_path:location.pathname});
+  });
+  window.addEventListener('appinstalled',function(){
+    send('pwa_installed',{page_path:location.pathname});
+  });
+  if(window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true){
+    once('tt_standalone_launch','pwa_standalone_launch',{page_path:location.pathname});
+  }
+}());
