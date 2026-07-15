@@ -144,8 +144,9 @@
     .eyebrow{display:flex;align-items:center;gap:10px;color:var(--sun);font-weight:900;text-transform:uppercase;letter-spacing:.14em;font-size:.75rem}
     .eyebrow:before{content:"";width:34px;height:1px;background:var(--hot-pink)}
     h1,h2,h3{line-height:1.08}
-    h1{margin:13px 0 18px;color:#fff;font-size:clamp(3.3rem,6.4vw,6.35rem);letter-spacing:-.058em;text-align:center}
-    h1 span{display:block;color:var(--hot-pink);text-shadow:0 0 24px rgba(255,0,93,.42)}
+    h1{margin:13px 0 18px;color:#fff;font-size:clamp(2.8rem,4.45vw,4.85rem);letter-spacing:-.052em;text-align:center}
+    h1 .hero-line{display:block;white-space:nowrap}
+    h1 .hero-line.accent{color:var(--hot-pink);text-shadow:0 0 24px rgba(255,0,93,.42)}
     .hero-sub{max-width:760px;margin:0 auto;color:#dff8ff;font-size:clamp(1.05rem,1.4vw,1.22rem);text-align:center}
     .proof-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:22px 0}
     .proof-row span{padding:9px 12px;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:#fff;background:rgba(255,255,255,.045);font-weight:800;font-size:.84rem}
@@ -209,18 +210,22 @@
       .header-inner{min-height:68px;padding-top:env(safe-area-inset-top)}
       .brand img{height:44px}.simple-nav{top:68px}
       .hero{padding:32px 0 48px}
-      h1{font-size:clamp(3rem,14.5vw,4.5rem)}
-      .hero-grid{gap:34px}
+      h1{font-size:clamp(1.65rem,8.1vw,3.25rem);letter-spacing:-.045em}
+      .hero-grid{gap:30px}
+      .hero-sub{font-size:1.02rem;line-height:1.62}
+      .proof-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:20px 0}
+      .proof-row span{display:flex;align-items:center;justify-content:center;min-height:58px;padding:9px 8px;border-radius:17px;font-size:.78rem;line-height:1.22;text-align:center}
+      .cta-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+      .cta-row .btn{width:100%;min-height:58px;padding:12px 10px;border-radius:18px;font-size:.92rem;line-height:1.15;text-align:center}
+      .cta-row .btn.primary{grid-column:1/-1;min-height:62px;font-size:1.05rem}
+      .newsletter-float{left:auto;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));width:auto!important;min-height:46px;padding:10px 15px;border-radius:999px;font-size:.82rem;box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 22px rgba(255,0,93,.3)}
       .hero-art{padding:10px;border-radius:21px}
       .hero-art img{border-radius:15px}
       .rank-badge{position:static;max-width:none;margin-top:12px;text-align:center}
-      .cta-row{display:grid}.btn{width:100%}
       .section{padding:60px 0}
       .platforms{grid-template-columns:repeat(2,1fr)}
       .feature-grid,.hosts-grid{grid-template-columns:1fr}
       .footer-grid{flex-direction:column}
-      .newsletter-float{left:13px;right:13px}
-      .newsletter-float.btn{width:auto}
       .signup-box iframe{height:560px}
     }
   </style>
@@ -249,7 +254,7 @@
 <div class="wrap hero-grid">
 <div>
 <div class="eyebrow">Weekly video podcast · New episodes every Friday</div>
-<h1>Real love. Real chaos. <span>Three dudes, one life.</span></h1>
+<h1><span class="hero-line">Real love. Real chaos.</span><span class="hero-line accent">Three dudes, one life.</span></h1>
 <p class="hero-sub"><strong>A Little Throuple Tea</strong> is a gay throuple podcast hosted by real-life partners William, Caleb and Daniel. We talk honestly about commitment, LGBTQ+ relationships, family, money, travel, queer culture and the beautifully unfiltered reality of building one life as three men in love.</p>
 <div class="proof-row">
 <span>Real-life committed throuple</span>
@@ -259,8 +264,8 @@
 </div>
 <div class="cta-row">
 <a class="btn primary" href="#listen">Start Listening</a>
-<a class="btn" href="/watch/">Watch Full Episodes</a>
-<a class="btn" href="/episodes/">Browse Every Episode</a>
+<a class="btn" href="/watch/">Watch Episodes</a>
+<a class="btn" href="/episodes/">Browse Episodes</a>
 </div>
 </div>
 <div class="hero-art">
