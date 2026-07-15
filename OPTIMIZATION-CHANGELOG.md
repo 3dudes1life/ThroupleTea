@@ -36,3 +36,18 @@ The OneSignal worker files, app ID, SDK initialization, notification button ID, 
 - Added safe PWA launch preferences (`prefer_related_applications` and `launch_handler`) without registering or changing any service worker.
 - Added deduplicated analytics for outbound links, form submissions, audio/video plays, scroll depth, install availability, completed installation, and standalone-app launches.
 - OneSignal worker files, SDK initialization, app ID, button IDs, and permission flow remain untouched.
+
+
+## Cumulative Round 3 — Speed, Discovery & Final Polish
+
+- Compressed oversized approved local images in place without changing artwork or photography.
+- Reduced the largest local image payload substantially and corrected intrinsic dimensions across all pages.
+- Added targeted preconnect and DNS-prefetch hints only where external providers are actually used.
+- Added dark color-scheme metadata for native browser controls.
+- Hardened every new-tab link with `noopener noreferrer`.
+- Added asynchronous decoding to lazy images where it was missing.
+- Retired `seo.html` as a duplicate search landing page using `noindex,follow` and a canonical homepage link.
+- Improved the branded offline page and live connection-status messaging without registering a second service worker.
+- Added resilient shared focus, media sizing, reduced-data, and print behavior.
+- Refreshed the manifest launch version and description.
+- OneSignal worker files, app ID, SDK initialization, push DOM hooks, and registration behavior were not edited.

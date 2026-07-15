@@ -385,3 +385,18 @@ body.modal-open{overflow:hidden}
     display: none !important;
   }
 }
+
+
+/* CUMULATIVE ROUND 3: safe performance and resilient UI polish */
+:where(img,video,iframe){max-width:100%}
+:where(button,a,input,select,textarea):focus-visible{outline:3px solid #00d7e8;outline-offset:3px}
+:where(audio,video){max-width:100%}
+@media (prefers-reduced-data:reduce){
+  *{background-image:none!important}
+  video[autoplay]{display:none!important}
+}
+@media print{
+  .simple-header,.site-footer,.nav-toggle,.header-hotline{display:none!important}
+  body{background:#fff!important;color:#000!important}
+  a{color:#000!important;text-decoration:underline!important}
+}
