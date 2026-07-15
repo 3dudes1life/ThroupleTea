@@ -388,7 +388,8 @@ body.modal-open{overflow:hidden}
 
 
 /* CUMULATIVE ROUND 3: safe performance and resilient UI polish */
-:where(img,video,iframe){max-width:100%}
+:where(img){max-width:100%;height:auto}
+:where(video,iframe){max-width:100%}
 :where(button,a,input,select,textarea):focus-visible{outline:3px solid #00d7e8;outline-offset:3px}
 :where(audio,video){max-width:100%}
 @media (prefers-reduced-data:reduce){
