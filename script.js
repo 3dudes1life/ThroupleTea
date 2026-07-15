@@ -494,3 +494,42 @@ if (yearNode) yearNode.textContent = new Date().getFullYear();
     once('tt_standalone_launch','pwa_standalone_launch',{page_path:location.pathname});
   }
 }());
+
+
+/* ROUND 4: accessible episode sharing and form feedback. */
+(function(){
+  function toast(message){
+    var old=document.querySelector('.copy-status-toast'); if(old) old.remove();
+    var node=document.createElement('div'); node.className='copy-status-toast'; node.setAttribute('role','status'); node.setAttribute('aria-live','polite'); node.textContent=message; document.body.appendChild(node);
+    window.setTimeout(function(){node.remove();},2400);
+  }
+  document.addEventListener('click',async function(event){
+    var btn=event.target.closest('[data-copy-episode]'); if(!btn) return;
+    var url=location.href.split('#')[0];
+    try{
+      if(navigator.share){
+        await navigator.share({title:document.title,url:url});
+        if(typeof window.gtag==='function') window.gtag('event','episode_share',{method:'native',page_path:location.pathname});
+        return;
+      }
+      await navigator.clipboard.writeText(url);
+      btn.classList.add('is-copied'); btn.textContent='Link Copied!'; toast('Episode link copied.');
+      window.setTimeout(function(){btn.classList.remove('is-copied');btn.textContent='Copy Episode Link';},2200);
+      if(typeof window.gtag==='function') window.gtag('event','episode_share',{method:'clipboard',page_path:location.pathname});
+    }catch(error){
+      if(error && error.name==='AbortError') return;
+      toast('Copy the address from your browser to share this episode.');
+    }
+  });
+  document.addEventListener('submit',function(event){
+    var form=event.target; if(!(form instanceof HTMLFormElement)) return;
+    var submit=form.querySelector('button[type="submit"],input[type="submit"]');
+    if(!submit || submit.disabled) return;
+    submit.dataset.originalLabel=submit.value||submit.textContent||'';
+    submit.setAttribute('aria-busy','true');
+    window.setTimeout(function(){
+      if(!document.contains(submit)) return;
+      submit.removeAttribute('aria-busy');
+    },5000);
+  },true);
+}());
