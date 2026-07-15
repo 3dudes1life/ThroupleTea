@@ -366,3 +366,58 @@ if (yearNode) yearNode.textContent = new Date().getFullYear();
   `;
   document.head.appendChild(style);
 }());
+
+
+/* Device-aware install guidance and installed-mode messaging. No service-worker registration is added here. */
+(function(){
+  function platformCopy(){
+    var ua=navigator.userAgent||'';
+    var standalone=window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
+    if(standalone) return 'You are already using the saved app experience.';
+    var ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+    if(ios) return 'On iPhone or iPad Safari: tap Share, then Add to Home Screen.';
+    if(/Macintosh/.test(ua)&&/Safari/.test(ua)&&!/Chrome|Chromium/.test(ua)) return 'On Mac Safari: choose File, then Add to Dock.';
+    if(/Android/.test(ua)) return 'On Android Chrome: open the browser menu and choose Install app or Add to Home screen.';
+    if(/Edg|Chrome|Chromium/.test(ua)) return 'In Chrome or Edge: use the Install option in the address bar or browser menu.';
+    return 'Use your browser menu to save or install this site when that option is available.';
+  }
+  document.querySelectorAll('[data-install-help]').forEach(function(el){el.textContent=platformCopy();});
+  document.documentElement.classList.toggle('is-installed-app', window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true);
+}());
+
+/* One delegated analytics listener avoids duplicate event handlers. */
+(function(){
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('a,button'); if(!el) return;
+    var label=(el.getAttribute('aria-label')||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,100);
+    var href=el.getAttribute('href')||'';
+    var eventName='cta_click';
+    if(href.startsWith('mailto:')) eventName='email_click';
+    else if(href.startsWith('tel:')) eventName='phone_click';
+    else if(/spotify|apple|youtube|amazon|iheart/i.test(href)) eventName='podcast_platform_click';
+    else if(el.id==='push-subscribe-btn') eventName='push_entry_click';
+    else if(el.id==='newsletter-trigger'||el.id==='newsletter-float') eventName='newsletter_open';
+    if(typeof window.gtag==='function') window.gtag('event',eventName,{event_label:label,link_url:href||undefined});
+  },{passive:true});
+}());
+
+/* Friendly network-state notice; avoids registering a competing service worker. */
+(function(){
+  var node;
+  function show(message){
+    if(!node){node=document.createElement('div');node.className='network-status';node.setAttribute('role','status');node.setAttribute('aria-live','polite');document.body.appendChild(node);}
+    node.textContent=message;node.hidden=false;
+  }
+  function hide(){if(node) node.hidden=true;}
+  window.addEventListener('offline',function(){show('You are offline. Already-loaded pages may still be available.');});
+  window.addEventListener('online',function(){show('You are back online.');window.setTimeout(hide,2500);});
+  if(!navigator.onLine) show('You are offline. Already-loaded pages may still be available.');
+}());
+
+/* Mark current navigation item for visual and screen-reader context. */
+(function(){
+  var path=location.pathname.replace(/\/index\.html$/,'/');
+  document.querySelectorAll('#mainNav a').forEach(function(a){
+    try{var ap=new URL(a.href,location.origin).pathname.replace(/\/index\.html$/,'/');if(ap!=='/'&&path.startsWith(ap)){a.classList.add('active');a.setAttribute('aria-current','page');}else if(path==='/'&&ap==='/'){a.classList.add('active');a.setAttribute('aria-current','page');}}catch(e){}
+  });
+}());

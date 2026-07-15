@@ -19,5 +19,59 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "id": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": [
+    "entertainment",
+    "music",
+    "lifestyle"
+  ],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "shortcuts": [
+    {
+      "name": "Latest Episodes",
+      "short_name": "Episodes",
+      "description": "Browse every episode of A Little Throuple Tea.",
+      "url": "/episodes/",
+      "icons": [
+        {
+          "src": "/app-icon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Watch the Podcast",
+      "short_name": "Watch",
+      "description": "Watch A Little Throuple Tea.",
+      "url": "/watch/",
+      "icons": [
+        {
+          "src": "/app-icon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Throuple Hotline",
+      "short_name": "Hotline",
+      "description": "Send a question or confession to the podcast.",
+      "url": "mailto:throupletea@gmail.com?subject=Throuple%20Hotline",
+      "icons": [
+        {
+          "src": "/app-icon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ]
 }

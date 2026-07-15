@@ -366,3 +366,15 @@ section { scroll-margin-top:86px }
   }
 }
 
+
+
+/* 2026 cumulative accessibility, mobile and performance polish */
+:focus-visible{outline:3px solid #00d7e8!important;outline-offset:3px!important}
+.skip-link{position:fixed;left:12px;top:12px;z-index:1000000;padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:900;transform:translateY(-180%);transition:transform .18s ease}
+.skip-link:focus{transform:translateY(0)}
+[hidden]{display:none!important}
+.network-status{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));z-index:100000;transform:translateX(-50%);max-width:min(92vw,680px);padding:10px 14px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:#111827;color:#fff;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.install-help{margin-top:12px;font-size:.92rem;color:rgba(255,255,255,.82)}
+body.modal-open{overflow:hidden}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media(max-width:480px){.newsletter-float{max-width:calc(100vw - 24px)!important;right:12px!important;bottom:calc(12px + env(safe-area-inset-bottom))!important}.signup-box{max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px)!important;overflow:auto!important}}
