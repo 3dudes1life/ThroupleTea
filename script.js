@@ -116,7 +116,23 @@
     if(typeof window.gtag==='function') window.gtag('event',name,params||{});
     else deliver(normalized(name,params||{}));
   };
-  window.ThroupleTeaAnalyticsBridge={track:window.ttTrack,flush:flush,getQueueSize:function(){return readQueue().length;},version:'6.0.0'};
+  window.ThroupleTeaAnalyticsBridge={track:window.ttTrack,flush:flush,getQueueSize:function(){return readQueue().length;},version:'6.1.1'};
+
+  /* Send one Cloudflare-only page view after the bridge is ready. GA4 already
+     records its own automatic page view, so this deliberately calls deliver()
+     directly instead of gtag() to avoid double-counting in Google Analytics. */
+  function sendInitialPageView(){
+    if(window.__ttInitialPageViewSent) return;
+    window.__ttInitialPageViewSent=true;
+    var navigationEntry=(window.performance&&performance.getEntriesByType)?performance.getEntriesByType('navigation')[0]:null;
+    deliver(normalized('page_view',{
+      page_path:location.pathname,
+      navigation_type:navigationEntry&&navigationEntry.type?navigationEntry.type:'navigate'
+    }));
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',sendInitialPageView,{once:true});
+  else window.setTimeout(sendInitialPageView,0);
+
   window.addEventListener('online',flush);
   window.setTimeout(flush,1200);
 }());
