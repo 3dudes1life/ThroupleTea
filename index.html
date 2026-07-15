@@ -149,9 +149,11 @@
     h1 .hero-line.accent{color:var(--hot-pink);text-shadow:0 0 24px rgba(255,0,93,.42)}
     .hero-sub{max-width:760px;margin:0 auto;color:#dff8ff;font-size:clamp(1.05rem,1.4vw,1.22rem);text-align:center}
 
-    .cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-top:25px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:13px 20px;border:1px solid rgba(0,215,232,.48);border-radius:999px;color:#fff;text-decoration:none;font-weight:900;background:rgba(255,255,255,.035);cursor:pointer}
+    .cta-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;max-width:680px;margin:25px auto 0}
+    .btn{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:52px;padding:13px 20px;border:1px solid rgba(0,215,232,.48);border-radius:20px;color:#fff;text-decoration:none;font-weight:900;background:rgba(255,255,255,.035);cursor:pointer}
+    .btn.primary,.btn.start-here-cta{grid-column:1/-1;min-height:62px;font-size:1.05rem}
     .btn.primary{border:0;background:linear-gradient(135deg,var(--hot-pink),var(--orange));box-shadow:0 9px 28px rgba(255,0,93,.35)}
+    .btn.start-here-cta{border:0;background:linear-gradient(135deg,#00bfcf 0%,#00d7e8 42%,#ff3f87 100%);color:#03151c;box-shadow:0 9px 28px rgba(0,215,232,.24)}
     .btn:hover{transform:translateY(-2px)}
 
     /* Fixed: real RSS artwork URL, contained instead of cropped */
@@ -232,9 +234,9 @@
       .hero-grid>div{min-width:0}
       .hero-sub{font-size:1.02rem;line-height:1.62}
 
-      .cta-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
-      .cta-row .btn{width:100%;min-height:58px;padding:12px 10px;border-radius:18px;font-size:.92rem;line-height:1.15;text-align:center}
-      .cta-row .btn.primary{grid-column:1/-1;min-height:62px;font-size:1.05rem}
+      .cta-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+      .cta-row .btn{min-height:58px;padding:12px 10px;border-radius:18px;font-size:.92rem;line-height:1.15;text-align:center}
+      .cta-row .btn.primary,.cta-row .btn.start-here-cta{grid-column:1/-1;min-height:64px;font-size:1.05rem}
       .newsletter-float{left:auto;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));width:auto!important;min-height:46px;padding:10px 15px;border-radius:999px;font-size:.82rem;box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 22px rgba(255,0,93,.3)}
       .hero-art{padding:10px;border-radius:21px}
       .hero-art img{border-radius:15px}
@@ -274,9 +276,9 @@
 <p class="hero-sub"><strong>A Little Throuple Tea</strong> is a gay throuple podcast hosted by real-life partners William, Caleb and Daniel. We talk honestly about commitment, LGBTQ+ relationships, family, money, travel, queer culture and the beautifully unfiltered reality of building one life as three men in love.</p>
 <div class="cta-row">
 <a class="btn primary" href="#listen">Start Listening</a>
+<a class="btn start-here-cta" data-growth-event="start_here_click" href="start-here/">New Here? Start Here</a>
 <a class="btn" href="watch/">Watch Episodes</a>
-<a class="btn" href="episodes/">Browse Episodes</a>
-<a class="btn start-here-cta" data-growth-event="start_here_click" href="start-here/">New Here? Start Here</a></div>
+<a class="btn" href="episodes/">Browse Episodes</a></div>
 </div>
 <div class="hero-art">
 <img alt="A Little Throuple Tea podcast artwork featuring William, Caleb and Daniel" fetchpriority="high" height="1200" src="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44265273/44265273-1778344436393-5c56aeb4ad5a.jpg" width="1200"/>
