@@ -187,7 +187,7 @@
     .tiny-note{margin-top:1rem;color:var(--muted);font-size:.92rem}
     .site-footer{padding:34px 0 calc(44px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,42,127,.28);background:#020204}
     .footer-grid{display:flex;justify-content:space-between;gap:24px;color:#b9e5eb;font-size:.9rem}
-    .newsletter-float{position:fixed;right:15px;bottom:15px;z-index:9998}
+    .newsletter-float{position:fixed!important;left:auto!important;right:18px!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;z-index:9998;width:auto!important;min-width:220px;max-width:calc(100vw - 36px);min-height:50px;padding:12px 20px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 22px rgba(255,0,93,.3)}
     .signup-popup{display:none;position:fixed;inset:0;z-index:100000}.signup-popup.active{display:block}
     .signup-overlay{position:absolute;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(5px)}
     .signup-box{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(94vw,560px);max-height:90vh;overflow:auto;padding:14px;border:2px solid rgba(255,42,127,.45);border-radius:24px;background:#050812}
@@ -237,7 +237,7 @@
       .cta-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
       .cta-row .btn{min-height:58px;padding:12px 10px;border-radius:18px;font-size:.92rem;line-height:1.15;text-align:center}
       .cta-row .btn.primary,.cta-row .btn.start-here-cta{grid-column:1/-1;min-height:64px;font-size:1.05rem}
-      .newsletter-float{left:auto;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));width:auto!important;min-height:46px;padding:10px 15px;border-radius:999px;font-size:.82rem;box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 22px rgba(255,0,93,.3)}
+      .newsletter-float{left:auto!important;right:12px!important;bottom:calc(12px + env(safe-area-inset-bottom))!important;width:auto!important;min-width:0;max-width:calc(100vw - 24px);min-height:46px;padding:10px 15px;border-radius:999px;font-size:.82rem;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 22px rgba(255,0,93,.3)}
       .hero-art{padding:10px;border-radius:21px}
       .hero-art img{border-radius:15px}
       .rank-badge{position:static;max-width:none;margin-top:12px;text-align:center}
