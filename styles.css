@@ -58,8 +58,7 @@ body {
 .hero::before {
   content:""; position:absolute; inset:0;
   background:
-    linear-gradient(180deg, rgba(7,33,41,.30), rgba(7,33,41,.75)),
-    url("images/hero-art.jpg");
+    linear-gradient(180deg, rgba(7,33,41,.30), rgba(7,33,41,.75));
   background-size:cover; background-position:center;
   filter:saturate(110%);
   animation: heroShift 18s ease-in-out infinite alternate;

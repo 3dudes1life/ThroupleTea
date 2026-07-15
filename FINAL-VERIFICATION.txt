@@ -1,0 +1,15 @@
+FINAL VERIFIED BUILD — 2026-07-14
+Website and dashboard were audited together.
+
+Website:
+- Cloudflare analytics endpoint preserved
+- GitHub Pages-safe relative links
+- No missing local files
+- No visible skip link
+- OneSignal worker files present and unchanged within this uploaded build
+- Valid JavaScript, schema JSON, sitemap and manifest
+- Deployment-only package kept below 100 files
+- Removed stale backup/audit documents
+- Removed one obsolete CSS request for a nonexistent hero-art.jpg
+
+Upload the CONTENTS of this folder to the ThroupleTea website repository root.
