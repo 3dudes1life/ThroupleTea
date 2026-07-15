@@ -574,3 +574,16 @@ if (yearNode) yearNode.textContent = new Date().getFullYear();
   window.addEventListener('orientationchange',queueFit,{passive:true});
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(queueFit);
 }());
+
+
+/* ROUND 5.0: named listener-growth events for the analytics dashboard. */
+(function(){
+  document.addEventListener('click',function(event){
+    var el=event.target.closest('[data-growth-event]'); if(!el) return;
+    var name=el.getAttribute('data-growth-event'); if(!name) return;
+    var href=el.getAttribute('href')||'';
+    var params={page_path:location.pathname,link_url:href||undefined,link_text:(el.getAttribute('aria-label')||el.textContent||'').trim().replace(/\s+/g,' ').slice(0,100)};
+    if(el.dataset.episode) params.episode_slug=el.dataset.episode;
+    if(typeof window.gtag==='function') window.gtag('event',name,params);
+  },{passive:true});
+}());

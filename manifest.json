@@ -35,6 +35,19 @@
   ],
   "shortcuts": [
     {
+      "name": "Start Here",
+      "short_name": "Start Here",
+      "description": "Meet the dudes and pick your first episode",
+      "url": "/start-here/?source=pwa",
+      "icons": [
+        {
+          "src": "/app-icon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
       "name": "Latest Episodes",
       "short_name": "Episodes",
       "description": "Browse every episode of A Little Throuple Tea.",
