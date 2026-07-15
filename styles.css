@@ -378,3 +378,10 @@ section { scroll-margin-top:86px }
 body.modal-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media(max-width:480px){.newsletter-float{max-width:calc(100vw - 24px)!important;right:12px!important;bottom:calc(12px + env(safe-area-inset-bottom))!important}.signup-box{max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px)!important;overflow:auto!important}}
+
+/* Mobile Safari fix: keep the keyboard skip link off touch-device headers. */
+@media (hover: none) and (pointer: coarse) {
+  .skip-link {
+    display: none !important;
+  }
+}

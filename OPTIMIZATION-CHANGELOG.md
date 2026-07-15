@@ -25,3 +25,5 @@ The OneSignal worker files, app ID, SDK initialization, notification button ID, 
 - Added explicit square dimensions to externally hosted podcast artwork to reduce layout shift.
 - Added the standalone links page canonical URL to sitemap.xml.
 - Converted the existing Caleb host image from mislabeled HEIF data into a standards-compatible JPEG without changing the photo.
+
+- Fixed the skip-navigation link appearing in the mobile Safari header; it remains available to desktop keyboard users.
