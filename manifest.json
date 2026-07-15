@@ -2,25 +2,25 @@
   "name": "A Little Throuple Tea",
   "short_name": "Throuple Tea",
   "description": "A weekly gay throuple video podcast with William, Caleb and Daniel: relationships, queer culture, travel and total chaos.",
-  "start_url": "/?v=20260714-4",
-  "scope": "/",
+  "start_url": "./?v=20260714-6",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#020204",
   "theme_color": "#020204",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/app-icon.png",
+      "src": "app-icon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/app-icon-512.png",
+      "src": "app-icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "id": "/",
+  "id": "./",
   "lang": "en-US",
   "dir": "ltr",
   "categories": [
@@ -38,10 +38,10 @@
       "name": "Start Here",
       "short_name": "Start Here",
       "description": "Meet the dudes and pick your first episode",
-      "url": "/start-here/?source=pwa",
+      "url": "start-here/?source=pwa",
       "icons": [
         {
-          "src": "/app-icon.png",
+          "src": "app-icon.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -51,10 +51,10 @@
       "name": "Latest Episodes",
       "short_name": "Episodes",
       "description": "Browse every episode of A Little Throuple Tea.",
-      "url": "/episodes/",
+      "url": "episodes/",
       "icons": [
         {
-          "src": "/app-icon.png",
+          "src": "app-icon.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -64,10 +64,10 @@
       "name": "Watch the Podcast",
       "short_name": "Watch",
       "description": "Watch A Little Throuple Tea.",
-      "url": "/watch/",
+      "url": "watch/",
       "icons": [
         {
-          "src": "/app-icon.png",
+          "src": "app-icon.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -77,10 +77,10 @@
       "name": "Throuple Hotline",
       "short_name": "Hotline",
       "description": "Send a question or confession to the podcast.",
-      "url": "/#hotline",
+      "url": "#hotline",
       "icons": [
         {
-          "src": "/app-icon.png",
+          "src": "app-icon.png",
           "sizes": "192x192",
           "type": "image/png"
         }

@@ -1,0 +1,5 @@
+UPLOAD THIS FOLDER CONTENTS TO THE REPOSITORY ROOT.
+
+This package is under 100 files and works on both GitHub project Pages and throupletea.com.
+Cloudflare analytics and OneSignal files are preserved.
+Do not upload an extra containing folder level. index.html must be at the repository root.

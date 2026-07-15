@@ -1,3 +1,127 @@
+/* ROUND 6.0: dashboard-ready analytics bridge.
+   Mirrors existing GA4 events into a normalized local payload and can optionally
+   forward them to the Throuple Tea Dash once a public ingestion endpoint is supplied.
+   No PII is intentionally collected and OneSignal is not accessed. */
+(function(){
+  if(window.__ttAnalyticsBridgeInstalled) return;
+  window.__ttAnalyticsBridgeInstalled=true;
+
+  var config=window.ThroupleTeaAnalytics||{};
+  var queueKey='tt_analytics_queue_v1';
+  var visitorKey='tt_visitor_id_v1';
+  var sessionKey='tt_session_id_v1';
+
+  function randomId(prefix){
+    var value='';
+    try{
+      if(window.crypto&&crypto.randomUUID) value=crypto.randomUUID();
+      else if(window.crypto&&crypto.getRandomValues){var bytes=new Uint32Array(4);crypto.getRandomValues(bytes);value=Array.from(bytes).map(function(n){return n.toString(16);}).join('');}
+    }catch(e){}
+    if(!value) value=Date.now().toString(36)+Math.random().toString(36).slice(2);
+    return prefix+'_'+value;
+  }
+  function storedId(key,prefix,storage){
+    try{var current=storage.getItem(key);if(current) return current;current=randomId(prefix);storage.setItem(key,current);return current;}catch(e){return randomId(prefix);}
+  }
+  var visitorId=storedId(visitorKey,'v',localStorage);
+  var sessionId=storedId(sessionKey,'s',sessionStorage);
+
+  function deviceType(){
+    var width=Math.max(document.documentElement.clientWidth||0,window.innerWidth||0);
+    if(width<768) return 'mobile';
+    if(width<1100) return 'tablet';
+    return 'desktop';
+  }
+  function clean(value,limit){
+    if(value===undefined||value===null||value==='') return undefined;
+    if(typeof value==='string') return value.replace(/\s+/g,' ').trim().slice(0,limit||300);
+    if(typeof value==='number'||typeof value==='boolean') return value;
+    return clean(String(value),limit);
+  }
+  function campaign(){
+    var query=new URLSearchParams(location.search);
+    var result={};
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(key){var value=clean(query.get(key),120);if(value) result[key]=value;});
+    return result;
+  }
+  function normalized(name,params){
+    params=params||{};
+    var payload={
+      schema_version:'1.0',
+      site_version:clean(config.version||'6.0.0',20),
+      event_id:randomId('e'),
+      event_name:clean(name,80),
+      event_time:new Date().toISOString(),
+      visitor_id:visitorId,
+      session_id:sessionId,
+      page_path:clean(params.page_path||location.pathname,300),
+      page_title:clean(document.title,200),
+      page_url:clean(location.href.split('#')[0],500),
+      referrer:clean(document.referrer,500),
+      device_type:deviceType(),
+      viewport_width:Math.round(window.innerWidth||0),
+      viewport_height:Math.round(window.innerHeight||0),
+      installed_app:!!(window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true),
+      online:navigator.onLine!==false,
+      campaign:campaign(),
+      properties:{}
+    };
+    Object.keys(params).forEach(function(key){
+      if(key==='page_path') return;
+      var value=clean(params[key],500);
+      if(value!==undefined) payload.properties[key]=value;
+    });
+    return payload;
+  }
+  function readQueue(){try{return JSON.parse(localStorage.getItem(queueKey)||'[]');}catch(e){return [];}}
+  function writeQueue(items){try{localStorage.setItem(queueKey,JSON.stringify(items.slice(-(config.queueLimit||100))));}catch(e){}}
+  function enqueue(payload){var items=readQueue();items.push(payload);writeQueue(items);}
+  function endpointReady(){return typeof config.endpoint==='string'&&/^https:\/\//i.test(config.endpoint);}
+  function headers(){var h={'Content-Type':'application/json'};if(config.publicKey) h['X-ThroupleTea-Key']=config.publicKey;return h;}
+  function transmit(payload){
+    if(!endpointReady()) return Promise.resolve(false);
+    var body=JSON.stringify(payload);
+    if(navigator.sendBeacon&&!config.publicKey){
+      try{if(navigator.sendBeacon(config.endpoint,new Blob([body],{type:'application/json'}))) return Promise.resolve(true);}catch(e){}
+    }
+    var controller=window.AbortController?new AbortController():null;
+    var timer=controller?setTimeout(function(){controller.abort();},config.requestTimeoutMs||5000):null;
+    return fetch(config.endpoint,{method:'POST',headers:headers(),body:body,keepalive:true,credentials:'omit',signal:controller?controller.signal:undefined})
+      .then(function(response){if(timer) clearTimeout(timer);return response.ok;})
+      .catch(function(){if(timer) clearTimeout(timer);return false;});
+  }
+  function deliver(payload){
+    window.dispatchEvent(new CustomEvent('throupletea:analytics',{detail:payload}));
+    if(config.debug&&window.console) console.info('[ThroupleTea Analytics]',payload);
+    if(!endpointReady()) return;
+    transmit(payload).then(function(ok){if(!ok) enqueue(payload);});
+  }
+  function flush(){
+    if(!endpointReady()||navigator.onLine===false) return;
+    var items=readQueue();if(!items.length) return;
+    localStorage.removeItem(queueKey);
+    items.reduce(function(chain,item){return chain.then(function(){return transmit(item).then(function(ok){if(!ok) enqueue(item);});});},Promise.resolve());
+  }
+
+  var originalGtag=window.gtag;
+  if(typeof originalGtag==='function'){
+    window.gtag=function(){
+      var args=Array.prototype.slice.call(arguments);
+      var result=originalGtag.apply(window,args);
+      if(args[0]==='event'&&args[1]) deliver(normalized(args[1],args[2]||{}));
+      return result;
+    };
+  }
+  window.ttTrack=function(name,params){
+    if(typeof window.gtag==='function') window.gtag('event',name,params||{});
+    else deliver(normalized(name,params||{}));
+  };
+  window.ThroupleTeaAnalyticsBridge={track:window.ttTrack,flush:flush,getQueueSize:function(){return readQueue().length;},version:'6.0.0'};
+  window.addEventListener('online',flush);
+  window.setTimeout(flush,1200);
+}());
+
+
 var yearNode = document.getElementById('year');
 if (yearNode) yearNode.textContent = new Date().getFullYear();
 
@@ -416,9 +540,9 @@ if (yearNode) yearNode.textContent = new Date().getFullYear();
 
 /* Mark current navigation item for visual and screen-reader context. */
 (function(){
-  var path=location.pathname.replace(/\/index\.html$/,'/');
+  var path=location.pathname.replace(/\/index\.html$/,'/'); var projectBase=(location.hostname.endsWith('github.io')?('/'+path.split('/').filter(Boolean)[0]+'/'):'/');
   document.querySelectorAll('#mainNav a').forEach(function(a){
-    try{var ap=new URL(a.href,location.origin).pathname.replace(/\/index\.html$/,'/');if(ap!=='/'&&path.startsWith(ap)){a.classList.add('active');a.setAttribute('aria-current','page');}else if(path==='/'&&ap==='/'){a.classList.add('active');a.setAttribute('aria-current','page');}}catch(e){}
+    try{var ap=new URL(a.href,location.origin).pathname.replace(/\/index\.html$/,'/');if(ap!=='/'&&path.startsWith(ap)){a.classList.add('active');a.setAttribute('aria-current','page');}else if((path==='/'||path===projectBase)&&(ap==='/'||ap===projectBase)){a.classList.add('active');a.setAttribute('aria-current','page');}}catch(e){}
   });
 }());
 
