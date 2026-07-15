@@ -533,3 +533,44 @@ if (yearNode) yearNode.textContent = new Date().getFullYear();
     },5000);
   },true);
 }());
+
+
+/* ROUND 4.1: guarantee the two homepage hero lines fit Safari's real rendered width. */
+(function(){
+  function fitHeroLines(){
+    var lines=document.querySelectorAll('.hero h1 .hero-line');
+    if(!lines.length) return;
+    lines.forEach(function(line){
+      line.style.fontSize='';
+      line.style.letterSpacing='';
+      var available=line.parentElement ? line.parentElement.clientWidth : line.clientWidth;
+      if(!available) return;
+      var size=parseFloat(window.getComputedStyle(line).fontSize);
+      var minSize=16;
+      var guard=80;
+      while(line.scrollWidth > available && size > minSize && guard-- > 0){
+        size-=0.5;
+        line.style.fontSize=size+'px';
+      }
+      if(line.scrollWidth > available){
+        line.style.letterSpacing='-0.075em';
+        guard=24;
+        while(line.scrollWidth > available && size > minSize && guard-- > 0){
+          size-=0.25;
+          line.style.fontSize=size+'px';
+        }
+      }
+    });
+  }
+  var queued=false;
+  function queueFit(){
+    if(queued) return;
+    queued=true;
+    window.requestAnimationFrame(function(){queued=false;fitHeroLines();});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',queueFit);
+  else queueFit();
+  window.addEventListener('resize',queueFit,{passive:true});
+  window.addEventListener('orientationchange',queueFit,{passive:true});
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(queueFit);
+}());

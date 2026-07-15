@@ -214,9 +214,17 @@
       h1{
         width:100%;
         max-width:100%;
-        font-size:clamp(1.3rem,6.45vw,2.55rem);
+        font-size:clamp(1.15rem,5.55vw,2.3rem);
         letter-spacing:-.055em;
         line-height:1.08;
+        overflow:visible;
+      }
+      h1 .hero-line{
+        display:block;
+        width:100%;
+        max-width:100%;
+        white-space:nowrap;
+        text-align:center;
       }
       h1 .hero-line{width:100%;max-width:100%;white-space:nowrap}
       .eyebrow{justify-content:center;max-width:100%;font-size:.68rem;line-height:1.4;text-align:center;letter-spacing:.11em}
@@ -390,7 +398,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* Navigation is controlled once by /script.js?v=4. */
+  /* Navigation is controlled once by /script.js?v=5. */
 
   const popup = document.getElementById('signup-popup');
   const signupBox = popup ? popup.querySelector('[role="dialog"]') : null;
@@ -476,6 +484,6 @@
     });
   });
 </script>
-<script src="/script.js?v=4"></script>
+<script src="/script.js?v=5"></script>
 </body>
 </html>
