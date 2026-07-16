@@ -1,0 +1,16 @@
+{
+  "build": "Round 7 Silent Launch Readiness",
+  "html_pages": 55,
+  "total_files": 89,
+  "references_checked": 2664,
+  "missing_local_references": 0,
+  "jsonld_errors": 0,
+  "frozen_communication_files": {
+    "script.js": "43530b9e45f2c18040e04c9ff119efe1b00f6364d7df5f41cfffbb1f91118e8b",
+    "analytics-config.js": "c50149493314e050629a08ba59bd3e7d1f3332280efebdc42e1c4236f9b30c78",
+    "OneSignalSDKWorker.js": "2f213985d10e5c5117acfde4f0cab00ad2c13035577ef38c7f0d86d2dd722fbc",
+    "OneSignalSDKUpdaterWorker.js": "2f213985d10e5c5117acfde4f0cab00ad2c13035577ef38c7f0d86d2dd722fbc"
+  },
+  "public_syndication_mentions_added": 0,
+  "communication_code_changed": false
+}
