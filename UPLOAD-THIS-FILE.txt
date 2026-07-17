@@ -1,0 +1,7 @@
+The full workflow is the visible file named:
+publish-new-podcast-episode.yml
+
+Upload that file into this exact GitHub folder:
+.github/workflows/
+
+Replace the existing workflow file, commit, then run the workflow manually.
