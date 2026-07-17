@@ -1,0 +1,8 @@
+Upload publish-new-podcast-episode.yml to:
+.github/workflows/publish-new-podcast-episode.yml
+
+Replace the existing file, commit to main, then run the workflow manually.
+
+Verification after upload:
+Search the GitHub file for this exact text:
+git status --short --untracked-files=all
