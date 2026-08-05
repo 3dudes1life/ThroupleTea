@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Privacy Policy | A Little Throuple Tea</title>
+  <meta name="description" content="Privacy Policy for the A Little Throuple Tea website and mobile apps.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://throupletea.com/privacy/">
+  <link rel="icon" href="../images/favicon.png">
+  <meta name="theme-color" content="#020204">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="A Little Throuple Tea">
+  <meta property="og:title" content="Privacy Policy | A Little Throuple Tea">
+  <meta property="og:description" content="How A Little Throuple Tea handles information across its website and mobile apps.">
+  <meta property="og:url" content="https://throupletea.com/privacy/">
+  <meta property="og:image" content="https://throupletea.com/throuple-tea-logo-new.jpg?v=3">
+  <style>
+    :root {
+      --black: #020204;
+      --night: #050812;
+      --panel: rgba(9, 24, 39, .88);
+      --panel-2: rgba(7, 19, 33, .88);
+      --pink: #ff2a7f;
+      --orange: #ff7a18;
+      --teal: #00d7e8;
+      --sun: #ffb13b;
+      --white: #ffffff;
+      --soft: #dff8ff;
+      --muted: #a9dce6;
+      --line: rgba(0, 215, 232, .25);
+      --max: 980px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--soft);
+      background:
+        radial-gradient(circle at 12% 5%, rgba(255, 0, 93, .22), transparent 30%),
+        radial-gradient(circle at 88% 10%, rgba(0, 215, 232, .18), transparent 30%),
+        linear-gradient(180deg, var(--black), var(--night) 42%, var(--black));
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.68;
+    }
+
+    a { color: var(--teal); }
+    a:hover { color: var(--pink); }
+    .wrap { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 42, 127, .3);
+      background: rgba(2, 2, 4, .92);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 10px 34px rgba(0, 0, 0, .35);
+    }
+
+    .header-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 0 22px rgba(255, 0, 93, .32);
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 9px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--white);
+      font-weight: 800;
+      text-decoration: none;
+      background: rgba(255, 255, 255, .04);
+    }
+
+    main { padding: 64px 0 80px; }
+
+    .hero {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--sun);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--pink), var(--orange));
+    }
+
+    h1, h2, h3 { color: var(--white); line-height: 1.14; }
+    h1 {
+      margin: 12px 0 14px;
+      font-size: clamp(2.45rem, 7vw, 4.45rem);
+      letter-spacing: -.045em;
+    }
+    h1 span {
+      color: var(--pink);
+      text-shadow: 0 0 24px rgba(255, 42, 127, .4);
+    }
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.06rem;
+    }
+
+    .policy-card {
+      padding: clamp(24px, 5vw, 48px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(145deg, var(--panel), var(--panel-2));
+      box-shadow: 0 26px 80px rgba(0, 0, 0, .42);
+    }
+
+    .policy-card h2 {
+      margin: 34px 0 10px;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+    }
+    .policy-card h2:first-of-type { margin-top: 0; }
+    .policy-card h3 { margin: 22px 0 8px; font-size: 1.12rem; }
+    .policy-card p { margin: 0 0 14px; }
+    .policy-card ul { margin: 8px 0 18px; padding-left: 22px; }
+    .policy-card li { margin: 8px 0; }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0 0 30px;
+    }
+    .meta div {
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, .09);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .035);
+    }
+    .meta strong { display: block; color: var(--white); }
+    .callout {
+      margin: 22px 0;
+      padding: 18px 20px;
+      border-left: 4px solid var(--pink);
+      border-radius: 12px;
+      background: rgba(255, 42, 127, .08);
+    }
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid rgba(0, 215, 232, .18);
+      color: var(--muted);
+      background: rgba(2, 2, 4, .75);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    footer p { margin: 0; }
+
+    @media (max-width: 650px) {
+      main { padding-top: 42px; }
+      .meta { grid-template-columns: 1fr; }
+      .policy-card { border-radius: 22px; }
+      .home-link { font-size: .9rem; padding-inline: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <a class="brand" href="../" aria-label="A Little Throuple Tea home">
+        <img src="../throuple-tea-logo-new.jpg?v=3" alt="A Little Throuple Tea logo" width="900" height="900">
+      </a>
+      <a class="home-link" href="../">Back to Throuple Tea</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="eyebrow">Your privacy matters</div>
+        <h1 id="page-title">Privacy <span>Policy</span></h1>
+        <p>This policy explains how A Little Throuple Tea handles information across our website, progressive web app, and mobile apps.</p>
+      </section>
+
+      <article class="policy-card">
+        <div class="meta">
+          <div><strong>Effective date</strong>August 5, 2026</div>
+          <div><strong>Privacy contact</strong><a href="mailto:throupletea@gmail.com?subject=Privacy%20Request">throupletea@gmail.com</a></div>
+        </div>
+
+        <h2>1. Who we are</h2>
+        <p>A Little Throuple Tea is operated by OutAt Inc. as part of 3Dudes1Life Creative. In this policy, “Throuple Tea,” “we,” “us,” and “our” refer to A Little Throuple Tea, OutAt Inc., and the services we operate under this brand.</p>
+
+        <h2>2. Where this policy applies</h2>
+        <p>This policy applies to the Throuple Tea website at <a href="https://throupletea.com/">throupletea.com</a>, the installed web experience, and the official Throuple Tea apps for iOS and Android. It also applies to forms, push notifications, and other features we operate through those services.</p>
+
+        <h2>3. Information we collect</h2>
+
+        <h3>Information you choose to provide</h3>
+        <ul>
+          <li><strong>Throuple Hotline and email submissions:</strong> If you contact us, we receive the email address, message, and any other information you choose to include. The app may open your device’s email application to send the message.</li>
+          <li><strong>Tea List and other forms:</strong> If you join an email list or complete a form, we may receive your name, email address, and the information entered in the form.</li>
+          <li><strong>Support and privacy requests:</strong> We receive the information necessary to respond to your request.</li>
+        </ul>
+
+        <h3>Usage, analytics, and technical information</h3>
+        <p>When you use our website or apps, we and our service providers may automatically collect limited technical and usage information, including:</p>
+        <ul>
+          <li>Pages or app screens viewed, buttons or features used, notification interactions, and session activity.</li>
+          <li>Date and time, referring page, campaign information, device type, browser or operating-system information, and screen or viewport size.</li>
+          <li>Pseudonymous visitor, session, device, app-installation, or push-subscription identifiers.</li>
+          <li>Approximate location, such as country or general region, which may be inferred from an internet connection or IP address. We do not request precise GPS location.</li>
+        </ul>
+
+        <h3>Push notifications</h3>
+        <p>If you choose to enable notifications, our push provider may process a push subscription or device token, notification permission status, delivery information, and notification opens or clicks. You can turn notifications off at any time in your browser or device settings.</p>
+
+        <h3>Cookies and local storage</h3>
+        <p>Our services may use cookies, browser storage, or similar technologies to keep the experience working, remember limited preferences, support analytics, maintain pseudonymous sessions, and provide push notifications.</p>
+
+        <h2>4. How we use information</h2>
+        <p>We use information to:</p>
+        <ul>
+          <li>Provide, operate, secure, and improve the website and apps.</li>
+          <li>Deliver podcast, video, game, Hotline, newsletter, and notification features.</li>
+          <li>Understand which content and features are useful to listeners.</li>
+          <li>Respond to questions, submissions, support requests, and privacy requests.</li>
+          <li>Send episode alerts, announcements, or other communications you choose to receive.</li>
+          <li>Detect misuse, protect our services, and comply with legal obligations.</li>
+        </ul>
+
+        <h2>5. How information is shared</h2>
+        <p>We do not sell or rent personal information. We may share or allow processing of information in these limited circumstances:</p>
+        <ul>
+          <li><strong>Service providers:</strong> Companies that help us operate analytics, hosting, content delivery, forms, email, and push notifications. These may include Google Analytics, Cloudflare, OneSignal, and Wix.</li>
+          <li><strong>Media and platform providers:</strong> When you play or open content hosted by services such as YouTube, Spotify, Apple Podcasts, Amazon Music, or iHeartRadio, those services may receive technical and usage information under their own privacy policies.</li>
+          <li><strong>Legal and safety reasons:</strong> When reasonably necessary to comply with law, protect rights or safety, investigate misuse, or enforce our terms.</li>
+          <li><strong>Business changes:</strong> If the service is reorganized, merged, sold, or transferred, information may be transferred as part of that transaction, subject to applicable law.</li>
+        </ul>
+
+        <h2>6. Advertising</h2>
+        <p>The Throuple Tea app does not currently display third-party advertising, and we do not use information for targeted advertising. If this changes, we will update this policy and the relevant app-store disclosures.</p>
+
+        <h2>7. Accounts, payments, and sensitive permissions</h2>
+        <p>The current Throuple Tea app does not require users to create an account and does not process payments. We do not intentionally collect precise location, contacts, health information, financial information, or the contents of photos and files through the app.</p>
+
+        <h2>8. Data retention and deletion</h2>
+        <p>We keep information only for as long as reasonably necessary for the purposes described in this policy, including operating the service, responding to requests, maintaining security, meeting legal obligations, and resolving disputes. Retention periods may vary by the type of information and the service provider involved.</p>
+        <p>You may request access, correction, or deletion of information you provided directly to us by emailing <a href="mailto:throupletea@gmail.com?subject=Privacy%20Request">throupletea@gmail.com</a>. Because some analytics data is pseudonymous and is not linked to a name or email address, we may not always be able to identify a specific analytics record as belonging to you.</p>
+
+        <h2>9. Security</h2>
+        <p>We use reasonable administrative and technical measures designed to protect information, including encrypted HTTPS connections for data sent to our services and providers. No online service can guarantee absolute security.</p>
+
+        <h2>10. Your choices</h2>
+        <ul>
+          <li>Disable push notifications in your device or browser settings.</li>
+          <li>Use browser controls to limit cookies or clear local storage.</li>
+          <li>Unsubscribe from email messages using the unsubscribe option provided in the message.</li>
+          <li>Choose not to submit optional forms, Hotline messages, or other information.</li>
+        </ul>
+
+        <h2>11. Children</h2>
+        <p>Throuple Tea is intended for adults and is not directed to children. We do not knowingly collect personal information from children. If you believe a child has provided information to us, contact us so we can review and delete it where appropriate.</p>
+
+        <h2>12. Third-party links and services</h2>
+        <p>Our services contain links to and embedded content from third parties. Their privacy practices are governed by their own policies, and we encourage you to review them before using those services.</p>
+
+        <h2>13. Changes to this policy</h2>
+        <p>We may update this policy as the website, apps, providers, or legal requirements change. We will post the updated version on this page and revise the effective date above.</p>
+
+        <h2>14. Contact us</h2>
+        <div class="callout">
+          <p><strong>A Little Throuple Tea / OutAt Inc.</strong><br>
+          Privacy email: <a href="mailto:throupletea@gmail.com?subject=Privacy%20Request">throupletea@gmail.com</a><br>
+          Website: <a href="https://throupletea.com/">https://throupletea.com/</a></p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <p>© <span id="year">2026</span> A Little Throuple Tea · A 3Dudes1Life Creative project</p>
+      <p><a href="../">Home</a> · <a href="../episodes/">Episodes</a> · <a href="../watch/">Watch</a></p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
