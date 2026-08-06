@@ -363,6 +363,18 @@
       pointer-events:none;
     }
 
+    .btn.app-store{
+      -webkit-user-select:none;
+      user-select:none;
+    }
+
+    .btn.app-store::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+    }
+
     .btn.app-store .icon{
       width:48px;
       height:48px;
@@ -513,7 +525,7 @@
 
   <nav id="linksMenu" class="menu-panel" aria-label="Website menu">
     <a href="./">Full Website</a>
-    <a href="https://apps.apple.com/us/app/throuple-tea/id6794062879" data-app-store-link data-event="app_store_click" data-platform="App Store">Download the App</a>
+    <a href="https://apps.apple.com/app/throuple-tea/id6794062879" data-event="app_store_click" data-platform="App Store">Download the App</a>
     <a href="start-here/">Start Here</a>
     <a href="episodes/">Episodes</a>
     <a href="watch/">Watch</a>
@@ -538,9 +550,9 @@
     <section id="download-app">
       <h2 class="section-title">Get the App</h2>
       <div class="stack">
-        <a class="btn app-store" href="https://apps.apple.com/us/app/throuple-tea/id6794062879" data-app-store-link data-event="app_store_click" data-platform="App Store" aria-label="Open Throuple Tea in the Apple App Store">
+        <a class="btn app-store" href="https://apps.apple.com/app/throuple-tea/id6794062879" data-event="app_store_click" data-platform="App Store" aria-label="Open Throuple Tea in the Apple App Store">
           <span class="icon app-store-icon" aria-hidden="true"><img src="app-icon.png?v=20260805-2" alt=""></span>
-          <span class="btn-copy">Throuple Tea for iPhone<small>Tap anywhere to open the App Store</small></span>
+          <span class="btn-copy">Throuple Tea for iPhone<small>Opens directly in the Apple App Store</small></span>
           <span class="app-store-open" aria-hidden="true">OPEN</span>
         </a>
       </div>
@@ -698,41 +710,10 @@
       }
     }
 
-    const appStoreWebUrl="https://apps.apple.com/us/app/throuple-tea/id6794062879";
-    const appStoreIosUrl="itms-apps://apps.apple.com/us/app/throuple-tea/id6794062879";
-
-    function openAppStore(event){
-      const link=event.target.closest("[data-app-store-link]");
-      if(!link) return;
-
-      event.preventDefault();
-      const isAppleMobile =
-        /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-
-      trackLink("app_store_click",{
-        platform:"App Store",
-        link_text:(link.textContent || "").trim().slice(0,120),
-        link_url:appStoreWebUrl
-      });
-
-      if(isAppleMobile){
-        window.location.href=appStoreIosUrl;
-        window.setTimeout(function(){
-          if(document.visibilityState === "visible"){
-            window.location.href=appStoreWebUrl;
-          }
-        },900);
-      }else{
-        window.location.href=appStoreWebUrl;
-      }
-    }
-
-    document.addEventListener("click",openAppStore);
 
     document.addEventListener("click",function(event){
       const link = event.target.closest("[data-event]");
-      if(!link || link.hasAttribute("data-app-store-link")) return;
+      if(!link) return;
       trackLink(link.dataset.event,{
         platform:link.dataset.platform || "",
         link_text:(link.textContent || "").trim().slice(0,120),
