@@ -337,6 +337,37 @@
       border-color:transparent;
     }
 
+    .btn.app-store{
+      min-height:72px;
+      background:linear-gradient(145deg,#151515,#000);
+      border-color:rgba(255,255,255,.48);
+      box-shadow:0 14px 34px rgba(0,0,0,.52),0 0 24px rgba(0,215,232,.12);
+    }
+
+    .btn.app-store:hover{
+      border-color:#fff;
+      box-shadow:var(--shadow),0 0 28px rgba(0,215,232,.2);
+    }
+
+    .btn.app-store .icon{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.04));
+      font-size:1.65rem;
+    }
+
+    .btn.app-store .btn-copy{
+      font-size:1.08rem;
+    }
+
+    .btn.app-store .btn-copy small{
+      color:rgba(255,255,255,.72);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.7rem;
+    }
+
     .btn.notification-enabled{
       background:linear-gradient(135deg,#007c9c,var(--teal));
       border-color:transparent;
@@ -442,6 +473,7 @@
 
   <nav id="linksMenu" class="menu-panel" aria-label="Website menu">
     <a href="./">Full Website</a>
+    <a href="https://apps.apple.com/app/throuple-tea/id6794062879" target="_blank" rel="noopener noreferrer" data-event="app_store_click" data-platform="App Store">Download the App</a>
     <a href="start-here/">Start Here</a>
     <a href="episodes/">Episodes</a>
     <a href="watch/">Watch</a>
@@ -452,7 +484,7 @@
       <img class="hero-logo" src="throuple-tea-logo-new.jpg?v=4" alt="A Little Throuple Tea logo" width="112" height="112">
       <p class="eyebrow">The official link hub</p>
       <h1>All the Tea.<br>One Place.</h1>
-      <p class="hero-copy">Listen, watch, send the Hotline, turn on episode alerts and visit the full A Little Throuple Tea website.</p>
+      <p class="hero-copy">Download the app, listen, watch, send the Hotline, turn on episode alerts and visit the full A Little Throuple Tea website.</p>
     </section>
 
     <div class="ranked-card">
@@ -462,6 +494,16 @@
         <p>A real-life gay throuple hosted by William, Caleb and Daniel. New episodes every Friday.</p>
       </div>
     </div>
+
+    <section id="download-app">
+      <h2 class="section-title">Get the App</h2>
+      <div class="stack">
+        <a class="btn app-store" href="https://apps.apple.com/app/throuple-tea/id6794062879" target="_blank" rel="noopener noreferrer" data-event="app_store_click" data-platform="App Store" aria-label="Download Throuple Tea on the App Store">
+          <span class="icon" aria-hidden="true">📱</span>
+          <span class="btn-copy">Throuple Tea for iPhone<small>Download on the App Store</small></span>
+        </a>
+      </div>
+    </section>
 
     <section>
       <h2 class="section-title">Start Here</h2>

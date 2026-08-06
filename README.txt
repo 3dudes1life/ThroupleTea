@@ -1,4 +1,3 @@
-Upload analytics-config.js to the ROOT of the ThroupleTea repository and replace the existing file.
+Updated links.html with the Throuple Tea App Store link: https://apps.apple.com/app/throuple-tea/id6794062879
 
-This preserves the existing Cloudflare analytics settings and restores a page-scoped live RSS fallback for /episodes/.
-No OneSignal, Worker, dashboard, D1, event-name, or API-key changes are included.
+Replace the existing links.html file on your site with this version. All existing image, script, and folder references remain unchanged.
