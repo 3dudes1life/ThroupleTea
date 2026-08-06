@@ -369,6 +369,13 @@
       user-select:none;
     }
 
+    .btn.app-store::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+    }
+
     .btn.app-store .icon{
       width:48px;
       height:48px;
@@ -453,92 +460,19 @@
 
     .btn.secondary .btn-copy small{color:rgba(2,18,25,.68)}
 
-    .app-store-help{
-      position:fixed;
-      inset:0;
-      z-index:20000;
-      display:none;
-      align-items:flex-end;
-      justify-content:center;
-      padding:18px max(18px,env(safe-area-inset-right))
-        calc(18px + env(safe-area-inset-bottom))
-        max(18px,env(safe-area-inset-left));
-      background:rgba(0,0,0,.62);
-      backdrop-filter:blur(7px);
-      -webkit-backdrop-filter:blur(7px);
-    }
-
-    .app-store-help.open{display:flex}
-
-    .app-store-help__panel{
-      width:min(100%,560px);
-      padding:20px;
-      border:1px solid rgba(0,215,232,.38);
-      border-radius:24px;
-      background:linear-gradient(145deg,#071321,#210515);
-      box-shadow:0 24px 70px rgba(0,0,0,.68),0 0 28px rgba(255,0,93,.22);
-    }
-
-    .app-store-help__panel h2{
-      margin:0 0 8px;
-      color:#fff;
-      font-family:"Baloo 2",sans-serif;
-      font-size:1.4rem;
-      line-height:1.08;
-    }
-
-    .app-store-help__panel p{
-      margin:0 0 14px;
+    .instagram-app-note{
+      margin:10px 3px 0;
+      padding:11px 13px;
+      border-left:3px solid var(--sun);
+      border-radius:10px;
+      background:rgba(255,177,59,.08);
       color:var(--muted);
+      font-size:.82rem;
+      line-height:1.42;
     }
 
-    .app-store-help__steps{
-      margin:0 0 17px;
-      padding:14px 16px;
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:16px;
-      background:rgba(255,255,255,.05);
+    .instagram-app-note strong{
       color:#fff;
-      font-weight:800;
-      line-height:1.5;
-    }
-
-    .app-store-help__actions{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:10px;
-    }
-
-    .app-store-help__try,
-    .app-store-help__close{
-      min-height:48px;
-      border-radius:999px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    .app-store-help__try{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 17px;
-      border:0;
-      background:linear-gradient(135deg,var(--hot-pink),var(--orange));
-      color:#fff;
-    }
-
-    .app-store-help__close{
-      min-width:54px;
-      padding:0 15px;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.06);
-      color:#fff;
-      font-size:1.25rem;
-    }
-
-    @media(max-width:390px){
-      .app-store-help__actions{grid-template-columns:1fr}
-      .app-store-help__close{width:100%}
     }
 
     footer{
@@ -607,7 +541,7 @@
 
   <nav id="linksMenu" class="menu-panel" aria-label="Website menu">
     <a href="./">Full Website</a>
-    <a href="https://apps.apple.com/us/app/throuple-tea/id6794062879" data-app-store-launch data-event="app_store_click" data-platform="App Store">Download the App</a>
+    <a href="https://apps.apple.com/us/app/throuple-tea/id6794062879" data-event="app_store_click" data-platform="App Store">Download the App</a>
     <a href="start-here/">Start Here</a>
     <a href="episodes/">Episodes</a>
     <a href="watch/">Watch</a>
@@ -632,11 +566,15 @@
     <section id="download-app">
       <h2 class="section-title">Get the App</h2>
       <div class="stack">
-        <a class="btn app-store" href="https://apps.apple.com/us/app/throuple-tea/id6794062879" data-app-store-launch data-event="app_store_click" data-platform="App Store" aria-label="Open Throuple Tea in the Apple App Store">
+        <a class="btn app-store" href="https://apps.apple.com/us/app/throuple-tea/id6794062879" data-event="app_store_click" data-platform="App Store" aria-label="Open Throuple Tea in the Apple App Store">
           <span class="icon app-store-icon" aria-hidden="true"><img src="app-icon.png?v=20260805-2" alt=""></span>
-          <span class="btn-copy">Throuple Tea for iPhone<small>Tap to open the Apple App Store</small></span>
+          <span class="btn-copy">Throuple Tea for iPhone<small>Download free on the Apple App Store</small></span>
           <span class="app-store-open" aria-hidden="true">OPEN</span>
         </a>
+        <p class="instagram-app-note" id="instagramAppNote" hidden>
+          <strong>Viewing inside Instagram?</strong>
+          Tap the compass icon in the bottom toolbar to open this page in Safari, then tap the app button again.
+        </p>
       </div>
     </section>
 
@@ -709,19 +647,6 @@
         </a>
       </div>
     </section>
-<div aria-hidden="true" class="app-store-help" id="appStoreHelp">
-      <div aria-labelledby="appStoreHelpTitle" aria-modal="true" class="app-store-help__panel" role="dialog">
-        <h2 id="appStoreHelpTitle">Instagram blocked the App Store.</h2>
-        <p>You are inside Instagram’s browser, which can block links that try to leave the app.</p>
-        <div class="app-store-help__steps">
-          Tap the compass/open-browser icon in the bottom toolbar, open this page in Safari, then tap “Get the App” again.
-        </div>
-        <div class="app-store-help__actions">
-          <button class="app-store-help__try" id="appStoreTryAgain" type="button">Try the App Store Again</button>
-          <button aria-label="Close instructions" class="app-store-help__close" id="appStoreHelpClose" type="button">×</button>
-        </div>
-      </div>
-    </div>
 <footer>
       © <span id="year"></span> A Little Throuple Tea · 3Dudes1Life Creative
     </footer>
@@ -806,80 +731,22 @@
     }
 
 
-    const appStoreWebUrl = "https://apps.apple.com/us/app/throuple-tea/id6794062879";
-    const appStoreNativeUrl = "itms-apps://itunes.apple.com/us/app/throuple-tea/id6794062879";
-    const appStoreHelp = document.getElementById("appStoreHelp");
-    const appStoreHelpClose = document.getElementById("appStoreHelpClose");
-    const appStoreTryAgain = document.getElementById("appStoreTryAgain");
+    (function showInstagramAppNote(){
+      const note = document.getElementById("instagramAppNote");
+      if(!note) return;
 
-    function isIosDevice(){
-      return /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    }
-
-    function isEmbeddedBrowser(){
-      return /Instagram|FBAN|FBAV|Threads|TikTok|Snapchat|Line\//i.test(
-        navigator.userAgent
+      const isInstagramBrowser = /Instagram|FBAN|FBAV/i.test(
+        navigator.userAgent || ""
       );
-    }
 
-    function showAppStoreHelp(){
-      if(!appStoreHelp) return;
-      appStoreHelp.classList.add("open");
-      appStoreHelp.setAttribute("aria-hidden","false");
-      appStoreHelpClose?.focus();
-    }
-
-    function hideAppStoreHelp(){
-      if(!appStoreHelp) return;
-      appStoreHelp.classList.remove("open");
-      appStoreHelp.setAttribute("aria-hidden","true");
-    }
-
-    function launchNativeAppStore(){
-      window.location.href = appStoreNativeUrl;
-
-      window.setTimeout(function(){
-        if(document.visibilityState === "visible"){
-          showAppStoreHelp();
-        }
-      },900);
-    }
-
-    document.addEventListener("click",function(event){
-      const appStoreLink = event.target.closest("[data-app-store-launch]");
-      if(!appStoreLink) return;
-
-      if(isIosDevice() && isEmbeddedBrowser()){
-        event.preventDefault();
-
-        trackLink("app_store_click",{
-          platform:"App Store",
-          placement:appStoreLink.classList.contains("app-store") ? "card" : "menu",
-          link_url:appStoreWebUrl,
-          browser:"embedded"
-        });
-
-        launchNativeAppStore();
+      if(isInstagramBrowser){
+        note.hidden = false;
       }
-    });
-
-    appStoreHelpClose?.addEventListener("click",hideAppStoreHelp);
-    appStoreHelp?.addEventListener("click",function(event){
-      if(event.target === appStoreHelp) hideAppStoreHelp();
-    });
-    appStoreTryAgain?.addEventListener("click",function(){
-      hideAppStoreHelp();
-      launchNativeAppStore();
-    });
-    document.addEventListener("keydown",function(event){
-      if(event.key === "Escape") hideAppStoreHelp();
-    });
+    })();
 
     document.addEventListener("click",function(event){
       const link = event.target.closest("[data-event]");
       if(!link) return;
-      if(link.hasAttribute("data-app-store-launch") && isIosDevice() && isEmbeddedBrowser()) return;
       trackLink(link.dataset.event,{
         platform:link.dataset.platform || "",
         link_text:(link.textContent || "").trim().slice(0,120),
