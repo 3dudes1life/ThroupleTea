@@ -1,0 +1,21 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "WD6G3D3GLL.com.throupletea.app"
+        ],
+        "components": [
+          {
+            "/": "/giveaway",
+            "comment": "Open Win A Book Wednesday in the Throuple Tea app"
+          },
+          {
+            "/": "/giveaway/*",
+            "comment": "Open giveaway subpaths in the Throuple Tea app"
+          }
+        ]
+      }
+    ]
+  }
+}
